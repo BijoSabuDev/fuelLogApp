@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
           child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.only(top: 24, left: 24),
             child: LogoWithText(sw: sw),
           ),
           k20,
@@ -92,31 +92,33 @@ class HomeScreen extends StatelessWidget {
                                 fontSize: sw * 0.046,
                                 color: Colors.white),
                           ),
-                          Text(
-                            'How to use this application',
-                            style: GoogleFonts.readexPro(
-                                fontWeight: FontWeight.w400,
-                                fontSize: sw * 0.030,
-                                color: Colors.white),
+                          FittedBox(
+                            child: Text(
+                              'How to use this application',
+                              style: GoogleFonts.readexPro(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: sw * 0.032,
+                                  color: Colors.white),
+                            ),
                           ),
-                          Text(
-                            'How to use this application',
-                            style: GoogleFonts.readexPro(
-                                fontWeight: FontWeight.w400,
-                                fontSize: sw * 0.030,
-                                color: Colors.white),
-                          ),
-                          // Row(
-                          //   children: [
-                          //     Container(
-                          //       decoration: const BoxDecoration(
-                          //           shape: BoxShape.circle,
-                          //           color: Colors.white),
-                          //       child: SvgPicture.asset(
-                          //           'assets/homeScreen/Polygon 1.svg'),
-                          //     ),
-                          //   ],
-                          // )
+                          k10,
+                          Row(
+                            children: [
+                              CircleAvatar(
+                                radius: 22,
+                                backgroundColor: Colors.white,
+                                child: SvgPicture.asset(
+                                    'assets/homeScreen/Polygon 1.svg'),
+                              ),
+                              kw10,
+                              Text(
+                                'Click to play',
+                                style: GoogleFonts.readexPro(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400),
+                              )
+                            ],
+                          )
                         ],
                       ),
                     ),
@@ -124,6 +126,47 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          k20,
+          Row(
+            children: [
+              Container(
+                  height: sw * 0.60,
+                  width: sw * 0.95,
+                  child: Image.asset(
+                    'assets/homeScreen/image 152.png',
+                    fit: BoxFit.scaleDown,
+                  )),
+            ],
+          ),
+          k5,
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Press this button to scan',
+                style: GoogleFonts.readexPro(
+                    fontWeight: FontWeight.w400,
+                    letterSpacing: 0.1,
+                    color: Colors.black.withOpacity(0.2)),
+              ),
+              SizedBox(
+                child: SvgPicture.asset('assets/homeScreen/Group 33699.svg'),
+              ),
+              Text(
+                'Scan QR',
+                style: GoogleFonts.readexPro(
+                    fontWeight: FontWeight.w500, fontSize: sw * 0.052),
+              ),
+              Text(
+                'or enter manually',
+                style: GoogleFonts.readexPro(
+                  fontWeight: FontWeight.w400,
+                  color: Color(0xFFA2B2C8),
+                ),
+              )
+            ],
           )
         ],
       )),

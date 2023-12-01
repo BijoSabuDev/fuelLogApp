@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fuellog/view/HomeScreen/home_screen.dart';
+import 'package:fuellog/view/mainScreen/main_screen.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpField extends StatelessWidget {
@@ -37,7 +37,7 @@ class OtpField extends StatelessWidget {
         onCompleted: (String value) {
           // Replace 'HomeScreen()' with the desired screen to navigate to
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => HomeScreen()),
+            MaterialPageRoute(builder: (context) => MainScreen()),
           );
         },
       ),
