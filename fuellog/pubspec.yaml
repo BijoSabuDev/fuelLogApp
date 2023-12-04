@@ -39,6 +39,8 @@ dependencies:
   flutter_svg: ^2.0.9
   google_fonts: ^6.1.0
   pinput: ^3.0.1
+  mobile_scanner: ^3.5.5
+  flutter_screenutil: ^5.9.0
 
 dev_dependencies:
   flutter_test:

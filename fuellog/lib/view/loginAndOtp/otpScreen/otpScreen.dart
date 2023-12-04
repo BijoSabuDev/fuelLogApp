@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/view/constants/dimensions.dart';
 import 'package:fuellog/view/loginAndOtp/otpScreen/otp_field.dart';
 import 'package:fuellog/view/loginAndOtp/reset_pin_screen.dart';
@@ -24,7 +24,7 @@ class OtpScreen extends StatelessWidget {
               Text(
                 'Enter Pin',
                 style: GoogleFonts.poppins(
-                  fontSize: sw * 0.064,
+                  fontSize: 30.sp,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -32,6 +32,7 @@ class OtpScreen extends StatelessWidget {
               Text(
                 'Please enter your 4-digit PIN to login to\nyour account',
                 style: GoogleFonts.inter(
+                    fontSize: 16.sp,
                     color: Colors.black.withOpacity(0.7),
                     fontWeight: FontWeight.w400),
               ),
@@ -54,13 +55,12 @@ class OtpScreen extends StatelessWidget {
                         TextSpan(
                           text: 'Forget? ',
                           style: GoogleFonts.inter(
-                              fontSize: sw * 0.032,
-                              fontWeight: FontWeight.w400),
+                              fontSize: 16.sp, fontWeight: FontWeight.w400),
                         ),
                         TextSpan(
                           text: 'Reset PIN',
                           style: GoogleFonts.inter(
-                              fontSize: sw * 0.032,
+                              fontSize: 16.sp,
                               letterSpacing: 0.5,
                               fontWeight: FontWeight.w600),
                         ),

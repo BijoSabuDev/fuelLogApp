@@ -15,7 +15,7 @@ class SplashScreen extends StatelessWidget {
         MaterialPageRoute(builder: (context) => const OnboardingScreen()),
       );
     });
-    final sw = MediaQuery.of(context).size.width;
+
     return Scaffold(
         backgroundColor: appTheme,
         body: Column(

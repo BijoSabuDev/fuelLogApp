@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:fuellog/view/constants/dimensions.dart';
 import 'package:fuellog/view/loginAndOtp/otpScreen/otpScreen.dart';
@@ -26,20 +27,21 @@ class LoginScreen extends StatelessWidget {
                 style: GoogleFonts.poppins(
                     letterSpacing: 0.1,
                     fontWeight: FontWeight.w700,
-                    fontSize: sw * 0.062),
+                    fontSize: 30.sp),
               ),
               k5,
               Text(
                 'Please enter your phone number',
                 style: GoogleFonts.inter(
                     color: Colors.black.withOpacity(0.7),
-                    fontSize: sw * 0.034,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w400),
               ),
               k20,
               Text(
                 'Mobile Number',
-                style: GoogleFonts.inter(fontWeight: FontWeight.w400),
+                style: GoogleFonts.inter(
+                    fontWeight: FontWeight.w400, fontSize: 16.sp),
               ),
               k5,
               CupertinoTextField(
@@ -53,11 +55,12 @@ class LoginScreen extends StatelessWidget {
                   padding: const EdgeInsets.fromLTRB(16, 16, 4, 16),
                   child: Text(
                     "+971",
-                    style: TextStyle(fontFamily: 'Inter', fontSize: sw * 0.036),
+                    style: TextStyle(fontFamily: 'Inter', fontSize: 16.sp),
                   ),
                 ),
                 placeholder: '0 000 000 000',
-                placeholderStyle: const TextStyle(color: Colors.grey),
+                placeholderStyle:
+                    TextStyle(color: Colors.grey, fontSize: 16.sp),
                 padding: const EdgeInsets.fromLTRB(2, 16, 18, 16),
                 onChanged: (value) {
                   // Handle the changes
@@ -84,9 +87,8 @@ class LoginScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(36),
                   ),
                   child: Container(
-                    constraints: BoxConstraints(
-                      minHeight: sw * 0.14,
-                    ),
+                    constraints:
+                        BoxConstraints(minHeight: 56.h, minWidth: 376.w),
                     alignment: Alignment.center,
                     child: Text(
                       'Continue',

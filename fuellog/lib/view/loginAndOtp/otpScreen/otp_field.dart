@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/view/mainScreen/main_screen.dart';
 import 'package:pinput/pinput.dart';
 
@@ -7,11 +8,10 @@ class OtpField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sw = MediaQuery.of(context).size.width;
     final defaultPinTheme = PinTheme(
-      margin: const EdgeInsets.all(2),
-      width: sw * 0.20,
-      height: sw * 0.16,
+      margin: EdgeInsets.all(2),
+      width: 85.w,
+      height: 79.h,
       textStyle: const TextStyle(
         fontSize: 22,
         color: Colors.black,
