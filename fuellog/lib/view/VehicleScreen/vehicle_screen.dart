@@ -50,126 +50,141 @@ class VehicleScreen extends StatelessWidget {
                 SizedBox(
                   height: 13.h,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    // bus no and details
-
-                    Row(
-                      children: [
-                        Text(
-                          'Bus No',
-                          style: GoogleFonts.readexPro(
-                              fontSize: 20.sp, fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(
-                          width: 6.w,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(5)),
-                          width: 30.w,
-                          height: 30.h,
-                          child: Center(
-                            child: Text(
-                              '52',
-                              style: GoogleFonts.readexPro(
-                                  color: Colors.white,
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-
-                    // Petrol details
-
-                    Row(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/vehicleScreen/gas-station 1.svg',
-                        ),
-                        SizedBox(
-                          width: 9.w,
-                        ),
-                        Text(
-                          'Petrol',
-                          style: GoogleFonts.readexPro(
-                              fontWeight: FontWeight.w500, fontSize: 14.sp),
-                        )
-                      ],
-                    ),
-
-                    Row(
-                      children: [
-                        Text(
-                          'DXB 4651',
-                          style: GoogleFonts.readexPro(
-                              fontSize: 20.sp, fontWeight: FontWeight.w500),
-                        )
-                      ],
-                    )
-                  ],
-                )
-                    .animate(delay: 0.ms)
-                    .fadeIn(
-                        delay: 200.ms, duration: 800.ms, curve: Curves.easeOut)
-                    .slideY(
-                      delay: 100.ms,
-                      curve: Curves.linear,
-                      begin: -0.3,
-                      end: 0,
-                    ),
                 SizedBox(
-                  height: 29.h,
-                ),
-                ActionSlider.standard(
-                  action: (controller) async {
-                    controller.loading();
-                    await Future.delayed(const Duration(seconds: 2));
-                    Navigator.of(context)
-                        .pushReplacement(MaterialPageRoute(builder: (context) {
-                      return const SuccessPage();
-                    }));
-              
+                  height: 30.h,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      // bus no and details
 
-                    controller.reset();
-                  },
-                  reverseSlideAnimationCurve: Curves.easeInOut,
-                  boxShadow: const [
-                    BoxShadow(
-                      blurRadius: 0,
-                      spreadRadius: 0,
-                    )
-                  ],
-                  reverseSlideAnimationDuration:
-                      const Duration(milliseconds: 500),
-                  rolling: true,
-                  successIcon:
-                      SvgPicture.asset('assets/vehicleScreen/check-line.svg'),
-                  toggleColor: Colors.white,
-                  icon:
-                      SvgPicture.asset('assets/vehicleScreen/Group 33696.svg'),
-                  backgroundColor: const Color(0xFFF3F3F3),
-                  child: Text(
-                    'Slide to submit',
-                    style: GoogleFonts.readexPro(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w500,
-                        color: const Color(0xFF6D6D6D)),
-                  ),
-                )
-                    .animate(delay: 0.ms)
-                    .fadeIn(
-                        delay: 200.ms, duration: 800.ms, curve: Curves.easeOut)
-                    .slideY(
-                      delay: 100.ms,
-                      curve: Curves.linear,
-                      begin: 0.3,
-                      end: 0.0,
+                      FittedBox(
+                        child: Row(
+                          children: [
+                            Text(
+                              'Bus No',
+                              style: GoogleFonts.readexPro(
+                                  fontSize: 20.sp, fontWeight: FontWeight.w500),
+                            ),
+                            SizedBox(
+                              width: 6.w,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(5)),
+                              width: 30.w,
+                              height: 30.h,
+                              child: Center(
+                                child: Text(
+                                  '52',
+                                  style: GoogleFonts.readexPro(
+                                      color: Colors.white,
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+
+                      // Petrol details
+
+                      FittedBox(
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/vehicleScreen/gas-station 1.svg',
+                            ),
+                            SizedBox(
+                              width: 9.w,
+                            ),
+                            Text(
+                              'Petrol',
+                              style: GoogleFonts.readexPro(
+                                  fontWeight: FontWeight.w500, fontSize: 14.sp),
+                            )
+                          ],
+                        ),
+                      ),
+
+                      FittedBox(
+                        child: Row(
+                          children: [
+                            Text(
+                              'DXB 4651',
+                              style: GoogleFonts.readexPro(
+                                  fontSize: 20.sp, fontWeight: FontWeight.w500),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                      .animate(delay: 0.ms)
+                      .fadeIn(
+                          delay: 200.ms,
+                          duration: 800.ms,
+                          curve: Curves.easeOut)
+                      .slideY(
+                        delay: 100.ms,
+                        curve: Curves.linear,
+                        begin: -0.3,
+                        end: 0,
+                      ),
+                ),
+                SizedBox(
+                  height: 22.h,
+                ),
+                SizedBox(
+                  height: 60.h,
+                  child: ActionSlider.standard(
+                    action: (controller) async {
+                      controller.loading();
+                      await Future.delayed(const Duration(seconds: 2));
+                      Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) {
+                        return const SuccessPage();
+                      }));
+
+                      controller.reset();
+                    },
+                    reverseSlideAnimationCurve: Curves.easeInOut,
+                    boxShadow: const [
+                      BoxShadow(
+                        blurRadius: 0,
+                        spreadRadius: 0,
+                      )
+                    ],
+                    reverseSlideAnimationDuration:
+                        const Duration(milliseconds: 500),
+                    rolling: true,
+                    successIcon:
+                        SvgPicture.asset('assets/vehicleScreen/check-line.svg'),
+                    toggleColor: Colors.white,
+                    icon: SvgPicture.asset(
+                        'assets/vehicleScreen/Group 33696.svg'),
+                    backgroundColor: const Color(0xFFF3F3F3),
+                    child: Text(
+                      'Slide to submit',
+                      style: GoogleFonts.readexPro(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xFF6D6D6D)),
                     ),
+                  )
+                      .animate(delay: 0.ms)
+                      .fadeIn(
+                          delay: 200.ms,
+                          duration: 800.ms,
+                          curve: Curves.easeOut)
+                      .slideY(
+                        delay: 100.ms,
+                        curve: Curves.linear,
+                        begin: 0.3,
+                        end: 0.0,
+                      ),
+                ),
               ],
             )));
   }

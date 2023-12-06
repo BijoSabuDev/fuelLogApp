@@ -94,7 +94,7 @@ class LoginScreen extends StatelessWidget {
                       'Continue',
                       style: GoogleFonts.inter(
                         color: Colors.white,
-                        fontSize: 16.0,
+                        fontSize: 16.sp,
                       ),
                     ),
                   ),

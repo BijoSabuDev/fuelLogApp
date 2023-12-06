@@ -5,8 +5,6 @@ import 'package:fuellog/view/VehicleScreen/cupertino_picker.dart';
 import 'package:fuellog/view/VehicleScreen/wheel_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
-
 class Odo_details_photo extends StatelessWidget {
   const Odo_details_photo({
     super.key,
@@ -37,7 +35,7 @@ class Odo_details_photo extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 78,
+              top: 72,
               child: Text(
                 'Change odometer km',
                 style: GoogleFonts.readexPro(
@@ -65,7 +63,7 @@ class Odo_details_photo extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: WheelPickerCustom(
+                child: const WheelPickerCustom(
                   nInitValue: 156754,
                   nTotalCount: 245646,
                 )),
@@ -135,16 +133,17 @@ class Odo_details_photo extends StatelessWidget {
             ),
           ],
         ),
+
         SizedBox(
           height: 25.h,
         ),
-    
+
         // Fuel and Fuel price
-    
+
         Row(
           children: [
             // Fuel Quantity
-    
+
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
@@ -162,8 +161,7 @@ class Odo_details_photo extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsets.only(top: 12, left: 12),
+                      padding: const EdgeInsets.only(top: 12, left: 12),
                       child: Row(
                         children: [
                           RichText(
@@ -201,8 +199,8 @@ class Odo_details_photo extends StatelessWidget {
                       height: 7.68.h,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
-                          bottom: 9.w, left: 8.w, right: 8.w),
+                      padding:
+                          EdgeInsets.only(bottom: 9.w, left: 8.w, right: 8.w),
                       child: Row(
                         children: [
                           Container(
@@ -219,10 +217,9 @@ class Odo_details_photo extends StatelessWidget {
                                     Color(0xFFFFFFFF),
                                   ],
                                 ),
-                                borderRadius:
-                                    BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                              child: WheelPickerCustom(
+                              child: const WheelPickerCustom(
                                 nInitValue: 150,
                                 nTotalCount: 250,
                               )),
@@ -243,18 +240,17 @@ class Odo_details_photo extends StatelessWidget {
                                   Color(0xFFFFFFFF),
                                 ],
                               ),
-                              borderRadius:
-                                  BorderRadius.circular(8),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                            child: WheelPickerCustom(
+                            child: const WheelPickerCustom(
                                 nTotalCount: 80, nInitValue: 25),
                           ),
                           SizedBox(
                             width: 8.h,
                           ),
-    
+
                           // up down containers
-    
+
                           Column(
                             children: [
                               GestureDetector(
@@ -262,11 +258,9 @@ class Odo_details_photo extends StatelessWidget {
                                 child: Container(
                                     decoration: const BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.only(
+                                      borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(8),
-                                        topRight:
-                                            Radius.circular(8),
+                                        topRight: Radius.circular(8),
                                       ),
                                     ),
                                     height: 38.5.h,
@@ -307,13 +301,13 @@ class Odo_details_photo extends StatelessWidget {
                 ),
               ),
             ),
-    
+
             SizedBox(
               width: 13.w,
             ),
-    
+
             // Second container to show the fuel price
-    
+
             Container(
               width: 160.w,
               decoration: BoxDecoration(
@@ -334,8 +328,7 @@ class Odo_details_photo extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsets.only(top: 12, left: 6),
+                      padding: const EdgeInsets.only(top: 12, left: 6),
                       child: Row(
                         children: [
                           RichText(
@@ -373,11 +366,10 @@ class Odo_details_photo extends StatelessWidget {
                       height: 8.h,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(
-                          bottom: 9.w, left: 2.w, right: 4.w),
+                      padding:
+                          EdgeInsets.only(bottom: 9.w, left: 2.w, right: 4.w),
                       child: Row(
-                        mainAxisAlignment:
-                            MainAxisAlignment.spaceEvenly,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
                               height: 80.h,
@@ -393,10 +385,9 @@ class Odo_details_photo extends StatelessWidget {
                                     Color(0xFFFFFFFF),
                                   ],
                                 ),
-                                borderRadius:
-                                    BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(8),
                               ),
-                              child: WheelSelector()),
+                              child: const WheelSelector()),
                           SizedBox(
                             width: 8.w,
                           ),
@@ -407,11 +398,9 @@ class Odo_details_photo extends StatelessWidget {
                                 child: Container(
                                     decoration: const BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius:
-                                          BorderRadius.only(
+                                      borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(8),
-                                        topRight:
-                                            Radius.circular(8),
+                                        topRight: Radius.circular(8),
                                       ),
                                     ),
                                     height: 38.5.h,
@@ -454,12 +443,12 @@ class Odo_details_photo extends StatelessWidget {
             )
           ],
         ),
-    
+
         SizedBox(
           height: 9.h,
         ),
         // next text and take photo sections
-    
+
         Padding(
           padding: EdgeInsets.only(left: 7.w, top: 9.h),
           child: Row(
@@ -467,16 +456,14 @@ class Odo_details_photo extends StatelessWidget {
               Expanded(
                 child: Row(
                   children: [
-                    SvgPicture.asset(
-                        'assets/vehicleScreen/info (3) 1.svg'),
+                    SvgPicture.asset('assets/vehicleScreen/info (3) 1.svg'),
                     SizedBox(
                       width: 7.w,
                     ),
                     Text(
                       '150.12 ltr X 2.68 aed = 402.32 Aed',
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12.sp),
+                          fontWeight: FontWeight.w500, fontSize: 12.sp),
                     )
                   ],
                 ),
@@ -492,17 +479,14 @@ class Odo_details_photo extends StatelessWidget {
                     ),
                     child: Center(
                       child: Row(
-                        mainAxisAlignment:
-                            MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
                             'Take Photo',
                             style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12.sp),
+                                fontWeight: FontWeight.w500, fontSize: 12.sp),
                           ),
-                          SvgPicture.asset(
-                              'assets/vehicleScreen/camera.svg')
+                          SvgPicture.asset('assets/vehicleScreen/camera.svg')
                         ],
                       ),
                     ),

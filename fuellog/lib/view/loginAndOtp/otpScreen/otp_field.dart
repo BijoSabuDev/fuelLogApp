@@ -11,7 +11,7 @@ class OtpField extends StatelessWidget {
     final defaultPinTheme = PinTheme(
       margin: const EdgeInsets.all(2),
       width: 85.w,
-      height: 79.h,
+      height: 79.05.w,
       textStyle: const TextStyle(
         fontSize: 22,
         color: Colors.black,

@@ -16,32 +16,40 @@ class LogoWithText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        SvgPicture.asset(
-          'assets/onboardingScreen/logo.svg',
-          height: 62.h,
-          width: 52.39.w,
-        ),
-        kw10,
-        RichText(
-          textAlign: TextAlign.start,
-          text: TextSpan(
-            style: const TextStyle(color: Colors.black, height: 1),
+        SizedBox(
+          height: 65.h,
+          width: 214.w,
+          child: Row(
             children: [
-              TextSpan(
-                text: 'Safetri\n',
-                style: GoogleFonts.inter(
-                    fontSize: 24.sp, fontWeight: FontWeight.w700),
+              SvgPicture.asset(
+                'assets/onboardingScreen/logo.svg',
+                height: 62.h,
+                width: 52.39.w,
               ),
-              TextSpan(
-                text: 'Fuel Log',
-                style: GoogleFonts.inter(
-                    fontSize: 36.sp,
-                    letterSpacing: 0.5,
-                    fontWeight: FontWeight.w700),
-              ),
+              kw10,
+              RichText(
+                textAlign: TextAlign.start,
+                text: TextSpan(
+                  style: const TextStyle(color: Colors.black, height: 1),
+                  children: [
+                    TextSpan(
+                      text: 'Safetri\n',
+                      style: GoogleFonts.inter(
+                          fontSize: 24.sp, fontWeight: FontWeight.w700),
+                    ),
+                    TextSpan(
+                      text: 'Fuel Log',
+                      style: GoogleFonts.inter(
+                          fontSize: 36.sp,
+                          letterSpacing: 0.5,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
-        )
+        ),
       ],
     );
   }
