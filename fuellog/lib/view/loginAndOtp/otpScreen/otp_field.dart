@@ -9,7 +9,7 @@ class OtpField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
-      margin: EdgeInsets.all(2),
+      margin: const EdgeInsets.all(2),
       width: 85.w,
       height: 79.h,
       textStyle: const TextStyle(

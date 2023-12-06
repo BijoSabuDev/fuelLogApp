@@ -39,12 +39,19 @@ dependencies:
   flutter_svg: ^2.0.9
   google_fonts: ^6.1.0
   pinput: ^3.0.1
-  mobile_scanner: ^3.5.5
   flutter_screenutil: ^5.9.0
+  wheel_slider: ^1.1.1
+  action_slider: ^0.7.0
+  flutter_barcode_scanner: ^2.0.0
+  permission_handler: ^11.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  # wheel_slider:
+  #   git:
+  #     url: https://github.com/BijoSabuDev/wheel_slider_custom  
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -69,6 +76,7 @@ flutter:
     - assets/splashScreen/
     - assets/onboardingScreen/
     - assets/homeScreen/
+    - assets/vehicleScreen/
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

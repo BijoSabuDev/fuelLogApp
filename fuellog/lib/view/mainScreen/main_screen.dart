@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fuellog/view/HIstoryScreen/history_screen.dart';
 import 'package:fuellog/view/HomeScreen/home_screen.dart';
-import 'package:fuellog/view/SettingsScreen/settings_screen.dart';
+import 'package:fuellog/view/VehicleScreen/vehicle_screen.dart';
 import 'package:fuellog/view/mainScreen/bottom_nav_bar.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
   final _pages = [
     const HomeScreen(),
+    const VehicleScreen(),
     const HistoryScreen(),
-    const SettingsScreen()
   ];
   @override
   Widget build(BuildContext context) {

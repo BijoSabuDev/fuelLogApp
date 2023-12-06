@@ -23,12 +23,13 @@ class SplashScreen extends StatelessWidget {
           children: [
             Center(
               child: SvgPicture.asset('assets/splashScreen/splashScreen.svg')
-                  .animate(delay: 1000.ms)
-                  .fade(delay: 500.ms)
+                  .animate(delay: 500.ms)
+                  .fadeIn(
+                      delay: 500.ms, duration: 1000.ms, curve: Curves.easeOut)
                   .slideY(
                     delay: 500.ms,
                     curve: Curves.linear,
-                    begin: 0.2,
+                    begin: 0.3,
                     end: 0.0,
                   ),
             )
