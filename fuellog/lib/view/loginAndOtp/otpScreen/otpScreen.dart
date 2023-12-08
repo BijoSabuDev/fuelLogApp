@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/view/constants/dimensions.dart';
 import 'package:fuellog/view/loginAndOtp/otpScreen/otp_field.dart';
@@ -12,7 +11,7 @@ class OtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sw = MediaQuery.of(context).size.width;
+    // final sw = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: const CustomAppBar(),
       body: Padding(
@@ -37,7 +36,7 @@ class OtpScreen extends StatelessWidget {
                   fontWeight: FontWeight.w400),
             ),
             k20,
-            const OtpField(),
+              const OtpField(),
             const Spacer(),
             Center(
               child: GestureDetector(

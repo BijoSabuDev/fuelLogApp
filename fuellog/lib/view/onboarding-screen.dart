@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/view/constants/colors.dart';
-import 'package:fuellog/view/constants/dimensions.dart';
 import 'package:fuellog/view/loginAndOtp/login_screen.dart';
 import 'package:fuellog/view/util/logo_with_text.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,24 +31,53 @@ class OnboardingScreen extends StatelessWidget {
             SizedBox(
               height: 31.h,
             ),
+            ClipRRect(
+              child: Image.asset(
+                fit: BoxFit.fill,
+                filterQuality: FilterQuality.high,
+                'assets/onboardingScreen/fuel-log-bg.webp',
+                frameBuilder: (BuildContext context, Widget child, int? frame,
+                    bool wasSynchronouslyLoaded) {
+                  if (wasSynchronouslyLoaded) {
+                    return child;
+                  }
+                  if (frame != null) {
+                    return SizedBox(
+                      width: 383.w,
+                      height: 460.h,
+                      child: child,
+                    );
+                  }
+                  return const Center(child: CircularProgressIndicator());
+                },
+              )
+                  .animate(
+                    delay: 400.ms,
+                  )
+                  .fadeIn(
+                    delay: 500.ms,
+                    curve: Curves.easeIn,
+                  ),
+            ),
+
             // SvgPicture.asset(
             //   'assets/onboardingScreen/image 160.svg',
             //   height: sw,
             //   width: sw,
             // )
-            Image.asset(
-              'assets/onboardingScreen/fuel-log-bg.webp',
-              height: 460.h,
-              width: 383.w,
-              fit: BoxFit.fill,
-            )
-                .animate(
-                  delay: 400.ms,
-                )
-                .fadeIn(
-                  delay: 500.ms,
-                  curve: Curves.easeIn,
-                ),
+            // Image.asset(
+            //   'assets/onboardingScreen/fuel-log-bg.webp',
+            //   height: 460.h,
+            //   width: 383.w,
+            //   fit: BoxFit.scaleDown,
+            // )
+            //     .animate(
+            //       delay: 400.ms,
+            //     )
+            //     .fadeIn(
+            //       delay: 500.ms,
+            //       curve: Curves.easeIn,
+            //     ),
             SizedBox(
               height: 40.h,
             ),

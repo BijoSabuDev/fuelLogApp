@@ -7,17 +7,17 @@ import 'package:fuellog/view/mainScreen/bottom_nav_bar.dart';
 import 'package:fuellog/view/mainScreen/main_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class VehicleScreenAppBar extends StatelessWidget {
-  const VehicleScreenAppBar({
-    super.key,
-  });
+class HistoryAppBar extends StatelessWidget {
+  const HistoryAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+   
+
     return Row(
       children: [
         SizedBox(
-          width: 3.w,
+          width: 25.w,
         ),
         GestureDetector(
           onTap: () {
@@ -26,7 +26,7 @@ class VehicleScreenAppBar extends StatelessWidget {
                 builder: (ctx) {
                   return CupertinoAlertDialog(
                     title: Text(
-                      'Unsaved Changes',
+                      'Go back',
                       style: GoogleFonts.poppins(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w600,
@@ -35,14 +35,7 @@ class VehicleScreenAppBar extends StatelessWidget {
                     content: Column(
                       children: [
                         Text(
-                          'Are you sure you want to discard this',
-                          style: GoogleFonts.poppins(
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
-                        ),
-                        Text(
-                          'fuel entry? Your entry will be lost',
+                          'Are you sure you want to exit?',
                           style: GoogleFonts.poppins(
                               fontSize: 13.sp,
                               fontWeight: FontWeight.w500,
@@ -57,7 +50,7 @@ class VehicleScreenAppBar extends StatelessWidget {
                             Navigator.of(ctx).pop();
                           },
                           child: Text(
-                            'Cancel',
+                            'No',
                             style: GoogleFonts.poppins(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w600,
@@ -75,7 +68,7 @@ class VehicleScreenAppBar extends StatelessWidget {
                             }), (route) => false);
                           },
                           child: Text(
-                            'Discard',
+                            'Yes',
                             style: GoogleFonts.poppins(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w600,
@@ -90,13 +83,17 @@ class VehicleScreenAppBar extends StatelessWidget {
           child: SvgPicture.asset('assets/homeScreen/app_bar_leading.svg'),
         ),
         SizedBox(
-          width: 77.w,
+          width: 113.w,
         ),
         Text(
-          'Vehicle details',
+          'History',
           style: GoogleFonts.readexPro(
               fontSize: 20.sp, fontWeight: FontWeight.w500),
         ),
+        SizedBox(
+          width: 115.w,
+        ),
+        // SvgPicture.asset('assets/historyScreen/Group 33741.svg'),
       ],
     );
   }

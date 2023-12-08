@@ -15,19 +15,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  // @override
-  // Widget build(BuildContext context) {
-  //   return CupertinoApp(
-  //     debugShowCheckedModeBanner: false,
-  //     title: 'Flutter Demo',
-  //     theme: CupertinoThemeData(
-  //       scaffoldBackgroundColor: appBackground,
-  //       primaryColor:
-  //           appTheme, // Use primaryColor instead of colorScheme in Cupertino
-  //     ),
-  //     home: const SplashScreen(),
-  //   );
-  // }
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(

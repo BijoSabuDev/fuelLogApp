@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fuellog/view/HomeScreen/home_screen.dart';
 import 'package:fuellog/view/mainScreen/bottom_nav_bar.dart';
 import 'package:fuellog/view/mainScreen/main_screen.dart';
 import 'package:google_fonts/google_fonts.dart';

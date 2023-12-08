@@ -88,7 +88,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   child: Container(
                     constraints:
-                        BoxConstraints(minHeight: 56.h, minWidth: 376.w),
+                        BoxConstraints(minHeight: 66.h, minWidth: 376.w),
                     alignment: Alignment.center,
                     child: Text(
                       'Continue',

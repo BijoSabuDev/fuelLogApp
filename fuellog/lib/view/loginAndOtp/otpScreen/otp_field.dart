@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/view/mainScreen/main_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 
-class OtpField extends StatelessWidget {
+class OtpField extends StatefulWidget {
   const OtpField({super.key});
 
+  @override
+  State<OtpField> createState() => _OtpFieldState();
+}
+
+class _OtpFieldState extends State<OtpField> {
+  // final otpController = TextEditingController();
+  bool showError = false;
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -35,11 +43,22 @@ class OtpField extends StatelessWidget {
           border: Border.all(color: const Color(0xFFD10000)),
         )),
         onCompleted: (String value) {
-          // Replace 'HomeScreen()' with the desired screen to navigate to
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => MainScreen()),
-          );
+          if (value != '2222') {
+            setState(() {
+              showError = true;
+            });
+          } else {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => MainScreen()),
+                (route) => false);
+          }
         },
+        forceErrorState: showError,
+        errorText: '                 Wrong PIN, please try again',
+        errorTextStyle: GoogleFonts.inter(
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xFFF54135)),
       ),
     );
   }

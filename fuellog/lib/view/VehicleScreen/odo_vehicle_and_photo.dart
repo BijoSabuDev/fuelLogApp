@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fuellog/view/VehicleScreen/camera_capture.dart';
 import 'package:fuellog/view/VehicleScreen/cupertino_picker.dart';
-import 'package:fuellog/view/VehicleScreen/wheel_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Odo_details_photo extends StatelessWidget {
@@ -12,125 +12,56 @@ class Odo_details_photo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sw = MediaQuery.of(context).size.width;
     return Column(
       children: [
         Stack(
-          alignment: Alignment.center,
+          alignment: Alignment.topCenter,
           children: [
+            SizedBox(
+              height: 192.h,
+              width: double.infinity,
+            ),
             Positioned(
-              top: 2,
+              top: -02,
               child: SvgPicture.asset(
                 'assets/vehicleScreen/Ellipse 1473.svg',
-                width: 372.w,
+                width: 423.w,
               ),
             ),
-            SvgPicture.asset(
-              'assets/vehicleScreen/Ellipse 1474.svg',
+            Positioned(
+              top: 0,
+              child: SvgPicture.asset(
+                'assets/vehicleScreen/Ellipse 1474.svg',
+                width: 424.w,
+              ),
             ),
             Positioned(
-              top: 24,
-              width: 300.w,
+              top: 18,
+              width: 424.w,
               child: SvgPicture.asset(
                 'assets/vehicleScreen/Group 33664.svg',
               ),
             ),
             Positioned(
-              top: 72,
+              top: 79.h,
               child: Text(
                 'Change odometer km',
                 style: GoogleFonts.readexPro(
                     fontSize: 14.sp, fontWeight: FontWeight.w500),
               ),
             ),
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-                height: 80.h,
-                width: 158.w,
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: [
-                      Color.fromRGBO(243, 243, 243, 1),
-                      Color.fromRGBO(255, 255, 255, 1),
-                      Color.fromRGBO(242, 242, 242, 1),
-                    ],
-                    stops: [0, 0.5718, 1],
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: const WheelPickerCustom(
-                  nInitValue: 156754,
-                  nTotalCount: 245646,
+            Positioned(
+                top: 112.h,
+                child: WheelSelector(
+                  containerHeight: 85.h,
+                  containerWidth: 160.w,
+                  isButtonsVisible: true,
+                  itemExtent: 50,
+                  initValue: 156344,
+                  showDecimal: false,
+                  howMuchToGenerate: 20000,
                 )),
-            SizedBox(
-              width: 6.w,
-            ),
-            Column(
-              children: [
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          colors: [
-                            Color.fromRGBO(243, 243, 243, 1),
-                            Color.fromRGBO(255, 255, 255, 1),
-                            Color.fromRGBO(242, 242, 242, 1),
-                          ],
-                          stops: [0, 0.5718, 1],
-                        ),
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(8),
-                          topRight: Radius.circular(8),
-                        ),
-                      ),
-                      height: 38.5.h,
-                      width: 42.w,
-                      child: SvgPicture.asset(
-                        'assets/vehicleScreen/arrow_up.svg',
-                        width: 13.w,
-                        height: 6.5.h,
-                        fit: BoxFit.scaleDown,
-                      )),
-                ),
-                SizedBox(
-                  height: 2.h,
-                ),
-                Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        Color.fromRGBO(243, 243, 243, 1),
-                        Color.fromRGBO(255, 255, 255, 1),
-                        Color.fromRGBO(242, 242, 242, 1),
-                      ],
-                      stops: [0, 0.5718, 1],
-                    ),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(8),
-                      bottomRight: Radius.circular(8),
-                    ),
-                  ),
-                  height: 38.5.h,
-                  width: 42.w,
-                  child: SvgPicture.asset(
-                    'assets/vehicleScreen/arrow_down.svg',
-                    width: 13.w,
-                    height: 6.5.h,
-                    fit: BoxFit.scaleDown,
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
 
@@ -199,104 +130,30 @@ class Odo_details_photo extends StatelessWidget {
                       height: 7.68.h,
                     ),
                     Padding(
-                      padding:
-                          EdgeInsets.only(bottom: 9.w, left: 8.w, right: 8.w),
-                      child: Row(
-                        children: [
-                          Container(
-                              height: 80.h,
-                              width: 75.w,
-                              decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  stops: [0.0, 0.95, 0.95],
-                                  colors: [
-                                    Color(0xFFFFFFFF),
-                                    Color(0xFFFFFFFF),
-                                    Color(0xFFFFFFFF),
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const WheelPickerCustom(
-                                nInitValue: 150,
-                                nTotalCount: 250,
-                              )),
-                          SizedBox(
-                            width: 7.w,
-                          ),
-                          Container(
-                            height: 80.h,
-                            width: 57.w,
-                            decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                stops: [0.0, 0.95, 0.95],
-                                colors: [
-                                  Color(0xFFFFFFFF),
-                                  Color(0xFFFFFFFF),
-                                  Color(0xFFFFFFFF),
-                                ],
-                              ),
-                              borderRadius: BorderRadius.circular(8),
+                        padding:
+                            EdgeInsets.only(bottom: 9.w, left: 8.w, right: 8.w),
+                        child: Row(
+                          children: [
+                            WheelSelector(
+                              howMuchToGenerate: 50,
+                              containerHeight: 80.h,
+                              containerWidth: 80.w,
+                              isButtonsVisible: false,
+                              initValue: 150,
+                              itemExtent: 50,
+                              showDecimal: false,
                             ),
-                            child: const WheelPickerCustom(
-                                nTotalCount: 80, nInitValue: 25),
-                          ),
-                          SizedBox(
-                            width: 8.h,
-                          ),
-
-                          // up down containers
-
-                          Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        topRight: Radius.circular(8),
-                                      ),
-                                    ),
-                                    height: 38.5.h,
-                                    width: 42.w,
-                                    child: SvgPicture.asset(
-                                      'assets/vehicleScreen/arrow_up.svg',
-                                      width: 13.w,
-                                      height: 6.5.h,
-                                      fit: BoxFit.scaleDown,
-                                    )),
-                              ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              Container(
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(8),
-                                    bottomRight: Radius.circular(8),
-                                  ),
-                                ),
-                                height: 38.5.h,
-                                width: 42.w,
-                                child: SvgPicture.asset(
-                                  'assets/vehicleScreen/arrow_down.svg',
-                                  width: 13.w,
-                                  height: 6.5.h,
-                                  fit: BoxFit.scaleDown,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                            WheelSelector(
+                              howMuchToGenerate: 100,
+                              containerHeight: 80.h,
+                              containerWidth: 57.w,
+                              isButtonsVisible: true,
+                              initValue: 0,
+                              itemExtent: 50,
+                              showDecimal: false,
+                            ),
+                          ],
+                        )),
                   ],
                 ),
               ),
@@ -365,78 +222,21 @@ class Odo_details_photo extends StatelessWidget {
                     SizedBox(
                       height: 8.h,
                     ),
+
+                    //  fuel price wheel
+
                     Padding(
-                      padding:
-                          EdgeInsets.only(bottom: 9.w, left: 2.w, right: 4.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                              height: 80.h,
-                              width: 75.w,
-                              decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  stops: [0.0, 0.95, 0.95],
-                                  colors: [
-                                    Color(0xFFFFFFFF),
-                                    Color(0xFFFFFFFF),
-                                    Color(0xFFFFFFFF),
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const WheelSelector()),
-                          SizedBox(
-                            width: 8.w,
-                          ),
-                          Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                    decoration: const BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        topRight: Radius.circular(8),
-                                      ),
-                                    ),
-                                    height: 38.5.h,
-                                    width: 42.w,
-                                    child: SvgPicture.asset(
-                                      'assets/vehicleScreen/arrow_up.svg',
-                                      width: 13.w,
-                                      height: 6.5.h,
-                                      fit: BoxFit.scaleDown,
-                                    )),
-                              ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              Container(
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(8),
-                                    bottomRight: Radius.circular(8),
-                                  ),
-                                ),
-                                height: 38.5.h,
-                                width: 42.w,
-                                child: SvgPicture.asset(
-                                  'assets/vehicleScreen/arrow_down.svg',
-                                  width: 13.w,
-                                  height: 6.5.h,
-                                  fit: BoxFit.scaleDown,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                        padding:
+                            EdgeInsets.only(bottom: 9.w, left: 2.w, right: 8.w),
+                        child: WheelSelector(
+                          howMuchToGenerate: 21,
+                          initValue: 2.0,
+                          itemExtent: 50,
+                          showDecimal: true,
+                          isButtonsVisible: true,
+                          containerWidth: 82.w,
+                          containerHeight: 80.h,
+                        )),
                   ],
                 ),
               ),
@@ -445,12 +245,14 @@ class Odo_details_photo extends StatelessWidget {
         ),
 
         SizedBox(
-          height: 9.h,
+          height: 10.34.h,
         ),
         // next text and take photo sections
 
         Padding(
-          padding: EdgeInsets.only(left: 7.w, top: 9.h),
+          padding: EdgeInsets.only(
+            left: 7.w,
+          ),
           child: Row(
             children: [
               Expanded(
@@ -468,31 +270,31 @@ class Odo_details_photo extends StatelessWidget {
                   ],
                 ),
               ),
-              Row(
-                children: [
-                  Container(
-                    width: 124.w,
-                    height: 34.32.h,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF3F3F3),
-                      borderRadius: BorderRadius.circular(6.64),
-                    ),
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            'Take Photo',
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w500, fontSize: 12.sp),
-                          ),
-                          SvgPicture.asset('assets/vehicleScreen/camera.svg')
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
+              const CameraCapture(),
+              // GestureDetector(
+              //   onTap: () {},
+              //   child: Container(
+              //     width: 124.w,
+              //     height: 34.32.h,
+              //     decoration: BoxDecoration(
+              //       color: const Color(0xFFF3F3F3),
+              //       borderRadius: BorderRadius.circular(6.64),
+              //     ),
+              //     child: Center(
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.spaceAround,
+              //         children: [
+              //           Text(
+              //             'Take Photo',
+              //             style: GoogleFonts.poppins(
+              //                 fontWeight: FontWeight.w500, fontSize: 12.sp),
+              //           ),
+              //           SvgPicture.asset('assets/vehicleScreen/camera.svg')
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
