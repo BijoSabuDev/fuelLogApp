@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -74,11 +76,12 @@ class VehicleScreen extends StatelessWidget {
                   height: 23.h,
                 ),
                 ActionSlider.standard(
-                  height: 62.h,
+                  height: 72.h,
                   foregroundBorderRadius: BorderRadius.circular(42),
                   action: (controller) async {
                     controller.loading();
-                    await Future.delayed(const Duration(seconds: 2));
+                    await Future.delayed(const Duration(milliseconds: 500));
+
                     Navigator.of(context)
                         .pushReplacement(MaterialPageRoute(builder: (context) {
                       return const SuccessPage();
@@ -96,8 +99,10 @@ class VehicleScreen extends StatelessWidget {
                   reverseSlideAnimationDuration:
                       const Duration(milliseconds: 500),
                   rolling: true,
-                  successIcon:
-                      SvgPicture.asset('assets/vehicleScreen/check-line.svg'),
+                  successIcon: SvgPicture.asset(
+                    'assets/vehicleScreen/check-line.svg',
+                    fit: BoxFit.scaleDown,
+                  ),
                   toggleColor: Colors.white,
                   icon: SvgPicture.asset(
                     'assets/vehicleScreen/Group 33696.svg',
@@ -105,16 +110,13 @@ class VehicleScreen extends StatelessWidget {
                     width: 8.w,
                   ),
                   backgroundColor: const Color(0xFFF3F3F3),
-                  child: SizedBox(
-                    height: 25.h,
-                    child: FittedBox(
-                      child: Text(
-                        'Slide to submit',
-                        style: GoogleFonts.readexPro(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(0xFF6D6D6D)),
-                      ),
+                  child: FittedBox(
+                    child: Text(
+                      'Slide to submit',
+                      style: GoogleFonts.readexPro(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(0xFF6D6D6D)),
                     ),
                   ),
                 )

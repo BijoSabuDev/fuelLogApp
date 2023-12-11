@@ -31,8 +31,10 @@ class SearchBarCustom extends StatelessWidget {
           prefixIcon: SvgPicture.asset(
             'assets/homeScreen/search.svg',
           ),
-          prefixIconConstraints: const BoxConstraints(minWidth: 40),
-          hintText: 'Bus No 52 or DXB135.',
+          prefixIconConstraints:
+              BoxConstraints(minWidth: 17.w, minHeight: 18.h),
+          // helperText: 'Bus No 52 or DXB135.',
+          hintText: '    Bus No 52 or DXB135.',
           hintStyle: GoogleFonts.readexPro(
             fontWeight: FontWeight.w400,
             color: Colors.black.withOpacity(0.3),
@@ -42,7 +44,9 @@ class SearchBarCustom extends StatelessWidget {
             icon: suffixIcon,
             onPressed: onPressedFunction,
           ),
-          contentPadding: const EdgeInsets.all(20),
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 12,
+          ),
           border: InputBorder.none,
         ),
       ),

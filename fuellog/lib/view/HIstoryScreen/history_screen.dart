@@ -93,6 +93,10 @@ class HistoryScreen extends StatelessWidget {
         // SizedBox(
         //   height: 12.h,
         // ),
+
+        SizedBox(
+          height: 20.h,
+        ),
         Expanded(
           child: ListView.separated(
               itemBuilder: (builder, context) {

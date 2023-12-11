@@ -61,7 +61,6 @@ class _WheelSelectorState extends State<WheelSelector> {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: CupertinoPicker(
-              offAxisFraction: -2.0,
               selectionOverlay: const CupertinoPickerDefaultSelectionOverlay(
                   background: Colors.transparent),
               scrollController: scrollController,
@@ -73,7 +72,8 @@ class _WheelSelectorState extends State<WheelSelector> {
                 widget.howMuchToGenerate,
                 (index) {
                   double nonDecimal = widget.initValue + (index * 1);
-                  double value = 2.0 + (index / 10);
+                  double value = widget.initValue + (index / 10);
+
                   return Center(
                     child: widget.showDecimal
                         ? Text(

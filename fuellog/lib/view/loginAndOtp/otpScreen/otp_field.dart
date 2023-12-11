@@ -54,11 +54,23 @@ class _OtpFieldState extends State<OtpField> {
           }
         },
         forceErrorState: showError,
-        errorText: '                 Wrong PIN, please try again',
         errorTextStyle: GoogleFonts.inter(
             fontSize: 16.sp,
             fontWeight: FontWeight.w400,
             color: const Color(0xFFF54135)),
+        errorText: 'Wrong PIN, please try again',
+        errorBuilder: (String? errorText, String? enteredValue) {
+          return Center(
+            child: Text(
+              errorText!,
+              style: const TextStyle(
+                color: Color(0xFFF54135),
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          );
+        },
       ),
     );
   }

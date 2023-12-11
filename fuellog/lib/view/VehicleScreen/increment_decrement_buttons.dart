@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class IncrementDecrementButtons extends StatelessWidget {
+class IncrementDecrementButtons extends StatefulWidget {
   const IncrementDecrementButtons({
     super.key,
     required this.scrollController,
@@ -11,21 +11,27 @@ class IncrementDecrementButtons extends StatelessWidget {
   final FixedExtentScrollController scrollController;
 
   @override
+  State<IncrementDecrementButtons> createState() =>
+      _IncrementDecrementButtonsState();
+}
+
+class _IncrementDecrementButtonsState extends State<IncrementDecrementButtons> {
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         GestureDetector(
           onLongPress: () {
-            scrollController.animateToItem(
-              scrollController.selectedItem - 5,
+            widget.scrollController.animateToItem(
+              widget.scrollController.selectedItem - 5,
               duration: const Duration(milliseconds: 200),
               curve: Curves.easeInOut,
             );
           },
           onTap: () {
-            scrollController.animateToItem(
-              scrollController.selectedItem - 1,
-              duration: const Duration(milliseconds: 10),
+            widget.scrollController.animateToItem(
+              widget.scrollController.selectedItem - 1,
+              duration: const Duration(milliseconds: 300),
               curve: Curves.easeInOut,
             );
           },
@@ -52,15 +58,15 @@ class IncrementDecrementButtons extends StatelessWidget {
         ),
         GestureDetector(
           onLongPress: () {
-            scrollController.animateToItem(
-              scrollController.selectedItem + 5,
+            widget.scrollController.animateToItem(
+              widget.scrollController.selectedItem + 5,
               duration: const Duration(milliseconds: 200),
-              curve: Curves. ease,
+              curve: Curves.ease,
             );
           },
           onTap: () {
-            scrollController.animateToItem(
-              scrollController.selectedItem + 1,
+            widget.scrollController.animateToItem(
+              widget.scrollController.selectedItem + 1,
               duration: const Duration(milliseconds: 300),
               curve: Curves.ease,
             );

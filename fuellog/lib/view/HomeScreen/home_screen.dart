@@ -16,6 +16,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ValueNotifier<bool> buttonPressed = ValueNotifier(true);
     final sw = MediaQuery.of(context).size.width;
     return Scaffold(
       body: SingleChildScrollView(
@@ -25,9 +26,15 @@ class HomeScreen extends StatelessWidget {
             Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 90.h, left: 25.w),
+                  padding: EdgeInsets.only(top: 81.h, left: 25.w),
                   child: LogoWithText(sw: sw),
-                ),SizedBox(height: 21.h,),
+                ),
+                // SizedBox(
+                //   height: 21.h,
+                // ),
+                SizedBox(
+                  height: 30.h,
+                ),
                 SearchBarCustom(
                   width: 372.w,
                   suffixIcon: Icon(
@@ -37,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                 )
                     .animate(delay: 0.ms)
-                    .fade(delay: 500.ms, duration: 800.ms)
+                    .fade(delay: 200.ms, duration: 600.ms)
                     .slideY(
                       delay: 100.ms,
                       curve: Curves.linear,
@@ -45,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                       end: 0.0,
                     ),
                 SizedBox(
-                  height: 23.h,
+                  height: 22.h,
                 ),
                 SizedBox(
                   width: double.infinity,
@@ -125,6 +132,7 @@ class HomeScreen extends StatelessWidget {
                               left: 17.w,
                             ),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
@@ -134,12 +142,17 @@ class HomeScreen extends StatelessWidget {
                                       fontSize: 18.sp,
                                       color: Colors.white),
                                 ),
-                                Text(
-                                  'How to use this application',
-                                  style: GoogleFonts.readexPro(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 13.77.sp,
-                                      color: Colors.white),
+                                SizedBox(
+                                  height: 17.h,
+                                  child: FittedBox(
+                                    child: Text(
+                                      'How to use this application',
+                                      style: GoogleFonts.readexPro(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 13.77.sp,
+                                          color: Colors.white),
+                                    ),
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 5.h,
@@ -179,7 +192,7 @@ class HomeScreen extends StatelessWidget {
               ],
             )
                 .animate(delay: 0.ms)
-                .fadeIn(delay: 200.ms, duration: 800.ms, curve: Curves.easeOut)
+                .fadeIn(delay: 200.ms, duration: 600.ms, curve: Curves.easeOut)
                 .slideY(
                   delay: 100.ms,
                   curve: Curves.linear,
@@ -187,7 +200,7 @@ class HomeScreen extends StatelessWidget {
                   end: 0.0,
                 ),
             SizedBox(
-              height: 36.h,
+              height: 30.h,
             ),
             Row(
               children: [
@@ -206,67 +219,74 @@ class HomeScreen extends StatelessWidget {
               ],
             )
                 .animate(delay: 0.ms)
-                .fadeIn(delay: 200.ms, duration: 800.ms, curve: Curves.easeOut)
+                .fadeIn(delay: 200.ms, duration: 600.ms, curve: Curves.easeOut)
                 .slideX(delay: 100.ms),
-            SizedBox(height: 27.h),
+            SizedBox(height: 40.h),
             SizedBox(
-              height: 175.h,
-              child: FittedBox(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Press this button to scan',
-                      style: GoogleFonts.readexPro(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 14.sp,
-                          letterSpacing: 0.1,
-                          color: Colors.black.withOpacity(0.2)),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Press this button to scan',
+                    style: GoogleFonts.readexPro(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14.spMax,
+                        letterSpacing: 0.1,
+                        color: Colors.black.withOpacity(0.5)),
+                  ),
+                  ValueListenableBuilder(
+                    valueListenable: buttonPressed,
+                    builder: (context, pressed, builder) {
+                      return Container(
+                        child: buttonPressed.value
+                            ? GestureDetector(
+                                onTap: () async {
+                                  buttonPressed.value = !buttonPressed.value;
+                                  await Future.delayed(500.ms);
+                                  requestCameraPermission();
+                                  scanQrCode();
+                                  buttonPressed.value = !buttonPressed.value;
+                                },
+                                child: Image.asset(
+                                  'assets/homeScreen/button.png',
+                                  height: 110.h,
+                                  width: 110.w,
+                                ),
+                              )
+                            : Image.asset(
+                                'assets/homeScreen/buttonhome.png',
+                                height: 110.h,
+                                width: 110.w,
+                              ),
+                      );
+                    },
+                  ),
+                  RichText(
+                    textAlign: TextAlign.center,
+                    text: TextSpan(
+                      style: const TextStyle(height: 1),
+                      children: [
+                        TextSpan(
+                          text: 'Scan QR\n',
+                          style: GoogleFonts.readexPro(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 30.sp),
+                        ),
+                      ],
                     ),
-                    GestureDetector(
-                      onTap: () async {
-                        await requestCameraPermission();
-                        scanQrCode();
-                      },
-                      child: SvgPicture.asset(
-                        'assets/homeScreen/Group 33699 (1).svg',
-                      ),
-                    ),
-                    RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: const TextStyle(height: 1),
-                        children: [
-                          TextSpan(
-                            text: 'Scan QR\n',
-                            style: GoogleFonts.readexPro(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 30.sp),
-                          ),
-                          TextSpan(
-                            text: 'or enter manually',
-                            style: GoogleFonts.readexPro(
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: 0.1,
-                              fontSize: 16.sp,
-                              color: const Color(0xFFA2B2C8),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
-                    .animate()
-                    .fadeIn(delay: 100.ms, duration: 300.ms)
-                    .scaleXY(duration: 800.ms, curve: Curves.easeOut),
-              ),
+                  ),
+                ],
+              )
+                  .animate()
+                  .fadeIn(delay: 0.ms, duration: 600.ms)
+                  .scaleXY(duration: 300.ms, curve: Curves.easeIn),
             ),
-            SizedBox(
-              height: 27.h,
-            ),
-            SizedBox(height: 10.h),
+            // SizedBox(
+            //   height: 27.h,
+            // ),
+            // SizedBox(height: 10.h),
           ],
         ),
       ),
