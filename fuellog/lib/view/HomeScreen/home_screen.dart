@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fuellog/view/VehicleScreen/vehicle_screen.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:fuellog/view/constants/dimensions.dart';
 import 'package:fuellog/view/util/logo_with_text.dart';
@@ -245,7 +246,7 @@ class HomeScreen extends StatelessWidget {
                                   buttonPressed.value = !buttonPressed.value;
                                   await Future.delayed(500.ms);
                                   requestCameraPermission();
-                                  scanQrCode();
+                                  scanQrCode(context);
                                   buttonPressed.value = !buttonPressed.value;
                                 },
                                 child: Image.asset(
@@ -293,11 +294,15 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  void scanQrCode() async {
+  void scanQrCode(context) async {
     String qrScanner;
     try {
       qrScanner = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancel', true, ScanMode.QR);
+
+      // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+      //   return VehicleScreen();
+      // }));
       debugPrint(qrScanner);
     } on PlatformException {
       qrScanner = 'failed to get platform version';

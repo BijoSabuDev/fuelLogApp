@@ -53,14 +53,28 @@ class Odo_details_photo extends StatelessWidget {
             ),
             Positioned(
                 top: 112.h,
-                child: WheelSelector(
-                  containerHeight: 85.h,
-                  containerWidth: 160.w,
-                  isButtonsVisible: true,
-                  itemExtent: 50,
-                  initValue: 156344,
-                  showDecimal: false,
-                  howMuchToGenerate: 20000,
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      child: SvgPicture.asset(
+                        'assets/vehicleScreen/keyboard (1) 1.svg',
+                        width: 28.w,
+                        height: 28.h,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 9.w,
+                    ),
+                    WheelSelector(
+                      containerHeight: 85.h,
+                      containerWidth: 160.w,
+                      isButtonsVisible: true,
+                      itemExtent: 50,
+                      initValue: 156344,
+                      showDecimal: false,
+                      howMuchToGenerate: 20000,
+                    ),
+                  ],
                 )),
           ],
         ),

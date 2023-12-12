@@ -55,7 +55,7 @@ class HistoryScreen extends StatelessWidget {
         body: Column(
       children: [
         SizedBox(
-          height: 72.h,
+          height: 65.h,
         ),
         const HistoryAppBar(),
         SizedBox(
@@ -95,7 +95,7 @@ class HistoryScreen extends StatelessWidget {
         // ),
 
         SizedBox(
-          height: 20.h,
+          height: 10.h,
         ),
         Expanded(
           child: ListView.separated(

@@ -1,5 +1,4 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fuellog/view/VehicleScreen/app_bar.dart';
 import 'package:fuellog/view/VehicleScreen/odo_vehicle_and_photo.dart';
 import 'package:fuellog/view/VehicleScreen/successPage/success_page.dart';
+import 'package:fuellog/view/constants/colors.dart';
 import 'package:fuellog/view/util/bus_no_box.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:action_slider/action_slider.dart';
@@ -17,19 +17,21 @@ class VehicleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final sw = MediaQuery.of(context).size.width;
+    final sh = MediaQuery.of(context).size.height;
     return Scaffold(
         // appBar: const PreferredSize(
         //     preferredSize: Size(70, 70), child: VehicleScreenAppBar()),
         body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 22.w),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SizedBox(
-                  height: 75.h,
+                  height: 65.h,
                 ),
                 const VehicleScreenAppBar(),
                 SizedBox(
-                  height: 13.h,
+                  height: 2.h,
                 ),
                 const Odo_details_photo()
                     .animate(delay: 0.ms)
@@ -42,8 +44,9 @@ class VehicleScreen extends StatelessWidget {
                       end: 0,
                     ),
                 SizedBox(
-                  height: 11.34.h,
+                  height: 11.h,
                 ),
+                // if (sh >= 600)
                 Image.asset(
                   'assets/vehicleScreen/image 150.png',
                   width: 405.w,
@@ -73,20 +76,79 @@ class VehicleScreen extends StatelessWidget {
                       ),
                 ),
                 SizedBox(
-                  height: 23.h,
+                  height: 26.h,
                 ),
+                // ActionSlider.custom(
+                //   // backgroundBuilder: (context, state, builder) {
+                //   //   return Container(
+                //   //     color: Colors.yellow,
+                //   //   );
+                //   // },
+                //   toggleMargin: EdgeInsets.all(12),
+                //   action: (controller) async {
+                //     controller.loading();
+                //     await Future.delayed(const Duration(seconds: 2));
+
+                //     Navigator.of(context)
+                //         .pushReplacement(MaterialPageRoute(builder: (context) {
+                //       return const SuccessPage();
+                //     }));
+
+                //     controller.reset();
+                //   },
+                //   backgroundColor: const Color(0xFFF3F3F3),
+                //   height: 72.h,
+                //   boxShadow: const [
+                //     BoxShadow(blurRadius: 0, spreadRadius: 0),
+                //   ],
+                //   foregroundBuilder: (context, state, child) {
+                //     return Container(
+                //       height: 120.h,
+                //       width: 120.w,
+                //       decoration: const BoxDecoration(
+                //         color: Colors.white,
+                //         boxShadow: [
+                //           BoxShadow(
+                //             offset: const Offset(0, 4.7272725105285645),
+                //             blurRadius: 4,
+                //             spreadRadius: 4,
+                //             color: const Color(0x0000001A),
+                //           )
+                //         ],
+                //         shape: BoxShape.circle,
+                //       ),
+                //       child: Padding(
+                //         padding: const EdgeInsets.all(
+                //           8.0,
+                //         ),
+                //         child: SvgPicture.asset(
+                //           'assets/vehicleScreen/Group 33696.svg',
+                //           height: 16.h,
+                //           width: 17.w,
+                //         ),
+                //       ),
+                //     );
+                //   },
+                // )
                 ActionSlider.standard(
-                  height: 72.h,
+                  // height: 68.h,
                   foregroundBorderRadius: BorderRadius.circular(42),
+
+                  // // stateChangeCallback: (prevState, newState, controller) {
+                  //   Navigator.of(context)
+                  //       .pushReplacement(MaterialPageRoute(builder: (context) {
+                  //     return const SuccessPage();
+                  //   }));
+                  // // },
                   action: (controller) async {
                     controller.loading();
-                    await Future.delayed(const Duration(milliseconds: 500));
-
+                    await Future.delayed(const Duration(seconds: 1));
+                    controller.success();
+                    await Future.delayed(const Duration(seconds: 2));
                     Navigator.of(context)
                         .pushReplacement(MaterialPageRoute(builder: (context) {
                       return const SuccessPage();
                     }));
-
                     controller.reset();
                   },
                   reverseSlideAnimationCurve: Curves.easeInOut,
@@ -99,24 +161,39 @@ class VehicleScreen extends StatelessWidget {
                   reverseSlideAnimationDuration:
                       const Duration(milliseconds: 500),
                   rolling: true,
+                  // successIcon: const Icon(
+                  //   Icons.check,
+                  //   color: Colors.white,
+                  // ),
                   successIcon: SvgPicture.asset(
                     'assets/vehicleScreen/check-line.svg',
-                    fit: BoxFit.scaleDown,
                   ),
                   toggleColor: Colors.white,
-                  icon: SvgPicture.asset(
-                    'assets/vehicleScreen/Group 33696.svg',
-                    height: 16.h,
-                    width: 8.w,
+                  loadingAnimationCurve: Curves.easeIn,
+
+                  icon: Container(
+                    decoration: const BoxDecoration(boxShadow: [
+                      BoxShadow(
+                        offset: Offset(0, 4.7272725105285645),
+                        blurRadius: 5,
+                        spreadRadius: 5,
+                        color: Color(0x0000001A),
+                      )
+                    ]),
+                    child: SvgPicture.asset(
+                      'assets/vehicleScreen/Group 33696.svg',
+                      height: 16.h,
+                      width: 8.w,
+                    ),
                   ),
-                  backgroundColor: const Color(0xFFF3F3F3),
+                  backgroundColor: appTheme,
                   child: FittedBox(
                     child: Text(
                       'Slide to submit',
                       style: GoogleFonts.readexPro(
                           fontSize: 20.sp,
                           fontWeight: FontWeight.w500,
-                          color: const Color(0xFF6D6D6D)),
+                          color: Colors.white),
                     ),
                   ),
                 )

@@ -28,6 +28,7 @@ class WheelSelector extends StatefulWidget {
 
 class _WheelSelectorState extends State<WheelSelector> {
   late FixedExtentScrollController scrollController;
+  late TextEditingController _textController;
   double currentValue = 2.0;
 
   @override
@@ -35,6 +36,7 @@ class _WheelSelectorState extends State<WheelSelector> {
     super.initState();
 
     scrollController = FixedExtentScrollController(initialItem: 0);
+    _textController = TextEditingController(text: currentValue.toString());
   }
 
   @override
@@ -67,7 +69,11 @@ class _WheelSelectorState extends State<WheelSelector> {
               useMagnifier: false,
               backgroundColor: Colors.white,
               itemExtent: widget.itemExtent,
-              onSelectedItemChanged: (index) {},
+              onSelectedItemChanged: (index) {
+                setState(() {
+                  _textController.text = currentValue.toString();
+                });
+              },
               children: List<Widget>.generate(
                 widget.howMuchToGenerate,
                 (index) {
