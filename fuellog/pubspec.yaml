@@ -79,6 +79,7 @@ flutter:
     - assets/homeScreen/
     - assets/vehicleScreen/
     - assets/historyScreen/
+    - assets/profileScreen/
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

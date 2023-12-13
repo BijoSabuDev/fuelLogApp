@@ -1,18 +1,36 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fuellog/view/VehicleScreen/camera_capture.dart';
 import 'package:fuellog/view/VehicleScreen/cupertino_picker.dart';
+import 'package:fuellog/view/VehicleScreen/keyboard_input.dart';
+import 'package:fuellog/view/constants/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class Odo_details_photo extends StatelessWidget {
+class Odo_details_photo extends StatefulWidget {
   const Odo_details_photo({
     super.key,
   });
 
   @override
+  State<Odo_details_photo> createState() => _Odo_details_photoState();
+}
+
+class _Odo_details_photoState extends State<Odo_details_photo> {
+  late TextEditingController _textController;
+  late String _currentValue = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _textController = TextEditingController();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final sw = MediaQuery.of(context).size.width;
+    final txtController = TextEditingController();
+    // final sw = MediaQuery.of(context).size.width;
     return Column(
       children: [
         Stack(
@@ -56,16 +74,110 @@ class Odo_details_photo extends StatelessWidget {
                 child: Row(
                   children: [
                     GestureDetector(
+                      onTap: () {
+                        showCupertinoDialog(
+                          barrierDismissible: true,
+                          context: context,
+                          builder: (ctx) {
+                            return CupertinoAlertDialog(
+                              title: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SvgPicture.asset(
+                                    'assets/vehicleScreen/dashboard-3-line.svg',
+                                    width: 21.w,
+                                    height: 21.h,
+                                  ),
+                                  SizedBox(
+                                    width: 9.w,
+                                  ),
+                                  Text(
+                                    'Enter Odometer km',
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.black),
+                                  ),
+                                ],
+                              ),
+                              content: Padding(
+                                padding: EdgeInsets.only(top: 27.h),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                        width: 320.w,
+                                        height: 62.h,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          gradient: const LinearGradient(
+                                            begin: Alignment.centerLeft,
+                                            end: Alignment.centerRight,
+                                            colors: [
+                                              Colors.white,
+                                              Colors.white,
+                                            ],
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color:
+                                                  Colors.white.withOpacity(0.1),
+                                              spreadRadius: 0,
+                                              blurRadius: 0,
+                                              offset: const Offset(0, 0),
+                                            ),
+                                          ],
+                                        ),
+                                        child: CupertinoTextField(
+                                          keyboardType: TextInputType.number,
+                                          onTap: () {},
+                                          controller: txtController,
+                                        ))
+                                  ],
+                                ),
+                              ),
+                              actions: [
+                                CupertinoDialogAction(
+                                  child: GestureDetector(
+                                    onTap: () {},
+                                    child: Text(
+                                      'Save',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.w600,
+                                          color: appTheme),
+                                    ),
+                                  ),
+                                ),
+                                CupertinoDialogAction(
+                                  child: GestureDetector(
+                                    onTap: () {},
+                                    child: Text(
+                                      'Cancel',
+                                      style: GoogleFonts.poppins(
+                                          fontSize: 20.sp,
+                                          fontWeight: FontWeight.w600,
+                                          color: const Color(0xFFEF4348)),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            );
+                          },
+                        );
+                      },
                       child: SvgPicture.asset(
-                        'assets/vehicleScreen/keyboard (1) 1.svg',
-                        width: 28.w,
-                        height: 28.h,
-                      ),
+                          'assets/vehicleScreen/keyboard (1) 1.svg'),
                     ),
                     SizedBox(
                       width: 9.w,
                     ),
                     WheelSelector(
+                      onValueSelected: (newValue) {
+                        setState(() {
+                          _currentValue = newValue;
+                        });
+                      },
                       containerHeight: 85.h,
                       containerWidth: 160.w,
                       isButtonsVisible: true,
@@ -149,6 +261,7 @@ class Odo_details_photo extends StatelessWidget {
                         child: Row(
                           children: [
                             WheelSelector(
+                              onValueSelected: (newValue) {},
                               howMuchToGenerate: 50,
                               containerHeight: 80.h,
                               containerWidth: 80.w,
@@ -158,6 +271,7 @@ class Odo_details_photo extends StatelessWidget {
                               showDecimal: false,
                             ),
                             WheelSelector(
+                              onValueSelected: (newValue) {},
                               howMuchToGenerate: 100,
                               containerHeight: 80.h,
                               containerWidth: 57.w,
@@ -243,6 +357,7 @@ class Odo_details_photo extends StatelessWidget {
                         padding:
                             EdgeInsets.only(bottom: 9.w, left: 2.w, right: 8.w),
                         child: WheelSelector(
+                          onValueSelected: (newValue) {},
                           howMuchToGenerate: 21,
                           initValue: 2.0,
                           itemExtent: 50,
@@ -285,30 +400,6 @@ class Odo_details_photo extends StatelessWidget {
                 ),
               ),
               const CameraCapture(),
-              // GestureDetector(
-              //   onTap: () {},
-              //   child: Container(
-              //     width: 124.w,
-              //     height: 34.32.h,
-              //     decoration: BoxDecoration(
-              //       color: const Color(0xFFF3F3F3),
-              //       borderRadius: BorderRadius.circular(6.64),
-              //     ),
-              //     child: Center(
-              //       child: Row(
-              //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-              //         children: [
-              //           Text(
-              //             'Take Photo',
-              //             style: GoogleFonts.poppins(
-              //                 fontWeight: FontWeight.w500, fontSize: 12.sp),
-              //           ),
-              //           SvgPicture.asset('assets/vehicleScreen/camera.svg')
-              //         ],
-              //       ),
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),

@@ -76,10 +76,16 @@ class HomeScreen extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const CircleAvatar(
-                                    backgroundColor: Colors.white,
-                                    radius: 25,
-                                    child: Icon(Icons.person)),
+                                CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  radius: 25,
+                                  child: ClipOval(
+                                    child: Image.asset(
+                                      'assets/profileScreen/people-profile-graphic_24911-21374.webp',
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
                                 kw10,
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -143,18 +149,18 @@ class HomeScreen extends StatelessWidget {
                                       fontSize: 18.sp,
                                       color: Colors.white),
                                 ),
-                                SizedBox(
-                                  height: 17.h,
-                                  child: FittedBox(
-                                    child: Text(
-                                      'How to use this application',
-                                      style: GoogleFonts.readexPro(
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 13.77.sp,
-                                          color: Colors.white),
-                                    ),
-                                  ),
-                                ),
+                                // SizedBox(
+                                //   height: 17.h,
+                                //   child: FittedBox(
+                                //     child: Text(
+                                //       'How to use this application',
+                                //       style: GoogleFonts.readexPro(
+                                //           fontWeight: FontWeight.w400,
+                                //           fontSize: 13.77.sp,
+                                //           color: Colors.white),
+                                //     ),
+                                //   ),
+                                // ),
                                 SizedBox(
                                   height: 5.h,
                                 ),
@@ -172,12 +178,27 @@ class HomeScreen extends StatelessWidget {
                                         ),
                                       ),
                                       kw10,
-                                      Text(
-                                        'Click to play',
-                                        style: GoogleFonts.readexPro(
-                                            fontSize: 12.sp,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w400),
+                                      RichText(
+                                        text: TextSpan(
+                                          children: [
+                                            TextSpan(
+                                              text: 'How to use this\n',
+                                              style: GoogleFonts.readexPro(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 13.77.sp,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            TextSpan(
+                                              text: 'application',
+                                              style: GoogleFonts.readexPro(
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 13.77.sp,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       )
                                     ],
                                   ),
@@ -246,7 +267,7 @@ class HomeScreen extends StatelessWidget {
                                   buttonPressed.value = !buttonPressed.value;
                                   await Future.delayed(500.ms);
                                   requestCameraPermission();
-                                  scanQrCode(context);
+                                  startScanAndNavigate(context);
                                   buttonPressed.value = !buttonPressed.value;
                                 },
                                 child: Image.asset(
@@ -297,17 +318,43 @@ class HomeScreen extends StatelessWidget {
   void scanQrCode(context) async {
     String qrScanner;
     try {
-      qrScanner = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.QR);
+      Future.delayed(const Duration(seconds: 2), () {
+        FlutterBarcodeScanner.scanBarcode(
+            '#ff6666', 'Cancel', true, ScanMode.QR);
+        Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+          return const VehicleScreen();
+        }));
+      });
+      // FlutterBarcodeScanner.scanBarcode('#ff6666', 'Cancel', true, ScanMode.QR);
 
       // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
       //   return VehicleScreen();
       // }));
-      debugPrint(qrScanner);
+      // debugPrint(qrScanner);
+
+      // Future.delayed(const Duration(seconds: 2), () {
+      //   Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+      //     return const VehicleScreen();
+      //   }));
+      // });
     } on PlatformException {
       qrScanner = 'failed to get platform version';
       print('Error occurred');
     }
+  }
+
+  void startScanAndNavigate(BuildContext context) async {
+    // Initiating the scan
+    // String qrScanner = await FlutterBarcodeScanner.scanBarcode(
+    //     '#ff6666', 'Cancel', true, ScanMode.QR);
+
+    // Delaying the navigation after the scan for demonstration purposes
+    await Future.delayed(const Duration(seconds: 1));
+
+    // Navigating to VehicleScreen
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+      return const VehicleScreen();
+    }));
   }
 
   Future<void> requestCameraPermission() async {

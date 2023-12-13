@@ -5,6 +5,8 @@ import 'package:fuellog/view/VehicleScreen/increment_decrement_buttons.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WheelSelector extends StatefulWidget {
+  final Function(String) onValueSelected;
+
   final double containerHeight;
   final double containerWidth;
   final bool isButtonsVisible;
@@ -20,7 +22,8 @@ class WheelSelector extends StatefulWidget {
       required this.itemExtent,
       required this.initValue,
       required this.showDecimal,
-      required this.howMuchToGenerate});
+      required this.howMuchToGenerate,
+      required this.onValueSelected});
 
   @override
   State<WheelSelector> createState() => _WheelSelectorState();
@@ -36,7 +39,8 @@ class _WheelSelectorState extends State<WheelSelector> {
     super.initState();
 
     scrollController = FixedExtentScrollController(initialItem: 0);
-    _textController = TextEditingController(text: currentValue.toString());
+    // _textController =
+    //     TextEditingController(text: widget.currentValue.toString());
   }
 
   @override

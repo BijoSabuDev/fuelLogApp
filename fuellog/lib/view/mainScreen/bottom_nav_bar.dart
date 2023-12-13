@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fuellog/view/constants/colors.dart';
 
@@ -44,7 +45,7 @@ class BottomNavBar extends StatelessWidget {
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                'assets/homeScreen/vehicle.svg',
+                'assets/homeScreen/history.svg',
                 colorFilter: selectedIndexNotifier.value == 1
                     ? const ColorFilter.mode(
                         appTheme,
@@ -55,22 +56,29 @@ class BottomNavBar extends StatelessWidget {
                         BlendMode.srcIn,
                       ),
               ),
-              label: 'Vehicle',
+              label: 'History',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/homeScreen/history.svg',
-                colorFilter: selectedIndexNotifier.value == 2
-                    ? const ColorFilter.mode(
-                        appTheme,
-                        BlendMode.srcIn,
-                      )
-                    : const ColorFilter.mode(
-                        Color(0xFFB8B8B8),
-                        BlendMode.srcIn,
-                      ),
+              icon: Icon(
+                Icons.person_2_outlined,
+                size: 34.h,
+                color: selectedIndexNotifier.value == 2
+                    ? appTheme
+                    : const Color(0xFFB8B8B8),
               ),
-              label: 'History',
+              // icon: SvgPicture.asset(
+              //   'assets/homeScreen/Vector.svg',
+              //   colorFilter: selectedIndexNotifier.value == 2
+              //       ? const ColorFilter.mode(
+              //           appTheme,
+              //           BlendMode.srcIn,
+              //         )
+              //       : const ColorFilter.mode(
+              //           Color(0xFFB8B8B8),
+              //           BlendMode.srcIn,
+              //         ),
+              // ),
+              label: 'Profile',
             ),
           ],
         );
