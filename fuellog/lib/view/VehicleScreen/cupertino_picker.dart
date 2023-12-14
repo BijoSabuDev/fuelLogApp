@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/view/VehicleScreen/increment_decrement_buttons.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WheelSelector extends StatefulWidget {
   final Function(String) onValueSelected;
-
+  late double inputValue = 0;
   final double containerHeight;
   final double containerWidth;
   final bool isButtonsVisible;
@@ -14,7 +15,7 @@ class WheelSelector extends StatefulWidget {
   final double initValue;
   final bool showDecimal;
   final int howMuchToGenerate;
-  const WheelSelector(
+  WheelSelector(
       {super.key,
       required this.containerHeight,
       required this.containerWidth,
@@ -23,7 +24,8 @@ class WheelSelector extends StatefulWidget {
       required this.initValue,
       required this.showDecimal,
       required this.howMuchToGenerate,
-      required this.onValueSelected});
+      required this.onValueSelected,
+      required this.inputValue});
 
   @override
   State<WheelSelector> createState() => _WheelSelectorState();
@@ -31,8 +33,8 @@ class WheelSelector extends StatefulWidget {
 
 class _WheelSelectorState extends State<WheelSelector> {
   late FixedExtentScrollController scrollController;
-  late TextEditingController _textController;
-  double currentValue = 2.0;
+  // late TextEditingController _textController;
+  // double currentValue = 2.0;
 
   @override
   void initState() {
@@ -75,7 +77,7 @@ class _WheelSelectorState extends State<WheelSelector> {
               itemExtent: widget.itemExtent,
               onSelectedItemChanged: (index) {
                 setState(() {
-                  _textController.text = currentValue.toString();
+                  HapticFeedback.mediumImpact();
                 });
               },
               children: List<Widget>.generate(
@@ -83,7 +85,14 @@ class _WheelSelectorState extends State<WheelSelector> {
                 (index) {
                   double nonDecimal = widget.initValue + (index * 1);
                   double value = widget.initValue + (index / 10);
-
+                  int currentValue = widget.inputValue.toInt() + index;
+                  if (currentValue > 999999) {
+                    currentValue = 150000 + index;
+                  }
+                  String displayedValue = currentValue.toString();
+                  if (displayedValue.length > 6) {
+                    displayedValue = displayedValue.substring(0, 6);
+                  }
                   return Center(
                     child: widget.showDecimal
                         ? Text(
@@ -95,7 +104,9 @@ class _WheelSelectorState extends State<WheelSelector> {
                             ),
                           )
                         : Text(
-                            nonDecimal.toInt().toString(),
+                            widget.inputValue == 0
+                                ? nonDecimal.toInt().toString()
+                                : displayedValue,
                             style: GoogleFonts.readexPro(
                               fontSize: 36.sp,
                               fontWeight: FontWeight.w500,

@@ -272,14 +272,14 @@ class HomeScreen extends StatelessWidget {
                                 },
                                 child: Image.asset(
                                   'assets/homeScreen/button.png',
-                                  height: 110.h,
-                                  width: 110.w,
+                                  height: 132.h,
+                                  width: 132.w,
                                 ),
                               )
                             : Image.asset(
                                 'assets/homeScreen/buttonhome.png',
-                                height: 110.h,
-                                width: 110.w,
+                                height: 132.h,
+                                width: 132.w,
                               ),
                       );
                     },
@@ -294,7 +294,7 @@ class HomeScreen extends StatelessWidget {
                           style: GoogleFonts.readexPro(
                               color: Colors.black,
                               fontWeight: FontWeight.w500,
-                              fontSize: 30.sp),
+                              fontSize: 19.35.sp),
                         ),
                       ],
                     ),

@@ -62,8 +62,9 @@ class ProfileAppBar extends StatelessWidget {
                     Container(
                       width: 29.w,
                       height: 29.h,
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6),
+                        gradient: const LinearGradient(
                           colors: [
                             Color(0xFFEAEAEA), // #EAEAEA
                             Color(0xFFBABEC3), // #BABEC3

@@ -32,23 +32,35 @@ class VehicleScreenAppBar extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                           color: Colors.black),
                     ),
-                    content: Column(
-                      children: [
-                        Text(
-                          'Are you sure you want to discard this',
-                          style: GoogleFonts.poppins(
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
+                    content: SizedBox(
+                      width: 300.w,
+                      height: 48.h,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Do you want to discard this fuel\n',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: 'entry? Your entry will be lost',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        Text(
-                          'fuel entry? Your entry will be lost',
-                          style: GoogleFonts.poppins(
-                              fontSize: 13.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black),
-                        ),
-                      ],
+                      ),
                     ),
                     actions: [
                       CupertinoDialogAction(

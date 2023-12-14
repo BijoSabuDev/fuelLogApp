@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class EnquiryContainer extends StatelessWidget {
   const EnquiryContainer({
     super.key,
@@ -22,22 +21,29 @@ class EnquiryContainer extends StatelessWidget {
           SizedBox(
             height: 30.h,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                  'assets/profileScreen/customer-service-2-fill.svg'),
-              SizedBox(
-                width: 10.w,
+          SizedBox(
+            width: 314.w,
+            height: 24.h,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                      'assets/profileScreen/customer-service-2-fill.svg'),
+                  SizedBox(
+                    width: 10.w,
+                  ),
+                  Text(
+                    'For any support or help contact us at',
+                    style: GoogleFonts.inter(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
               ),
-              Text(
-                'For any support or help contact us at',
-                style: GoogleFonts.inter(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ],
+            ),
           ),
           SizedBox(
             height: 17.h,

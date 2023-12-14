@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fuellog/view/VehicleScreen/camera_capture.dart';
 import 'package:fuellog/view/VehicleScreen/cupertino_picker.dart';
-import 'package:fuellog/view/VehicleScreen/keyboard_input.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,7 +18,7 @@ class Odo_details_photo extends StatefulWidget {
 
 class _Odo_details_photoState extends State<Odo_details_photo> {
   late TextEditingController _textController;
-  late String _currentValue = '';
+  late double _currentValue = 0;
 
   @override
   void initState() {
@@ -76,7 +75,6 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                     GestureDetector(
                       onTap: () {
                         showCupertinoDialog(
-                          barrierDismissible: true,
                           context: context,
                           builder: (ctx) {
                             return CupertinoAlertDialog(
@@ -130,7 +128,6 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                                         ),
                                         child: CupertinoTextField(
                                           keyboardType: TextInputType.number,
-                                          onTap: () {},
                                           controller: txtController,
                                         ))
                                   ],
@@ -139,7 +136,13 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                               actions: [
                                 CupertinoDialogAction(
                                   child: GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      setState(() {
+                                        _currentValue =
+                                            double.parse(txtController.text);
+                                      });
+                                      Navigator.of(context).pop();
+                                    },
                                     child: Text(
                                       'Save',
                                       style: GoogleFonts.poppins(
@@ -151,7 +154,9 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                                 ),
                                 CupertinoDialogAction(
                                   child: GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
                                     child: Text(
                                       'Cancel',
                                       style: GoogleFonts.poppins(
@@ -173,11 +178,8 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                       width: 9.w,
                     ),
                     WheelSelector(
-                      onValueSelected: (newValue) {
-                        setState(() {
-                          _currentValue = newValue;
-                        });
-                      },
+                      inputValue: _currentValue,
+                      onValueSelected: (newValue) {},
                       containerHeight: 85.h,
                       containerWidth: 160.w,
                       isButtonsVisible: true,
@@ -261,6 +263,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                         child: Row(
                           children: [
                             WheelSelector(
+                              inputValue: 0,
                               onValueSelected: (newValue) {},
                               howMuchToGenerate: 50,
                               containerHeight: 80.h,
@@ -271,6 +274,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                               showDecimal: false,
                             ),
                             WheelSelector(
+                              inputValue: 0,
                               onValueSelected: (newValue) {},
                               howMuchToGenerate: 100,
                               containerHeight: 80.h,
@@ -357,6 +361,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                         padding:
                             EdgeInsets.only(bottom: 9.w, left: 2.w, right: 8.w),
                         child: WheelSelector(
+                          inputValue: 0,
                           onValueSelected: (newValue) {},
                           howMuchToGenerate: 21,
                           initValue: 2.0,
@@ -385,18 +390,25 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
           child: Row(
             children: [
               Expanded(
-                child: Row(
-                  children: [
-                    SvgPicture.asset('assets/vehicleScreen/info (3) 1.svg'),
-                    SizedBox(
-                      width: 7.w,
+                child: SizedBox(
+                  width: 220.w,
+                  height: 18.h,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Row(
+                      children: [
+                        SvgPicture.asset('assets/vehicleScreen/info (3) 1.svg'),
+                        SizedBox(
+                          width: 7.w,
+                        ),
+                        Text(
+                          '150.12 ltr X 2.68 aed = 402.32 Aed',
+                          style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.w500, fontSize: 12.sp),
+                        )
+                      ],
                     ),
-                    Text(
-                      '150.12 ltr X 2.68 aed = 402.32 Aed',
-                      style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500, fontSize: 12.sp),
-                    )
-                  ],
+                  ),
                 ),
               ),
               const CameraCapture(),

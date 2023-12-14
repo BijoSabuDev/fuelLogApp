@@ -48,17 +48,20 @@ class _CameraCaptureState extends State<CameraCapture> {
           color: const Color(0xFFF3F3F3),
           borderRadius: BorderRadius.circular(6.64),
         ),
-        child: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                'Take Photo',
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w500, fontSize: 12.sp),
-              ),
-              SvgPicture.asset('assets/vehicleScreen/camera.svg')
-            ],
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  'Take Photo',
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w500, fontSize: 12.sp),
+                ),
+                SvgPicture.asset('assets/vehicleScreen/camera.svg')
+              ],
+            ),
           ),
         ),
       ),
