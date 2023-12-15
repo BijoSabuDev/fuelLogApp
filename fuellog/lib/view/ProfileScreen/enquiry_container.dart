@@ -12,89 +12,92 @@ class EnquiryContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 371.w,
+      height: 136.h,
       decoration: BoxDecoration(
           border: Border.all(width: 1, color: const Color(0xFFD9D9D9)),
           borderRadius: BorderRadius.circular(16),
           color: const Color(0xFFD9D9D9).withOpacity(0.1)),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 30.h,
-          ),
-          SizedBox(
-            width: 314.w,
-            height: 24.h,
-            child: FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                      'assets/profileScreen/customer-service-2-fill.svg'),
-                  SizedBox(
-                    width: 10.w,
-                  ),
-                  Text(
-                    'For any support or help contact us at',
-                    style: GoogleFonts.inter(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w400,
+      child: FittedBox(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 22.h,
+            ),
+            SizedBox(
+              width: 314.w,
+              height: 24.h,
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SvgPicture.asset(
+                        'assets/profileScreen/customer-service-2-fill.svg'),
+                    SizedBox(
+                      width: 10.w,
                     ),
-                  ),
-                ],
+                    Text(
+                      'For any support or help contact us at',
+                      style: GoogleFonts.inter(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          SizedBox(
-            height: 17.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                'assets/profileScreen/phone-fill.svg',
-                width: 18.w,
-                height: 18.h,
-              ),
-              SizedBox(
-                width: 4.w,
-              ),
-              Text(
-                '+971 123 465 798',
-                style: GoogleFonts.readexPro(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.black.withOpacity(0.5)),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 8.h,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                'assets/profileScreen/mail-line.svg',
-                width: 18.w,
-                height: 18.h,
-              ),
-              SizedBox(
-                width: 4.w,
-              ),
-              Text(
-                'support@safetri.com',
-                style: GoogleFonts.readexPro(
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w300,
-                    color: Colors.black.withOpacity(0.5)),
-              )
-            ],
-          ),
-          SizedBox(
-            height: 21.h,
-          ),
-        ],
+            SizedBox(
+              height: 12.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  'assets/profileScreen/phone-fill.svg',
+                  width: 18.w,
+                  height: 18.h,
+                ),
+                SizedBox(
+                  width: 4.w,
+                ),
+                Text(
+                  '+971 123 465 798',
+                  style: GoogleFonts.readexPro(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black.withOpacity(0.5)),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 4.h,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  'assets/profileScreen/mail-line.svg',
+                  width: 18.w,
+                  height: 18.h,
+                ),
+                SizedBox(
+                  width: 4.w,
+                ),
+                Text(
+                  'support@safetri.com',
+                  style: GoogleFonts.readexPro(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.black.withOpacity(0.5)),
+                )
+              ],
+            ),
+            SizedBox(
+              height: 22.h,
+            ),
+          ],
+        ),
       ),
     );
   }

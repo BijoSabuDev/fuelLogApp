@@ -26,15 +26,15 @@ class VehicleScreen extends StatelessWidget {
         body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 22.w),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SizedBox(
-                  height: 2.h,
+                  height: 75.h,
                 ),
                 const VehicleScreenAppBar(),
-                // SizedBox(
-                //   height: 2.h,
-                // ),
+                SizedBox(
+                  height: 22.h,
+                ),
                 const Odo_details_photo()
                     .animate(delay: 0.ms)
                     .fadeIn(
@@ -45,10 +45,10 @@ class VehicleScreen extends StatelessWidget {
                       begin: -0.1,
                       end: 0,
                     ),
-                // SizedBox(
-                //   height: 4.h,
-                // ),
-                // if (sh >= 600)
+                SizedBox(
+                  height: 11.h,
+                ),
+
                 Image.asset(
                   'assets/vehicleScreen/image 150.png',
                   width: 405.w,
@@ -59,9 +59,9 @@ class VehicleScreen extends StatelessWidget {
                     .slideX(delay: 100.ms),
 
                 // Bus no and petrol details
-                // SizedBox(
-                //   height: 4.h,
-                // ),
+                SizedBox(
+                  height: 26.h,
+                ),
                 SizedBox(
                   height: 30.h,
                   child: const BusNumberBox()
@@ -77,7 +77,9 @@ class VehicleScreen extends StatelessWidget {
                         end: 0,
                       ),
                 ),
-
+                SizedBox(
+                  height: 38.h,
+                ),
                 ActionSlider.standard(
                   // height: 68.h,
                   foregroundBorderRadius: BorderRadius.circular(42),

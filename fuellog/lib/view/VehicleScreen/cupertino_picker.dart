@@ -95,22 +95,34 @@ class _WheelSelectorState extends State<WheelSelector> {
                   }
                   return Center(
                     child: widget.showDecimal
-                        ? Text(
-                            value.toStringAsFixed(1),
-                            style: GoogleFonts.readexPro(
-                              fontSize: 36.sp,
-                              fontWeight: FontWeight.w500,
-                              color: const Color(0xFF1D1D1D),
+                        ? SizedBox(
+                            width: 122.w,
+                            height: 45.h,
+                            child: FittedBox(
+                              child: Text(
+                                value.toStringAsFixed(1),
+                                style: GoogleFonts.readexPro(
+                                  fontSize: 36.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: const Color(0xFF1D1D1D),
+                                ),
+                              ),
                             ),
                           )
-                        : Text(
-                            widget.inputValue == 0
-                                ? nonDecimal.toInt().toString()
-                                : displayedValue,
-                            style: GoogleFonts.readexPro(
-                              fontSize: 36.sp,
-                              fontWeight: FontWeight.w500,
-                              color: const Color(0xFF1D1D1D),
+                        : SizedBox(
+                            width: 122.w,
+                            height: 45.h,
+                            child: FittedBox(
+                              child: Text(
+                                widget.inputValue == 0
+                                    ? nonDecimal.toInt().toString()
+                                    : displayedValue,
+                                style: GoogleFonts.readexPro(
+                                  fontSize: 36.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: const Color(0xFF1D1D1D),
+                                ),
+                              ),
                             ),
                           ),
                   );

@@ -10,6 +10,9 @@ class SuccessPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      selectedIndexNotifier.value = 0;
+    });
     return Scaffold(
       body: Center(
         child: Column(
@@ -56,7 +59,6 @@ class SuccessPage extends StatelessWidget {
               onTap: () {
                 Navigator.of(context)
                     .pushReplacement(MaterialPageRoute(builder: (context) {
-                  selectedIndexNotifier.value = 0;
                   return MainScreen();
                 }));
               },

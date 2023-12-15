@@ -20,7 +20,7 @@ class ProfileAppBar extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-            height: 82.h,
+            height: 71.h,
           ),
           Row(
             children: [

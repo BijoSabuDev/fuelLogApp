@@ -11,15 +11,17 @@ import 'package:fuellog/view/HIstoryScreen/listview_item.dart';
 import 'package:fuellog/view/HIstoryScreen/no_record_screen.dart';
 import 'package:fuellog/view/HIstoryScreen/search_or_scan.dart';
 import 'package:fuellog/view/util/bus_no_box.dart';
-import 'package:fuellog/view/util/search_field.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class HistoryScreen extends StatelessWidget {
   HistoryScreen({super.key});
+
   final HistoryScreenController historyController =
-      Get.find<HistoryScreenController>();
+      Get.put(HistoryScreenController());
+
+  // final HistoryScreenController historyController =
+  //     Get.find<HistoryScreenController>();
   @override
   Widget build(BuildContext context) {
     void scanQr() async {
@@ -40,10 +42,11 @@ class HistoryScreen extends StatelessWidget {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: Column(
         children: [
           SizedBox(
-            height: 65.h,
+            height: 82.h,
           ),
           const HistoryAppBar(),
           SizedBox(
@@ -52,8 +55,15 @@ class HistoryScreen extends StatelessWidget {
           HistorySearchBarCustom(
                   onPressedFunction: scanQr,
                   width: 391.w,
-                  suffixIcon:
-                      SvgPicture.asset('assets/historyScreen/scan 1.svg'))
+                  suffixIcon: Padding(
+                    padding: EdgeInsets.only(right: 24.h),
+                    child: SvgPicture.asset(
+                      'assets/historyScreen/scan 1.svg',
+                      height: 32.h,
+                      width: 32.w,
+                      fit: BoxFit.scaleDown,
+                    ),
+                  ))
               .animate()
               .fadeIn(delay: 100.ms, duration: 500.ms, curve: Curves.easeOut)
               .slideY(
@@ -66,7 +76,9 @@ class HistoryScreen extends StatelessWidget {
             height: 33.h,
           ),
           GetX<HistoryScreenController>(builder: (controller) {
-            if (controller.userInput.value != '') {
+            if (controller.userInput.value == '') {
+              return const SearchOrScan();
+            } else if (controller.userInput.value == '2222') {
               return Expanded(
                 child: Column(
                   children: [
@@ -123,14 +135,10 @@ class HistoryScreen extends StatelessWidget {
                   ],
                 ),
               );
-            } else if (controller.userInput.value == '') {
-              return const SearchOrScan();
-            } else if (controller.userInput.value == '2222') {
+            } else if (controller.userInput.value != '2222') {
               return const NoRecordScreen();
             } else {
-              return Center(
-                child: Text('No data'),
-              );
+              return const NoRecordScreen();
             }
           })
         ],

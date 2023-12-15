@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fuellog/controller/historyScreen/history_screen.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:fuellog/view/splash_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +7,7 @@ import 'package:get/get.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-   final HistoryScreenController historyController = Get.put(HistoryScreenController());
+  //  final HistoryScreenController historyController = Get.put(HistoryScreenController());
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   ).then((value) {

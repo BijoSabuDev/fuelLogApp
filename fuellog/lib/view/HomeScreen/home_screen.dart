@@ -20,231 +20,232 @@ class HomeScreen extends StatelessWidget {
     ValueNotifier<bool> buttonPressed = ValueNotifier(true);
     final sw = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 81.h, left: 25.w),
-                  child: LogoWithText(sw: sw),
-                ),
-                // SizedBox(
-                //   height: 21.h,
-                // ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                SearchBarCustom(
-                  width: 372.w,
-                  suffixIcon: Icon(
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        children: [
+          Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 81.h, left: 25.w),
+                child: LogoWithText(sw: sw),
+              ),
+              // SizedBox(
+              //   height: 21.h,
+              // ),
+              SizedBox(
+                height: 30.h,
+              ),
+              SearchBarCustom(
+                width: 372.w,
+                suffixIcon: Padding(
+                  padding: EdgeInsets.only(right: 12.h),
+                  child: Icon(
                     Icons.arrow_forward_ios,
                     size: sw * 0.044,
                     color: appTheme,
                   ),
-                )
-                    .animate(delay: 0.ms)
-                    .fade(delay: 200.ms, duration: 600.ms)
-                    .slideY(
-                      delay: 100.ms,
-                      curve: Curves.linear,
-                      begin: 0.3,
-                      end: 0.0,
-                    ),
-                SizedBox(
-                  height: 22.h,
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  height: 121.h,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                const Color(0xFFECEFF5),
-                                const Color(0xFFECEFF5).withOpacity(0.32),
-                              ],
-                            ),
+              )
+                  .animate(delay: 0.ms)
+                  .fade(delay: 200.ms, duration: 600.ms)
+                  .slideY(
+                    delay: 100.ms,
+                    curve: Curves.linear,
+                    begin: 0.3,
+                    end: 0.0,
+                  ),
+              SizedBox(
+                height: 22.h,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: 121.h,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              const Color(0xFFECEFF5),
+                              const Color(0xFFECEFF5).withOpacity(0.32),
+                            ],
                           ),
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  radius: 25,
-                                  child: ClipOval(
-                                    child: Image.asset(
-                                      'assets/profileScreen/people-profile-graphic_24911-21374.webp',
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+                        ),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 25,
+                                child: SvgPicture.asset(
+                                  'assets/profileScreen/profilepic.svg',
                                 ),
-                                kw10,
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                              ),
+                              kw10,
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  RichText(
+                                    textAlign: TextAlign.start,
+                                    text: TextSpan(
+                                      style: GoogleFonts.readexPro(
+                                          fontWeight: FontWeight.w400,
+                                          color: const Color(0xFFA2B2C8)),
+                                      children: [
+                                        TextSpan(
+                                          text: 'Welcome\n',
+                                          style: GoogleFonts.readexPro(
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14.sp,
+                                              color: const Color(0xFFA2B2C8)),
+                                        ),
+                                        TextSpan(
+                                          text: 'Sarah Yusuf',
+                                          style: GoogleFonts.readexPro(
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 18.sp,
+                                              color: Colors.black),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Color(0xFF0056DD),
+                              Color(0xFF3F8AFF),
+                            ],
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            top: 6.h,
+                            left: 17.w,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Watch',
+                                style: GoogleFonts.readexPro(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18.sp,
+                                    color: Colors.white),
+                              ),
+                              // SizedBox(
+                              //   height: 17.h,
+                              //   child: FittedBox(
+                              //     child: Text(
+                              //       'How to use this application',
+                              //       style: GoogleFonts.readexPro(
+                              //           fontWeight: FontWeight.w400,
+                              //           fontSize: 13.77.sp,
+                              //           color: Colors.white),
+                              //     ),
+                              //   ),
+                              // ),
+                              SizedBox(
+                                height: 5.h,
+                              ),
+                              SizedBox(
+                                height: 43.h,
+                                child: Row(
                                   children: [
+                                    CircleAvatar(
+                                      radius: sw * 0.042,
+                                      backgroundColor: Colors.white,
+                                      child: SvgPicture.asset(
+                                        'assets/homeScreen/Polygon 1.svg',
+                                        height: 14.h,
+                                        alignment: Alignment.center,
+                                      ),
+                                    ),
+                                    kw10,
                                     RichText(
-                                      textAlign: TextAlign.start,
                                       text: TextSpan(
-                                        style: GoogleFonts.readexPro(
-                                            fontWeight: FontWeight.w400,
-                                            color: const Color(0xFFA2B2C8)),
                                         children: [
                                           TextSpan(
-                                            text: 'Welcome\n',
+                                            text: 'How to use this\n',
                                             style: GoogleFonts.readexPro(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 14.sp,
-                                                color: const Color(0xFFA2B2C8)),
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 13.77.sp,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                           TextSpan(
-                                            text: 'Sarah Yusuf',
+                                            text: 'application',
                                             style: GoogleFonts.readexPro(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 18.sp,
-                                                color: Colors.black),
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 13.77.sp,
+                                              color: Colors.white,
+                                            ),
                                           ),
                                         ],
                                       ),
                                     )
                                   ],
-                                )
-                              ],
-                            ),
+                                ),
+                              )
+                            ],
                           ),
                         ),
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Color(0xFF0056DD),
-                                Color(0xFF3F8AFF),
-                              ],
-                            ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              top: 6.h,
-                              left: 17.w,
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Watch',
-                                  style: GoogleFonts.readexPro(
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 18.sp,
-                                      color: Colors.white),
-                                ),
-                                // SizedBox(
-                                //   height: 17.h,
-                                //   child: FittedBox(
-                                //     child: Text(
-                                //       'How to use this application',
-                                //       style: GoogleFonts.readexPro(
-                                //           fontWeight: FontWeight.w400,
-                                //           fontSize: 13.77.sp,
-                                //           color: Colors.white),
-                                //     ),
-                                //   ),
-                                // ),
-                                SizedBox(
-                                  height: 5.h,
-                                ),
-                                SizedBox(
-                                  height: 43.h,
-                                  child: Row(
-                                    children: [
-                                      CircleAvatar(
-                                        radius: sw * 0.042,
-                                        backgroundColor: Colors.white,
-                                        child: SvgPicture.asset(
-                                          'assets/homeScreen/Polygon 1.svg',
-                                          height: 14.h,
-                                          alignment: Alignment.center,
-                                        ),
-                                      ),
-                                      kw10,
-                                      RichText(
-                                        text: TextSpan(
-                                          children: [
-                                            TextSpan(
-                                              text: 'How to use this\n',
-                                              style: GoogleFonts.readexPro(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 13.77.sp,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            TextSpan(
-                                              text: 'application',
-                                              style: GoogleFonts.readexPro(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 13.77.sp,
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            )
-                .animate(delay: 0.ms)
-                .fadeIn(delay: 200.ms, duration: 600.ms, curve: Curves.easeOut)
-                .slideY(
-                  delay: 100.ms,
-                  curve: Curves.linear,
-                  begin: -0.1,
-                  end: 0.0,
+              ),
+            ],
+          )
+              .animate(delay: 0.ms)
+              .fadeIn(delay: 200.ms, duration: 600.ms, curve: Curves.easeOut)
+              .slideY(
+                delay: 100.ms,
+                curve: Curves.linear,
+                begin: -0.1,
+                end: 0.0,
+              ),
+          SizedBox(
+            height: 14.h,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/homeScreen/image 152.png',
+                      width: 400.w,
+                      height: 200.h,
+                      fit: BoxFit.fill,
+                    ),
+                  ],
                 ),
-            SizedBox(
-              height: 30.h,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        'assets/homeScreen/image 152.png',
-                        width: 400.w,
-                        height: 200.h,
-                        fit: BoxFit.fill,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            )
-                .animate(delay: 0.ms)
-                .fadeIn(delay: 200.ms, duration: 600.ms, curve: Curves.easeOut)
-                .slideX(delay: 100.ms),
-            SizedBox(height: 40.h),
-            SizedBox(
+              ),
+            ],
+          )
+              .animate(delay: 0.ms)
+              .fadeIn(delay: 200.ms, duration: 600.ms, curve: Curves.easeOut)
+              .slideX(delay: 100.ms),
+          SizedBox(height: 31.h),
+          SizedBox(
+            height: 190.h,
+            child: FittedBox(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -294,7 +295,7 @@ class HomeScreen extends StatelessWidget {
                           style: GoogleFonts.readexPro(
                               color: Colors.black,
                               fontWeight: FontWeight.w500,
-                              fontSize: 19.35.sp),
+                              fontSize: 26.35.sp),
                         ),
                       ],
                     ),
@@ -305,12 +306,12 @@ class HomeScreen extends StatelessWidget {
                   .fadeIn(delay: 0.ms, duration: 600.ms)
                   .scaleXY(duration: 300.ms, curve: Curves.easeIn),
             ),
-            // SizedBox(
-            //   height: 27.h,
-            // ),
-            // SizedBox(height: 10.h),
-          ],
-        ),
+          ),
+          // SizedBox(
+          //   height: 27.h,
+          // ),
+          // SizedBox(height: 10.h),
+        ],
       ),
     );
   }

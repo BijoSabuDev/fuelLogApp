@@ -31,9 +31,11 @@ class EditProfileScreen extends StatelessWidget {
                   color: Colors.grey[200],
                 ),
                 child: ClipOval(
-                  child: Image.asset(
-                    'assets/profileScreen/people-profile-graphic_24911-21374.webp',
-                    fit: BoxFit.cover,
+                  child: SvgPicture.asset(
+                    'assets/profileScreen/profilepic.svg',
+                    width: 210.w,
+                    height: 210.h,
+                    fit: BoxFit.scaleDown,
                   ),
                 ),
               ),
