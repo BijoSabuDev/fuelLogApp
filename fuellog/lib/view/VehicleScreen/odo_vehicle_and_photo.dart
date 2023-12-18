@@ -36,7 +36,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
           alignment: Alignment.topCenter,
           children: [
             SizedBox(
-              height: 192.h,
+              height: 198.h,
               width: double.infinity,
             ),
             Positioned(
@@ -194,7 +194,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
         ),
 
         SizedBox(
-          height: 25.h,
+          height: 40.h,
         ),
 
         // Fuel and Fuel price
@@ -379,7 +379,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
         ),
 
         SizedBox(
-          height: 10.34.h,
+          height: 20.0.h,
         ),
         // next text and take photo sections
 

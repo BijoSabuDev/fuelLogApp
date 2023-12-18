@@ -33,7 +33,7 @@ class VehicleScreen extends StatelessWidget {
                 ),
                 const VehicleScreenAppBar(),
                 SizedBox(
-                  height: 22.h,
+                  height: 18.h,
                 ),
                 const Odo_details_photo()
                     .animate(delay: 0.ms)
@@ -46,7 +46,7 @@ class VehicleScreen extends StatelessWidget {
                       end: 0,
                     ),
                 SizedBox(
-                  height: 11.h,
+                  height: 22.h,
                 ),
 
                 Image.asset(
