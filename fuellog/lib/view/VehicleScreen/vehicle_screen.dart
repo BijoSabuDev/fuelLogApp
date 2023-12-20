@@ -46,7 +46,7 @@ class VehicleScreen extends StatelessWidget {
                       end: 0,
                     ),
                 SizedBox(
-                  height: 22.h,
+                  height: 16.h,
                 ),
 
                 Image.asset(
@@ -78,7 +78,7 @@ class VehicleScreen extends StatelessWidget {
                       ),
                 ),
                 SizedBox(
-                  height: 38.h,
+                  height: 32.h,
                 ),
                 ActionSlider.standard(
                   // height: 68.h,

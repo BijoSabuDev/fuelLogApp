@@ -194,7 +194,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
         ),
 
         SizedBox(
-          height: 40.h,
+          height: 30.h,
         ),
 
         // Fuel and Fuel price
