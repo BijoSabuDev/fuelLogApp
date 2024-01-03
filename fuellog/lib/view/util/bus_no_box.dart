@@ -6,7 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 // THESE ARE USED IN VEHICLE AND HISTORY SCREEN THAT SHOWS THE BUS NO , FUEL TYPE AND REGISTRATION NO
 
 class BusNumberBox extends StatelessWidget {
-  const BusNumberBox({super.key});
+  final String busNo;
+  final String fuelType;
+  final String regNo;
+  const BusNumberBox(
+      {super.key,
+      required this.busNo,
+      required this.regNo,
+      required this.fuelType});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +42,7 @@ class BusNumberBox extends StatelessWidget {
                 child: FittedBox(
                   child: Center(
                     child: Text(
-                      '52',
+                      busNo,
                       style: GoogleFonts.readexPro(
                           color: Colors.white,
                           fontSize: 20.sp,
@@ -60,7 +67,7 @@ class BusNumberBox extends StatelessWidget {
                 width: 9.w,
               ),
               Text(
-                'Petrol',
+                fuelType,
                 style: GoogleFonts.readexPro(
                     fontWeight: FontWeight.w500, fontSize: 14.sp),
               )
@@ -72,7 +79,7 @@ class BusNumberBox extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                'DXB 4651',
+                regNo,
                 style: GoogleFonts.readexPro(
                     fontSize: 20.sp, fontWeight: FontWeight.w500),
               )

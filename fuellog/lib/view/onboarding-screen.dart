@@ -34,8 +34,8 @@ class OnboardingScreen extends StatelessWidget {
             ClipRRect(
               child: Image.asset(
                 fit: BoxFit.fill,
-                filterQuality: FilterQuality.high,
-                'assets/onboardingScreen/fuel-log-bg.webp',
+                filterQuality: FilterQuality.low,
+                'assets/onboardingScreen/onboarding.png',
                 frameBuilder: (BuildContext context, Widget child, int? frame,
                     bool wasSynchronouslyLoaded) {
                   if (wasSynchronouslyLoaded) {
@@ -52,10 +52,10 @@ class OnboardingScreen extends StatelessWidget {
                 },
               )
                   .animate(
-                    delay: 400.ms,
+                    delay: 200.ms,
                   )
                   .fadeIn(
-                    delay: 500.ms,
+                    delay: 300.ms,
                     curve: Curves.easeIn,
                   ),
             ),

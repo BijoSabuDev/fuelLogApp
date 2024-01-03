@@ -1,6 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:fuellog/controller/historyScreen/history_screen.dart';
+import 'package:fuellog/controller/busHistory/bus_history.dart';
 import 'package:fuellog/view/HIstoryScreen/historySearch/debouncer.dart';
 import 'package:get/get.dart';
 
@@ -19,76 +21,47 @@ class HistorySearchBarCustom extends StatefulWidget {
 }
 
 class _HistorySearchBarCustomState extends State<HistorySearchBarCustom> {
-  final TextEditingController textController = TextEditingController();
-  final HistoryScreenController historyController =
-      Get.find<HistoryScreenController>();
+  final BusHistoryController busHistoryController =
+      Get.find<BusHistoryController>();
+
   final _debouncer = Debouncer(milliseconds: 1 * 1000);
-  // @override
-  // Widget build(BuildContext context) {
-  //   // final sw = MediaQuery.of(context).size.width;
-  //   return Container(
-  //     padding: const EdgeInsets.symmetric(horizontal: 24),
-  //     height: 62.h,
-  //     width: widget.width,
-  //     decoration: BoxDecoration(
-  //       borderRadius: BorderRadius.circular(50),
-  //       color: Colors.grey[200],
-  //     ),
-  //     child: TextField(
-  //       onChanged: (value) {
-  //         _debouncer.run(() {
-  //           historyController.userInput.value = value;
-  //         });
-  //         // historyController.userInput.value = value;
-  //       },
-  //       controller: textController,
-  //       decoration: InputDecoration(
-  //         prefixIcon: const Icon(
-  //           Icons.search,
-  //           color: Colors.grey,
-  //         ),
-  //         // prefixIconConstraints:
-  //         //     BoxConstraints(minWidth: 27.w, minHeight: 18.h),
-  //         // helperText: 'Bus No 52 or DXB135.',
-  //         hintText: 'Bus No 52 or DXB135.',
-  //         hintStyle: GoogleFonts.readexPro(
-  //           fontWeight: FontWeight.w400,
-  //           color: Colors.black.withOpacity(0.3),
-  //           fontSize: 16.sp,
-  //         ),
-  //         suffixIcon: IconButton(
-  //           icon: widget.suffixIcon,
-  //           onPressed: widget.onPressedFunction,
-  //         ),
 
-  //         border: InputBorder.none,
-  //       ),
-  //     ),
-  //   );
-  // }
+  String searchValue = '';
 
+  final TextEditingController textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 18.w),
       child: TextField(
-        onSubmitted: (value) {
-          _debouncer.run(() {
-            historyController.userInput.value = value;
-          });
-          // historyController.userInput.value = value;
+        controller: textController,
+
+        onEditingComplete: () async {
+          print('editing complete');
+          busHistoryController.userInput.value = textController.text;
+          await busHistoryController.fetchBusHistoryData(textController.text);
+       
+          // FocusScope.of(context).unfocus();
         },
-        // onTapOutside: (value) {
-        //   _debouncer.run(() {
-        //     historyController.userInput.value = '';
+        // onSubmitted: (value) async {
+        //   await _debouncer.run(() {
+        //     searchValue = value;
         //   });
+        //   await busHistoryController.fetchBusHistoryData(searchValue);
+        //   // historyController.userInput.value = value;
         // },
-        onChanged: (value) {
-          _debouncer.run(() {
-            historyController.userInput.value = value;
-          });
-          // historyController.userInput.value = value;
-        },
+        // // onTapOutside: (value) {
+        // //   _debouncer.run(() {
+        // //     historyController.userInput.value = '';
+        // //   });
+        // // },
+        // onChanged: (value) async {
+        //   await _debouncer.run(() {
+        //     searchValue = value;
+        //   });
+        //   await busHistoryController.fetchBusHistoryData(searchValue);
+        //   // historyController.userInput.value = value;
+        // },
         // controller: controller,
         obscureText: false,
         decoration: InputDecoration(
@@ -123,7 +96,7 @@ class _HistorySearchBarCustomState extends State<HistorySearchBarCustom> {
   @override
   void dispose() {
     textController.dispose();
-    historyController.userInput.value = '';
+
     super.dispose();
   }
 }

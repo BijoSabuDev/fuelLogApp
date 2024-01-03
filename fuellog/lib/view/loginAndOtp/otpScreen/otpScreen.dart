@@ -7,18 +7,22 @@ import 'package:fuellog/view/util/app_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OtpScreen extends StatelessWidget {
-  const OtpScreen({super.key});
+  final String phoneNo;
+  const OtpScreen({
+    super.key,
+    required this.phoneNo,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // final sw = MediaQuery.of(context).size.width;
     return Scaffold(
-      appBar: const CustomAppBar(),
+      // appBar: const CustomAppBar(),
       body: Padding(
         padding: EdgeInsets.symmetric(vertical: 18, horizontal: 24.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const CustomAppBar(),
             k20,
             Text(
               'Enter Pin',
@@ -36,7 +40,7 @@ class OtpScreen extends StatelessWidget {
                   fontWeight: FontWeight.w400),
             ),
             k20,
-              const OtpField(),
+            OtpField(phoneNo: phoneNo),
             const Spacer(),
             Center(
               child: GestureDetector(

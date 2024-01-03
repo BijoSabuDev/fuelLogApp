@@ -2,115 +2,124 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/view/ProfileScreen/enquiry_container.dart';
 import 'package:fuellog/view/ProfileScreen/profile_app_bar.dart';
+import 'package:fuellog/view/constants/colors.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
+  ProfileScreen({super.key});
+  UserAuthController userAuthController = Get.find<UserAuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
       children: [
-        Column(
-          children: [
-            const ProfileAppBar(),
-            SizedBox(
-              height: 28.h,
-            ),
-            Container(
-              height: 210.h,
-              width: 210.w,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.grey[200],
-              ),
-              child: SvgPicture.asset(
-                'assets/profileScreen/profilepic.svg',
-                width: 210.w,
-                height: 210.h,
-                fit: BoxFit.scaleDown,
-              ),
-            ),
-            SizedBox(
-              height: 23.h,
-            ),
-            Text(
-              'Sarah Yusuf',
-              style: GoogleFonts.readexPro(
-                fontSize: 27.sp,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            Text(
-              'Conductor',
-              style: GoogleFonts.readexPro(
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            SizedBox(
-              height: 5.h,
-            ),
-            Container(
-              width: 71.w,
-              height: 24.h,
-              decoration: BoxDecoration(
-                  color: const Color(0xFFECFDF3),
-                  borderRadius: BorderRadius.circular(16)),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 8.w,
+        GetBuilder<UserAuthController>(
+          builder: (userAuthController) {
+            return Column(
+              children: [
+                const ProfileAppBar(),
+                SizedBox(
+                  height: 28.h,
+                ),
+                Container(
+                  height: 210.h,
+                  width: 210.w,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.grey[200],
                   ),
-                  Container(
-                    height: 10.h,
-                    width: 10.w,
-                    decoration: const BoxDecoration(
-                        color: Color(0xFF12B76A), shape: BoxShape.circle),
+                  child: Icon(
+                    Icons.person,
+                    size: 120.h,
+                    color: appTheme,
                   ),
-                  SizedBox(
-                    width: 6.w,
+                ),
+                SizedBox(
+                  height: 23.h,
+                ),
+                Text(
+                  userAuthController
+                      .userAuthData!.data!.data!.conductorDetails!.condName!,
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.readexPro(
+                    fontSize: 27.sp,
+                    fontWeight: FontWeight.w500,
                   ),
-                  Text(
-                    'Active',
-                    style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: const Color(0xFF14B66A)),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 23.h,
-            ),
-            Text(
-              'Mobile Number',
-              style: GoogleFonts.inter(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            SizedBox(
-              height: 8.h,
-            ),
-            Text(
-              '+971 123 465 798',
-              style: GoogleFonts.readexPro(
-                fontSize: 20.sp,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ],
-        ).animate(delay: 0.ms).fade(delay: 300.ms, duration: 600.ms).slideY(
-              duration: 100.ms,
-              curve: Curves.linear,
-              begin: -0.2,
-              end: 0.0,
-            ),
+                ),
+                Text(
+                  'Conductor',
+                  style: GoogleFonts.readexPro(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Container(
+                  width: 71.w,
+                  height: 24.h,
+                  decoration: BoxDecoration(
+                      color: const Color(0xFFECFDF3),
+                      borderRadius: BorderRadius.circular(16)),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 8.w,
+                      ),
+                      Container(
+                        height: 10.h,
+                        width: 10.w,
+                        decoration: const BoxDecoration(
+                            color: Color(0xFF12B76A), shape: BoxShape.circle),
+                      ),
+                      SizedBox(
+                        width: 6.w,
+                      ),
+                      Text(
+                        'Active',
+                        style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(0xFF14B66A)),
+                      )
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 23.h,
+                ),
+                Text(
+                  'Mobile Number',
+                  style: GoogleFonts.inter(
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
+                Text(
+                  userAuthController
+                      .userAuthData!.data!.data!.conductorDetails!.condPhone!,
+                  style: GoogleFonts.readexPro(
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ).animate(delay: 0.ms).fade(delay: 300.ms, duration: 600.ms).slideY(
+                  duration: 100.ms,
+                  curve: Curves.linear,
+                  begin: -0.2,
+                  end: 0.0,
+                );
+          },
+        ),
         SizedBox(
           height: 22.h,
         ),

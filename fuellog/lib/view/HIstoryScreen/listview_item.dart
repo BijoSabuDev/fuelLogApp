@@ -3,7 +3,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BusDetailsListview extends StatelessWidget {
-  const BusDetailsListview({super.key});
+  final String busHistoryDate;
+  final String busHistoryTime;
+  final String fuelQty;
+  final String fuelPrice;
+  final String odometerReading;
+
+  const BusDetailsListview(
+      {super.key,
+      required this.busHistoryDate,
+      required this.busHistoryTime,
+      required this.fuelQty,
+      required this.fuelPrice,
+      required this.odometerReading});
 
   @override
   Widget build(BuildContext context) {
@@ -26,12 +38,12 @@ class BusDetailsListview extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      '26 Oct 2023',
+                      busHistoryDate,
                       style: GoogleFonts.readexPro(
                           fontSize: 14.sp, fontWeight: FontWeight.w400),
                     ),
                     Text(
-                      '4:10 PM',
+                      busHistoryTime,
                       style: GoogleFonts.readexPro(
                           fontSize: 14.sp, fontWeight: FontWeight.w400),
                     ),
@@ -72,14 +84,14 @@ class BusDetailsListview extends StatelessWidget {
                             ),
                             children: [
                               TextSpan(
-                                text: '160148 ',
+                                text: odometerReading,
                                 style: GoogleFonts.readexPro(
                                   fontSize: 20.sp,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
                               TextSpan(
-                                text: 'km',
+                                text: ' km',
                                 style: GoogleFonts.readexPro(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w400),
@@ -114,13 +126,13 @@ class BusDetailsListview extends StatelessWidget {
                             ),
                             children: [
                               TextSpan(
-                                text: '150.12 ',
+                                text: fuelQty,
                                 style: GoogleFonts.readexPro(
                                     fontSize: 20.sp,
                                     fontWeight: FontWeight.w500),
                               ),
                               TextSpan(
-                                text: 'ltr',
+                                text: ' ltr',
                                 style: GoogleFonts.readexPro(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w400),
@@ -155,13 +167,13 @@ class BusDetailsListview extends StatelessWidget {
                             ),
                             children: [
                               TextSpan(
-                                text: '2.68 ',
+                                text: fuelPrice,
                                 style: GoogleFonts.readexPro(
                                     fontSize: 20.sp,
                                     fontWeight: FontWeight.w500),
                               ),
                               TextSpan(
-                                text: 'AED',
+                                text: ' AED',
                                 style: GoogleFonts.readexPro(
                                     fontSize: 14.sp,
                                     fontWeight: FontWeight.w400),

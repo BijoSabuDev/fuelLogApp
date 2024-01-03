@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fuellog/controller/BusSelected/bus_selected.dart';
 import 'package:fuellog/view/VehicleScreen/camera_capture.dart';
 import 'package:fuellog/view/VehicleScreen/cupertino_picker.dart';
 import 'package:fuellog/view/constants/colors.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Odo_details_photo extends StatefulWidget {
@@ -19,6 +21,8 @@ class Odo_details_photo extends StatefulWidget {
 class _Odo_details_photoState extends State<Odo_details_photo> {
   late TextEditingController _textController;
   late double _currentValue = 0;
+  final BusSelectedController busSelectedController =
+      Get.find<BusSelectedController>();
 
   @override
   void initState() {
@@ -177,17 +181,27 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                     SizedBox(
                       width: 9.w,
                     ),
-                    WheelSelector(
-                      inputValue: _currentValue,
-                      onValueSelected: (newValue) {},
-                      containerHeight: 85.h,
-                      containerWidth: 160.w,
-                      isButtonsVisible: true,
-                      itemExtent: 50.h,
-                      initValue: 156344,
-                      showDecimal: false,
-                      howMuchToGenerate: 20000,
-                    ),
+                    GetBuilder<BusSelectedController>(
+                      builder: (controller) {
+                        final String? vhactReadng = busSelectedController
+                            .busSelectionData
+                            .data!
+                            .busFuelDetails![0]
+                            .vhactReading;
+                        print(vhactReadng);
+                        return WheelSelector(
+                          inputValue: _currentValue,
+                          onValueSelected: (newValue) {},
+                          containerHeight: 85.h,
+                          containerWidth: 160.w,
+                          isButtonsVisible: true,
+                          itemExtent: 50.h,
+                          initValue: double.parse(vhactReadng!),
+                          showDecimal: false,
+                          howMuchToGenerate: 20000,
+                        );
+                      },
+                    )
                   ],
                 )),
           ],

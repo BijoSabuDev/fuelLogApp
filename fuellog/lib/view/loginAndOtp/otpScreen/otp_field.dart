@@ -1,19 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/view/mainScreen/main_screen.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpField extends StatefulWidget {
-  const OtpField({super.key});
+  final String phoneNo;
+  const OtpField({
+    super.key,
+    required this.phoneNo,
+  });
 
   @override
   State<OtpField> createState() => _OtpFieldState();
 }
 
 class _OtpFieldState extends State<OtpField> {
-  // final otpController = TextEditingController();
-  bool showError = false;
+  final otpController = TextEditingController();
+
+  UserAuthController userAuthController = Get.find<UserAuthController>();
+
+  @override
+  void dispose() {
+    otpController.dispose();
+    super.dispose();
+  }
+
+  // bool showLoading = false;
+  // bool showError = false;
+  // bool showNetwrkError = false;
   @override
   Widget build(BuildContext context) {
     final defaultPinTheme = PinTheme(
@@ -32,43 +49,73 @@ class _OtpFieldState extends State<OtpField> {
     );
 
     return Center(
-      child: Pinput(
-        defaultPinTheme: defaultPinTheme,
-        focusedPinTheme: defaultPinTheme.copyWith(
-            decoration: defaultPinTheme.decoration!.copyWith(
-          border: Border.all(color: const Color(0xFF3150F5)),
-        )),
-        errorPinTheme: defaultPinTheme.copyWith(
-            decoration: defaultPinTheme.decoration!.copyWith(
-          border: Border.all(color: const Color(0xFFD10000)),
-        )),
-        onCompleted: (String value) {
-          if (value != '2222') {
-            setState(() {
-              showError = true;
-            });
-          } else {
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => MainScreen()),
-                (route) => false);
-          }
-        },
-        forceErrorState: showError,
-        errorTextStyle: GoogleFonts.inter(
-            fontSize: 16.sp,
-            fontWeight: FontWeight.w400,
-            color: const Color(0xFFF54135)),
-        errorText: 'Wrong PIN, please try again',
-        errorBuilder: (String? errorText, String? enteredValue) {
-          return Center(
-            child: Text(
-              errorText!,
-              style: const TextStyle(
-                color: Color(0xFFF54135),
-                fontSize: 16,
+      child: GetX<UserAuthController>(
+        builder: (controller) {
+          return Pinput(
+            defaultPinTheme: defaultPinTheme,
+            focusedPinTheme: defaultPinTheme.copyWith(
+                decoration: defaultPinTheme.decoration!.copyWith(
+              border: Border.all(color: const Color(0xFF3150F5)),
+            )),
+            errorPinTheme: defaultPinTheme.copyWith(
+                decoration: defaultPinTheme.decoration!.copyWith(
+              border: Border.all(color: const Color(0xFFD10000)),
+            )),
+            onCompleted: (String value) async {
+              final isAuthorised = await userAuthController.fetchUserData(
+                  'fuel_login', value, widget.phoneNo);
+              print('this is whether authorised or not ---- $isAuthorised');
+              if (isAuthorised) {
+                if (mounted) {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) {
+                      return MainScreen();
+                    },
+                  ));
+                }
+              }
+            },
+            forceErrorState: userAuthController.isLoading.value ||
+                userAuthController.isNetwrkError.value ||
+                userAuthController.isPinError.value,
+            closeKeyboardWhenCompleted: true,
+            keyboardType: TextInputType.number,
+            errorTextStyle: GoogleFonts.inter(
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w400,
-              ),
-            ),
+                color: const Color(0xFFF54135)),
+            errorText: (() {
+              if (userAuthController.isLoading.value) {
+                return 'Checking...';
+              }
+              if (userAuthController.isPinError.value) {
+                return 'Wrong PIN, please try again ';
+              }
+              if (userAuthController.isNetwrkError.value) {
+                return 'Please check your internet connection';
+              } else {
+                return 'Error occurred. Please try again later';
+              }
+            })(),
+            // errorText: userAuthController.isNetwrkError.value
+            //     ? 'Please check your internet connection'
+            //     : userAuthController.isLoading.value
+            //         ? 'Checking...'
+            //         : userAuthController.isPinError.value
+            //             ? 'Wrong PIN, please try again'
+            //             : 'Error occurred. Please try again later',
+            errorBuilder: (String? errorText, String? enteredValue) {
+              return Center(
+                child: Text(
+                  errorText!,
+                  style: const TextStyle(
+                    color: Color(0xFFF54135),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              );
+            },
           );
         },
       ),

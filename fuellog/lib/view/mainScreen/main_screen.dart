@@ -9,14 +9,13 @@ import 'package:get/get.dart';
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
   final _pages = [
-    const HomeScreen(),
+    HomeScreen(),
     // const VehicleScreen(),
     HistoryScreen(),
-    const ProfileScreen()
+      ProfileScreen()
   ];
   @override
   Widget build(BuildContext context) {
-    Get.put(HistoryScreenController());
     return Scaffold(
       body: ValueListenableBuilder(
         valueListenable: selectedIndexNotifier,

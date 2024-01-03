@@ -1,60 +1,51 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-// class CommonAppBar extends StatelessWidget {
-//   const CommonAppBar({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final sw = MediaQuery.of(context).size.width;
-//     return AppBar(
-//       leading: Container(
-//         width: sw * 0.05,
-//         decoration: BoxDecoration(
-//             borderRadius: BorderRadius.circular(10),
-//             border: Border.all(width: 1, color: const Color(0xFFD8DADC))),
-//         child: const Center(child: Icon(Icons.arrow_back_ios)),
-//       ),
-//       actions: [
-//         Container(
-//             height: sw * 0.10,
-//             child: SvgPicture.asset('assets/onboardingScreen/logo.svg'))
-//       ],
-//     );
-//   }
-// }
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final sw = MediaQuery.of(context).size.width;
-    return AppBar(
-      leading: Container(
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          border: Border.all(width: 1, color: const Color(0xFFD8DADC)),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Center(
-          child: IconButton(
-            iconSize: sw * 0.042,
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Navigator.pop(context);
+    return Padding(
+      padding: EdgeInsets.only(top: 40.h, left: 0),
+      child: Row(
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
             },
+            child: Container(
+              width: 42.w,
+              height: 42.h,
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                border: Border.all(
+                  color: const Color(0xFFD8DADC),
+                  width: 1.0,
+                ),
+              ),
+              child: Icon(
+                Icons.arrow_back_ios_new,
+                size: 22.h,
+              ),
+            ),
           ),
-        ),
+          SizedBox(
+            width: 300.w,
+          ),
+          SizedBox(
+              height: 42.h,
+              width: 36.w,
+              child: SvgPicture.asset('assets/onboardingScreen/logo.svg')),
+        ],
       ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SvgPicture.asset('assets/onboardingScreen/logo.svg'),
-        ),
-      ],
     );
   }
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
+
+//  SvgPicture.asset('assets/onboardingScreen/logo.svg'),

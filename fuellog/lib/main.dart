@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fuellog/controller/BusSelected/bus_selected.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:fuellog/view/splash_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,13 +12,17 @@ void main() {
   SystemChrome.setPreferredOrientations(
     [DeviceOrientation.portraitUp],
   ).then((value) {
-    runApp(const MyApp());
+    runApp(  MyApp());
   });
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+    MyApp({super.key});
 
+
+final BusSelectedController busSelectedController =
+    Get.put(BusSelectedController());
+    
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(

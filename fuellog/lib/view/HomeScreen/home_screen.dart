@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fuellog/controller/BusSelected/bus_selected.dart';
+import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/view/VehicleScreen/vehicle_screen.dart';
-import 'package:fuellog/view/constants/colors.dart';
 import 'package:fuellog/view/constants/dimensions.dart';
 import 'package:fuellog/view/util/logo_with_text.dart';
 import 'package:fuellog/view/util/search_field.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
 
+  final BusSelectedController _busSelectedController =
+      Get.find<BusSelectedController>();
+  final UserAuthController _userAuthController = Get.find<UserAuthController>();
   @override
   Widget build(BuildContext context) {
     ValueNotifier<bool> buttonPressed = ValueNotifier(true);
@@ -38,14 +42,6 @@ class HomeScreen extends StatelessWidget {
                 ),
                 SearchBarCustom(
                   width: 372.w,
-                  suffixIcon: Padding(
-                    padding: EdgeInsets.only(right: 12.h),
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      size: sw * 0.044,
-                      color: appTheme,
-                    ),
-                  ),
                 )
                     .animate(delay: 0.ms)
                     .fade(delay: 200.ms, duration: 600.ms)
@@ -87,35 +83,47 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ),
                                 kw10,
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    RichText(
-                                      textAlign: TextAlign.start,
-                                      text: TextSpan(
-                                        style: GoogleFonts.readexPro(
-                                            fontWeight: FontWeight.w400,
-                                            color: const Color(0xFFA2B2C8)),
-                                        children: [
-                                          TextSpan(
-                                            text: 'Welcome\n',
-                                            style: GoogleFonts.readexPro(
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 14.sp,
-                                                color: const Color(0xFFA2B2C8)),
-                                          ),
-                                          TextSpan(
-                                            text: 'Sarah Yusuf',
-                                            style: GoogleFonts.readexPro(
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 18.sp,
-                                                color: Colors.black),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
+                                SizedBox(
+                                  width: 110.w,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      RichText(
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.start,
+                                        text: TextSpan(
+                                          style: GoogleFonts.readexPro(
+                                              fontWeight: FontWeight.w400,
+                                              color: const Color(0xFFA2B2C8)),
+                                          children: [
+                                            TextSpan(
+                                              text: 'Welcome\n',
+                                              style: GoogleFonts.readexPro(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 14.sp,
+                                                  color:
+                                                      const Color(0xFFA2B2C8)),
+                                            ),
+                                            TextSpan(
+                                              text: _userAuthController
+                                                  .userAuthData!
+                                                  .data!
+                                                  .data!
+                                                  .conductorDetails!
+                                                  .condName,
+                                              style: GoogleFonts.readexPro(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16.sp,
+                                                  color: Colors.black),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 )
                               ],
                             ),
@@ -267,9 +275,12 @@ class HomeScreen extends StatelessWidget {
                               ? GestureDetector(
                                   onTap: () async {
                                     buttonPressed.value = !buttonPressed.value;
-                                    await Future.delayed(500.ms);
-                                    requestCameraPermission();
+                                    await Future.delayed(100.ms);
+
+                                    await requestCameraPermission();
+
                                     startScanAndNavigate(context);
+
                                     buttonPressed.value = !buttonPressed.value;
                                   },
                                   child: Image.asset(
@@ -318,46 +329,41 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  void scanQrCode(context) async {
-    String qrScanner;
-    try {
-      Future.delayed(const Duration(seconds: 2), () {
-        FlutterBarcodeScanner.scanBarcode(
-            '#ff6666', 'Cancel', true, ScanMode.QR);
-        Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-          return const VehicleScreen();
-        }));
-      });
-      // FlutterBarcodeScanner.scanBarcode('#ff6666', 'Cancel', true, ScanMode.QR);
-
-      // Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-      //   return VehicleScreen();
-      // }));
-      // debugPrint(qrScanner);
-
-      // Future.delayed(const Duration(seconds: 2), () {
-      //   Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-      //     return const VehicleScreen();
-      //   }));
-      // });
-    } on PlatformException {
-      qrScanner = 'failed to get platform version';
-      print('Error occurred');
-    }
-  }
-
   void startScanAndNavigate(BuildContext context) async {
-    // Initiating the scan
-    // String qrScanner = await FlutterBarcodeScanner.scanBarcode(
-    //     '#ff6666', 'Cancel', true, ScanMode.QR);
+    String qrScanner = await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666', 'Cancel', true, ScanMode.QR);
 
-    // Delaying the navigation after the scan for demonstration purposes
-    await Future.delayed(const Duration(seconds: 1));
+    print(qrScanner);
 
-    // Navigating to VehicleScreen
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
-      return const VehicleScreen();
-    }));
+    if (qrScanner != '-1') {
+      final success = await _busSelectedController.fetchBusSelectionData(
+        'fuel_bus_selection',
+        qrScanner,
+      );
+
+      // await Future.delayed(const Duration(seconds: 1));
+
+      if (success) {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) {
+            return VehicleScreen();
+          },
+        ));
+      } else {
+        // ignore: use_build_context_synchronously
+        showDialog(
+          context: context,
+          builder: (context) {
+            return const AlertDialog(
+              content: Text('No bus id on this query'),
+            );
+          },
+        );
+      }
+    } else if (qrScanner == '-1') {
+      return;
+    }
   }
 
   Future<void> requestCameraPermission() async {

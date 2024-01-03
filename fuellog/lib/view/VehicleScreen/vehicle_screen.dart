@@ -3,17 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fuellog/controller/BusSelected/bus_selected.dart';
 import 'package:fuellog/view/VehicleScreen/app_bar.dart';
 import 'package:fuellog/view/VehicleScreen/odo_vehicle_and_photo.dart';
 import 'package:fuellog/view/VehicleScreen/successPage/success_page.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:fuellog/view/util/bus_no_box.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:action_slider/action_slider.dart';
 import 'package:lottie/lottie.dart';
 
 class VehicleScreen extends StatelessWidget {
-  const VehicleScreen({super.key});
+  VehicleScreen({super.key});
+
+  final BusSelectedController busSelectedController =
+      Get.find<BusSelectedController>();
 
   @override
   Widget build(BuildContext context) {
@@ -62,20 +67,36 @@ class VehicleScreen extends StatelessWidget {
                 SizedBox(
                   height: 26.h,
                 ),
-                SizedBox(
-                  height: 30.h,
-                  child: const BusNumberBox()
-                      .animate(delay: 0.ms)
-                      .fadeIn(
-                          delay: 200.ms,
-                          duration: 800.ms,
-                          curve: Curves.easeOut)
-                      .slideY(
-                        delay: 100.ms,
-                        curve: Curves.linear,
-                        begin: -0.3,
-                        end: 0,
-                      ),
+                GetBuilder<BusSelectedController>(
+                  builder: (busSelectedController) {
+                    final busSelectionData =
+                        busSelectedController.busSelectionData;
+                    print(busSelectionData);
+                    final busNumber =
+                        busSelectionData.data!.busDetails!.vehSchoolNo;
+                    final fuelType = busSelectionData.data!.busDetails!.fuel;
+
+                    final regNo = busSelectionData.data!.busDetails!.vehRegNo;
+                    return SizedBox(
+                      height: 30.h,
+                      child: BusNumberBox(
+                        fuelType: fuelType!,
+                        busNo: busNumber!,
+                        regNo: regNo!,
+                      )
+                          .animate(delay: 0.ms)
+                          .fadeIn(
+                              delay: 200.ms,
+                              duration: 800.ms,
+                              curve: Curves.easeOut)
+                          .slideY(
+                            delay: 100.ms,
+                            curve: Curves.linear,
+                            begin: -0.3,
+                            end: 0,
+                          ),
+                    );
+                  },
                 ),
                 SizedBox(
                   height: 32.h,
