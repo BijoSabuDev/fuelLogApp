@@ -4,6 +4,7 @@ import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/view/mainScreen/main_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpField extends StatefulWidget {
@@ -51,6 +52,11 @@ class _OtpFieldState extends State<OtpField> {
     return Center(
       child: GetX<UserAuthController>(
         builder: (controller) {
+          if (userAuthController.isLoading.value) {
+            context.loaderOverlay.show();
+          } else {
+            context.loaderOverlay.hide();
+          }
           return Pinput(
             defaultPinTheme: defaultPinTheme,
             focusedPinTheme: defaultPinTheme.copyWith(
@@ -62,18 +68,21 @@ class _OtpFieldState extends State<OtpField> {
               border: Border.all(color: const Color(0xFFD10000)),
             )),
             onCompleted: (String value) async {
-              final isAuthorised = await userAuthController.fetchUserData(
-                  'fuel_login', value, widget.phoneNo);
-              print('this is whether authorised or not ---- $isAuthorised');
-              if (isAuthorised) {
-                if (mounted) {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) {
-                      return MainScreen();
-                    },
-                  ));
+            
+
+                final isAuthorised = await userAuthController.fetchUserData(
+                    'fuel_login', value, widget.phoneNo);
+                print('this is whether authorised or not ---- $isAuthorised');
+                if (isAuthorised) {
+                  if (mounted) {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) {
+                        return MainScreen();
+                      },
+                    ));
+                  }
                 }
-              }
+             
             },
             forceErrorState: userAuthController.isLoading.value ||
                 userAuthController.isNetwrkError.value ||
@@ -89,7 +98,7 @@ class _OtpFieldState extends State<OtpField> {
                 return 'Checking...';
               }
               if (userAuthController.isPinError.value) {
-                return 'Wrong PIN, please try again ';
+                return 'Invalid Credentials, please try again ';
               }
               if (userAuthController.isNetwrkError.value) {
                 return 'Please check your internet connection';

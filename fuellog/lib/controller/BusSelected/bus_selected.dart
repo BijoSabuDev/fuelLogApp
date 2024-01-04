@@ -11,21 +11,34 @@ class BusSelectedController extends GetxController {
   BusSelectionData busSelectionData = BusSelectionData();
   Rx<String> odoMeterReading = ''.obs;
 
+  Rx<bool> isLoading = false.obs;
+  Rx<bool> isSuccess = false.obs;
+  Rx<bool> noResults = false.obs;
+
   Future<bool> fetchBusSelectionData(String action, String busId) async {
     try {
+      isLoading(true);
       final data = await apiServices.fetchSelectedBus(action, busId);
       print('this is from the controller ---------------$data');
 
       busSelectionData = data;
-      if (data.busID != null) {
+      isSuccess(true);
+      print(data.busID);
+
+      if (data.data!.busDetails != null) {
+        isSuccess(true);
+        isLoading(false);
+        noResults(false);
         return true;
       } else {
+        isLoading(false);
+        noResults(true);
         return false;
       }
     } catch (e) {
+      isLoading(false);
+      noResults(true);
       return false;
-      // Handle error
-      // rethrow;
     }
   }
 }

@@ -76,108 +76,108 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                 top: 112.h,
                 child: Row(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        showCupertinoDialog(
-                          context: context,
-                          builder: (ctx) {
-                            return CupertinoAlertDialog(
-                              title: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/vehicleScreen/dashboard-3-line.svg',
-                                    width: 21.w,
-                                    height: 21.h,
-                                  ),
-                                  SizedBox(
-                                    width: 9.w,
-                                  ),
-                                  Text(
-                                    'Enter Odometer km',
-                                    style: GoogleFonts.poppins(
-                                        fontSize: 20.sp,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black),
-                                  ),
-                                ],
-                              ),
-                              content: Padding(
-                                padding: EdgeInsets.only(top: 27.h),
-                                child: Column(
-                                  children: [
-                                    Container(
-                                        width: 320.w,
-                                        height: 62.h,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          gradient: const LinearGradient(
-                                            begin: Alignment.centerLeft,
-                                            end: Alignment.centerRight,
-                                            colors: [
-                                              Colors.white,
-                                              Colors.white,
-                                            ],
-                                          ),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color:
-                                                  Colors.white.withOpacity(0.1),
-                                              spreadRadius: 0,
-                                              blurRadius: 0,
-                                              offset: const Offset(0, 0),
-                                            ),
-                                          ],
-                                        ),
-                                        child: CupertinoTextField(
-                                          keyboardType: TextInputType.number,
-                                          controller: txtController,
-                                        ))
-                                  ],
-                                ),
-                              ),
-                              actions: [
-                                CupertinoDialogAction(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        _currentValue =
-                                            double.parse(txtController.text);
-                                      });
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      'Save',
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 20.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: appTheme),
-                                    ),
-                                  ),
-                                ),
-                                CupertinoDialogAction(
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(
-                                      'Cancel',
-                                      style: GoogleFonts.poppins(
-                                          fontSize: 20.sp,
-                                          fontWeight: FontWeight.w600,
-                                          color: const Color(0xFFEF4348)),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      child: SvgPicture.asset(
-                          'assets/vehicleScreen/keyboard (1) 1.svg'),
-                    ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     showCupertinoDialog(
+                    //       context: context,
+                    //       builder: (ctx) {
+                    //         return CupertinoAlertDialog(
+                    //           title: Row(
+                    //             mainAxisAlignment: MainAxisAlignment.start,
+                    //             children: [
+                    //               SvgPicture.asset(
+                    //                 'assets/vehicleScreen/dashboard-3-line.svg',
+                    //                 width: 21.w,
+                    //                 height: 21.h,
+                    //               ),
+                    //               SizedBox(
+                    //                 width: 9.w,
+                    //               ),
+                    //               Text(
+                    //                 'Enter Odometer km',
+                    //                 style: GoogleFonts.poppins(
+                    //                     fontSize: 20.sp,
+                    //                     fontWeight: FontWeight.w600,
+                    //                     color: Colors.black),
+                    //               ),
+                    //             ],
+                    //           ),
+                    //           content: Padding(
+                    //             padding: EdgeInsets.only(top: 27.h),
+                    //             child: Column(
+                    //               children: [
+                    //                 Container(
+                    //                     width: 320.w,
+                    //                     height: 62.h,
+                    //                     decoration: BoxDecoration(
+                    //                       borderRadius:
+                    //                           BorderRadius.circular(12),
+                    //                       gradient: const LinearGradient(
+                    //                         begin: Alignment.centerLeft,
+                    //                         end: Alignment.centerRight,
+                    //                         colors: [
+                    //                           Colors.white,
+                    //                           Colors.white,
+                    //                         ],
+                    //                       ),
+                    //                       boxShadow: [
+                    //                         BoxShadow(
+                    //                           color:
+                    //                               Colors.white.withOpacity(0.1),
+                    //                           spreadRadius: 0,
+                    //                           blurRadius: 0,
+                    //                           offset: const Offset(0, 0),
+                    //                         ),
+                    //                       ],
+                    //                     ),
+                    //                     child: CupertinoTextField(
+                    //                       keyboardType: TextInputType.number,
+                    //                       controller: txtController,
+                    //                     ))
+                    //               ],
+                    //             ),
+                    //           ),
+                    //           actions: [
+                    //             CupertinoDialogAction(
+                    //               child: GestureDetector(
+                    //                 onTap: () {
+                    //                   setState(() {
+                    //                     _currentValue =
+                    //                         double.parse(txtController.text);
+                    //                   });
+                    //                   Navigator.of(context).pop();
+                    //                 },
+                    //                 child: Text(
+                    //                   'Save',
+                    //                   style: GoogleFonts.poppins(
+                    //                       fontSize: 20.sp,
+                    //                       fontWeight: FontWeight.w600,
+                    //                       color: appTheme),
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //             CupertinoDialogAction(
+                    //               child: GestureDetector(
+                    //                 onTap: () {
+                    //                   Navigator.of(context).pop();
+                    //                 },
+                    //                 child: Text(
+                    //                   'Cancel',
+                    //                   style: GoogleFonts.poppins(
+                    //                       fontSize: 20.sp,
+                    //                       fontWeight: FontWeight.w600,
+                    //                       color: const Color(0xFFEF4348)),
+                    //                 ),
+                    //               ),
+                    //             )
+                    //           ],
+                    //         );
+                    //       },
+                    //     );
+                    //   },
+                    //   child: SvgPicture.asset(
+                    //       'assets/vehicleScreen/keyboard (1) 1.svg'),
+                    // ),
                     SizedBox(
                       width: 9.w,
                     ),

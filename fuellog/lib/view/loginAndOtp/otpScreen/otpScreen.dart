@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/view/constants/dimensions.dart';
 import 'package:fuellog/view/loginAndOtp/otpScreen/otp_field.dart';
 import 'package:fuellog/view/loginAndOtp/reset_pin_screen.dart';
 import 'package:fuellog/view/util/app_bar.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class OtpScreen extends StatelessWidget {
   final String phoneNo;
-  const OtpScreen({
+  OtpScreen({
     super.key,
     required this.phoneNo,
   });
-
+  UserAuthController userAuthController = Get.find<UserAuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

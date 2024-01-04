@@ -4,7 +4,7 @@ import 'package:fuellog/model/apiModels/bus_history.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-//this is initialized in the historysearchbar
+//this is initialized in the main.dart
 
 class BusHistoryController extends GetxController {
   ApiServices apiServices = ApiServices();

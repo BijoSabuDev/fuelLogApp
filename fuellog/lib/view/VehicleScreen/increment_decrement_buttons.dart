@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class IncrementDecrementButtons extends StatefulWidget {
+  final double initValue;
   const IncrementDecrementButtons({
     super.key,
     required this.scrollController,
+    required this.initValue,
   });
 
   final FixedExtentScrollController scrollController;
@@ -22,6 +24,7 @@ class _IncrementDecrementButtonsState extends State<IncrementDecrementButtons> {
       children: [
         GestureDetector(
           onLongPress: () {
+            widget.initValue - 5;
             widget.scrollController.animateToItem(
               widget.scrollController.selectedItem - 5,
               duration: const Duration(milliseconds: 200),
@@ -29,6 +32,7 @@ class _IncrementDecrementButtonsState extends State<IncrementDecrementButtons> {
             );
           },
           onTap: () {
+            widget.initValue - 1;
             widget.scrollController.animateToItem(
               widget.scrollController.selectedItem - 1,
               duration: const Duration(milliseconds: 300),
@@ -58,6 +62,7 @@ class _IncrementDecrementButtonsState extends State<IncrementDecrementButtons> {
         ),
         GestureDetector(
           onLongPress: () {
+            widget.initValue + 5;
             widget.scrollController.animateToItem(
               widget.scrollController.selectedItem + 5,
               duration: const Duration(milliseconds: 200),
@@ -65,6 +70,7 @@ class _IncrementDecrementButtonsState extends State<IncrementDecrementButtons> {
             );
           },
           onTap: () {
+            widget.initValue + 1;
             widget.scrollController.animateToItem(
               widget.scrollController.selectedItem + 1,
               duration: const Duration(milliseconds: 300),

@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/controller/BusSelected/bus_selected.dart';
 import 'package:fuellog/view/VehicleScreen/vehicle_screen.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // THESE ARE USED IN HOMESCREEN
 
@@ -21,7 +23,6 @@ class SearchBarCustom extends StatefulWidget {
   @override
   State<SearchBarCustom> createState() => _SearchBarCustomState();
 }
- 
 
 // final BusSelectedController busSelectedController =
 //     Get.put(BusSelectedController());
@@ -29,9 +30,7 @@ final BusSelectedController busSelectedController =
     Get.find<BusSelectedController>();
 
 class _SearchBarCustomState extends State<SearchBarCustom> {
-
-
-final TextEditingController busSearchController = TextEditingController();
+  final TextEditingController busSearchController = TextEditingController();
   @override
   void dispose() {
     busSearchController.dispose();
@@ -44,6 +43,84 @@ final TextEditingController busSearchController = TextEditingController();
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 18.w),
       child: TextField(
+        onSubmitted: (value) async {
+          final success = await busSelectedController.fetchBusSelectionData(
+              'fuel_bus_selection', busSearchController.text);
+          busSearchController.clear();
+
+          if (busSelectedController.isLoading.value) {
+            const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (success) {
+            // ignore: use_build_context_synchronously
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) {
+                return VehicleScreen();
+              },
+            ));
+          } else {
+            // ignore: use_build_context_synchronously
+            showCupertinoDialog(
+                context: context,
+                builder: (ctx) {
+                  return CupertinoAlertDialog(
+                    title: Text(
+                      'Error!',
+                      style: GoogleFonts.poppins(
+                          fontSize: 26.sp,
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xFFEF4348)),
+                    ),
+                    content: SizedBox(
+                      height: 24.h,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'No search results for this ID',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 24.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: ' ',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    actions: [
+                      CupertinoDialogAction(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(ctx).pop();
+                          },
+                          child: Text(
+                            'Exit',
+                            style: GoogleFonts.poppins(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w600,
+                                color: appTheme),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                });
+          }
+        },
         controller: busSearchController,
         obscureText: false,
         decoration: InputDecoration(
@@ -52,28 +129,91 @@ final TextEditingController busSearchController = TextEditingController();
                 final success =
                     await busSelectedController.fetchBusSelectionData(
                         'fuel_bus_selection', busSearchController.text);
+                busSearchController.clear();
                 if (success) {
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  );
+
+                  // ignore: use_build_context_synchronously
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) {
                       return VehicleScreen();
                     },
                   ));
                 } else {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const AlertDialog(
-                        content: Text('No bus id on this query'),
-                      );
-                    },
+                  const Center(
+                    child: CircularProgressIndicator(),
                   );
+                  Future.delayed(const Duration(seconds: 2));
+                  // ignore: use_build_context_synchronously
+                  showCupertinoDialog(
+                      context: context,
+                      builder: (ctx) {
+                        return CupertinoAlertDialog(
+                          title: Text(
+                            'Error',
+                            style: GoogleFonts.poppins(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.black),
+                          ),
+                          content: SizedBox(
+                            width: 300.w,
+                            height: 48.h,
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: RichText(
+                                textAlign: TextAlign.center,
+                                text: TextSpan(
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                      text: 'No search results for this ID',
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: ' ',
+                                      style: GoogleFonts.poppins(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          actions: [
+                            CupertinoDialogAction(
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.of(ctx).pop();
+                                },
+                                child: Text(
+                                  'Ok',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: appTheme),
+                                ),
+                              ),
+                            ),
+                          ],
+                        );
+                      });
                 }
               },
               child: Padding(
                 padding: EdgeInsets.only(right: 12.h),
                 child: Icon(
-                  Icons.arrow_forward_ios,
-                  size: sw * 0.044,
+                  Icons.arrow_forward_ios_rounded,
+                  weight: 2,
+                  size: sw * 0.054,
                   color: appTheme,
                 ),
               ),

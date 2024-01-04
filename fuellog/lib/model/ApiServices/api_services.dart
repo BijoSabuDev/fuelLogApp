@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/foundation.dart';
+import 'package:fuellog/localStorage/local_storage.dart';
 import 'package:fuellog/model/apiConstants/api_endpoints.dart';
 import 'package:fuellog/model/apiModels/bus_history.dart';
 import 'package:fuellog/model/apiModels/bus_selection.dart';
@@ -78,6 +78,13 @@ class ApiServices {
 
         print(userData);
 
+        //saving the data in local storage as well for further use
+
+        await UserPreferences.saveUserData(
+          userData.data!.data!.conductorDetails!.condName!,
+          userData.data!.data!.conductorDetails!.condPhone!,
+        );
+
         if (kDebugMode) {
           print('this is from the apiservice ----------- $userData');
         }
@@ -129,7 +136,7 @@ class ApiServices {
       }
     } catch (e) {
       print(e);
-      throw (e);
+      rethrow;
     }
   }
 }

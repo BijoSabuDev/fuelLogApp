@@ -1,20 +1,24 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/controller/busHistory/bus_history.dart';
 import 'package:fuellog/view/HIstoryScreen/historySearch/debouncer.dart';
+import 'package:fuellog/view/constants/colors.dart';
 import 'package:get/get.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HistorySearchBarCustom extends StatefulWidget {
   final Widget suffixIcon;
-  final Function()? onPressedFunction;
+
   final double width;
-  const HistorySearchBarCustom(
-      {super.key,
-      required this.suffixIcon,
-      required this.width,
-      this.onPressedFunction});
+  const HistorySearchBarCustom({
+    super.key,
+    required this.suffixIcon,
+    required this.width,
+  });
 
   @override
   State<HistorySearchBarCustom> createState() => _HistorySearchBarCustomState();
@@ -40,8 +44,8 @@ class _HistorySearchBarCustomState extends State<HistorySearchBarCustom> {
           print('editing complete');
           busHistoryController.userInput.value = textController.text;
           await busHistoryController.fetchBusHistoryData(textController.text);
-       
-          // FocusScope.of(context).unfocus();
+
+          FocusScope.of(context).unfocus();
         },
         // onSubmitted: (value) async {
         //   await _debouncer.run(() {
@@ -65,7 +69,12 @@ class _HistorySearchBarCustomState extends State<HistorySearchBarCustom> {
         // controller: controller,
         obscureText: false,
         decoration: InputDecoration(
-            suffixIcon: widget.suffixIcon,
+            suffixIcon: GestureDetector(
+                onTap: () async {
+                  await requestCameraPermission();
+                  startScanAndNavigate(context);
+                },
+                child: widget.suffixIcon),
             contentPadding: EdgeInsets.symmetric(vertical: 22.h),
             // constraints: BoxConstraints(maxHeight: 92.h),
             enabledBorder: OutlineInputBorder(
@@ -98,5 +107,84 @@ class _HistorySearchBarCustomState extends State<HistorySearchBarCustom> {
     textController.dispose();
 
     super.dispose();
+  }
+}
+
+void startScanAndNavigate(BuildContext context) async {
+  final BusHistoryController busHistoryController =
+      Get.find<BusHistoryController>();
+  String qrScanner = await FlutterBarcodeScanner.scanBarcode(
+      '#ff6666', 'Cancel', true, ScanMode.QR);
+
+  print(qrScanner);
+  if (busHistoryController.isLoading.value) {
+    context.loaderOverlay.show();
+  } else {
+    context.loaderOverlay.hide();
+  }
+
+  if (qrScanner != '-1') {
+    await busHistoryController.fetchBusHistoryData(
+      qrScanner,
+    );
+    // context.loaderOverlay.show();
+    // await Future.delayed(const Duration(seconds: 1));
+    busHistoryController.userInput.value = 'value';
+
+    if (busHistoryController.isLoading.value) {
+      context.loaderOverlay.show();
+    } else if (!busHistoryController.isLoading.value) {
+      context.loaderOverlay.hide();
+    } else {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            title: Text(
+              'Error',
+              style: TextStyle(
+                fontSize: 24.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'No bus id found for this query.',
+                  style: TextStyle(fontSize: 20.sp),
+                ),
+                SizedBox(height: 14.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context); // Close the dialog
+                      },
+                      child: Text(
+                        'OK',
+                        style: TextStyle(color: appTheme, fontSize: 16.sp),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
+      );
+    }
+  } else if (qrScanner == '-1') {
+    return;
+  }
+}
+
+Future<void> requestCameraPermission() async {
+  var status = await Permission.camera.status;
+  if (!status.isGranted) {
+    await Permission.camera.request();
   }
 }

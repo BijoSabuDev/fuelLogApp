@@ -1,49 +1,25 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fuellog/controller/busHistory/bus_history.dart';
-import 'package:fuellog/controller/historyScreen/history_screen.dart';
 import 'package:fuellog/view/HIstoryScreen/history_app_bar.dart';
 import 'package:fuellog/view/HIstoryScreen/historySearch/history_search_bar.dart';
 import 'package:fuellog/view/HIstoryScreen/listview_item.dart';
 import 'package:fuellog/view/HIstoryScreen/no_record_screen.dart';
 import 'package:fuellog/view/HIstoryScreen/search_or_scan.dart';
+import 'package:fuellog/view/util/bus_no_box.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class HistoryScreen extends StatelessWidget {
   HistoryScreen({super.key});
 
-  // final HistoryScreenController historyController =
-  //     Get.find<HistoryScreenController>();
-
   final BusHistoryController busHistoryController =
-      Get.put(BusHistoryController());
+      Get.find<BusHistoryController>();
 
   @override
   Widget build(BuildContext context) {
-    void scanQr() async {
-      var status = await Permission.camera.status;
-      String qrScanner;
-      if (!status.isGranted) {
-        await Permission.camera.request();
-      }
-
-      try {
-        qrScanner = await FlutterBarcodeScanner.scanBarcode(
-            '#ff6666', 'Cancel', true, ScanMode.QR);
-        debugPrint(qrScanner);
-      } on PlatformException {
-        qrScanner = 'failed to get platform version';
-        print('Error occurred');
-      }
-    }
-
+   
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -58,7 +34,6 @@ class HistoryScreen extends StatelessWidget {
               height: 22.h,
             ),
             HistorySearchBarCustom(
-                    onPressedFunction: scanQr,
                     width: 391.w,
                     suffixIcon: Padding(
                       padding: EdgeInsets.only(right: 24.h),
@@ -83,18 +58,29 @@ class HistoryScreen extends StatelessWidget {
             GetX<BusHistoryController>(builder: (busHistoryController) {
               if (busHistoryController.userInput.value.isEmpty) {
                 return const SearchOrScan();
-              } else if (busHistoryController.isSuccess.value) {
+              } else if (busHistoryController.isLoading.value) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (busHistoryController.isSuccess.value &&
+                  busHistoryController.busHistory.value!.data != null &&
+                  busHistoryController.busHistory.value!.data!.data != null &&
+                  busHistoryController.busHistory.value!.data!.data!
+                          .vehicleActivityHistory !=
+                      null &&
+                  busHistoryController.busHistory.value!.data!.data!
+                      .vehicleActivityHistory!.isNotEmpty) {
+                final busNo = busHistoryController.busHistory.value!.data!.data!
+                    .vehicleActivityHistory![0]['vhact_veh_id'];
                 return Column(
                   children: [
-                    // SizedBox(
-                    //         height: 30.h,
-                    //         width: 371.w,
-                    //         child: const BusNumberBox())
-                    //     .animate()
-                    //     .fade(duration: 1500.ms),
+              
+
+                    BusNumberBox(busNo: busNo!, regNo: busNo, fuelType: busNo),
                     SizedBox(
                       height: 33.h,
                     ),
+
                     SizedBox(
                       height: 119.h,
                       width: 405.w,

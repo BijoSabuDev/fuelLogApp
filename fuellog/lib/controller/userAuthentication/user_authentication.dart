@@ -8,6 +8,7 @@ class UserAuthController extends GetxController {
   ApiServices apiServices = ApiServices();
 
   UserData? userAuthData = UserData();
+  Rx<String> userLocalName = ''.obs;
 
   Rx<bool> isLoading = false.obs;
   Rx<bool> isPinError = false.obs;
@@ -18,13 +19,18 @@ class UserAuthController extends GetxController {
       isLoading(true);
       final data = await apiServices.userAuthData(action, pin, phoneNumber);
 
+      // final userData = await UserPreferences.getUserData();
+      // userLocalName.value = userData['user_name']!;
+
       if (data.data!.errorStatus == 0) {
         userAuthData = data;
       } else if (data.data!.errorStatus == 1) {
+        isNetwrkError(true);
         isPinError(true);
       } else {
-        isNetwrkError(true);
+       isPinError(true);
       }
+
       return true;
     } catch (e) {
       isPinError(true);
@@ -32,7 +38,7 @@ class UserAuthController extends GetxController {
       return false;
     } finally {
       isLoading(false);
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
       isPinError(false);
     }
   }

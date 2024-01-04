@@ -76,6 +76,13 @@ class _WheelSelectorState extends State<WheelSelector> {
               backgroundColor: Colors.white,
               itemExtent: widget.itemExtent,
               onSelectedItemChanged: (index) {
+                double selectedValue = widget.initValue + (index);
+
+                double decimalValue = widget.initValue + (index / 10);
+
+                // Do something with the selected value
+                print('Selected Value: $selectedValue');
+                print('Selected decimal Value: $decimalValue');
                 setState(() {
                   HapticFeedback.mediumImpact();
                 });
@@ -135,7 +142,10 @@ class _WheelSelectorState extends State<WheelSelector> {
           width: 8.w,
         ),
         if (widget.isButtonsVisible)
-          IncrementDecrementButtons(scrollController: scrollController)
+          IncrementDecrementButtons(
+            scrollController: scrollController,
+            initValue: widget.initValue,
+          )
       ],
     );
   }

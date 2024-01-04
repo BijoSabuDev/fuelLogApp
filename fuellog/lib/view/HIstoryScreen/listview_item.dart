@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BusDetailsListview extends StatelessWidget {
+ 
   final String busHistoryDate;
   final String busHistoryTime;
   final String fuelQty;
@@ -15,7 +16,8 @@ class BusDetailsListview extends StatelessWidget {
       required this.busHistoryTime,
       required this.fuelQty,
       required this.fuelPrice,
-      required this.odometerReading});
+      required this.odometerReading,
+       });
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class BusDetailsListview extends StatelessWidget {
             color: const Color(0xFFF3F3F3)),
         child: Column(
           children: [
+            
             SizedBox(
               height: 17.h,
             ),
