@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fuellog/controller/BusSelected/bus_selected.dart';
 import 'package:fuellog/view/VehicleScreen/camera_capture.dart';
 import 'package:fuellog/view/VehicleScreen/cupertino_picker.dart';
-import 'package:fuellog/view/constants/colors.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,7 +18,7 @@ class Odo_details_photo extends StatefulWidget {
 
 class _Odo_details_photoState extends State<Odo_details_photo> {
   late TextEditingController _textController;
-  late double _currentValue = 0;
+  late final double _currentValue = 0;
   final BusSelectedController busSelectedController =
       Get.find<BusSelectedController>();
 

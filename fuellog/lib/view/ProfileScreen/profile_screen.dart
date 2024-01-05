@@ -32,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   // If the Future is still running, return a loading indicator or placeholder
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 } else if (snapshot.hasError) {
                   // If there is an error, display an error message
                   return Text('Error: ${snapshot.error}');

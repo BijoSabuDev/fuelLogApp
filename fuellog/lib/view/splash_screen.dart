@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fuellog/localStorage/local_storage.dart';
-import 'package:fuellog/view/HomeScreen/home_screen.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:fuellog/view/mainScreen/main_screen.dart';
 import 'package:fuellog/view/onboarding-screen.dart';
@@ -14,7 +13,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // checking if the user has already logged in , if already logged in then go home screen instead of login -----
 
-    Future.delayed(const Duration(milliseconds: 3200), () async {
+    Future.delayed(const Duration(seconds: 5), () async {
       final userData = await UserPreferences.getUserData();
 
       if (userData['user_name'] != null) {
