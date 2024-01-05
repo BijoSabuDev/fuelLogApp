@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fuellog/controller/BusSelected/bus_selected.dart';
+import 'package:fuellog/controller/busSubmission/busSubmission.dart';
+import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/view/VehicleScreen/camera_capture.dart';
 import 'package:fuellog/view/VehicleScreen/cupertino_picker.dart';
 import 'package:get/get.dart';
@@ -21,6 +23,9 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
   late final double _currentValue = 0;
   final BusSelectedController busSelectedController =
       Get.find<BusSelectedController>();
+
+  final BusSubmissionController busSubmissionController =
+      Get.find<BusSubmissionController>();
 
   @override
   void initState() {
@@ -179,6 +184,9 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                     SizedBox(
                       width: 9.w,
                     ),
+
+                    // this is the odometer widget
+
                     GetBuilder<BusSelectedController>(
                       builder: (controller) {
                         final String? vhactReadng = busSelectedController
@@ -186,10 +194,19 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                             .data!
                             .busFuelDetails![0]
                             .vhactReading;
+
                         print(vhactReadng);
                         return WheelSelector(
+                          noValuesSelected: (initValue) {
+                            busSubmissionController
+                                .updateOdometerValue(initValue.toString());
+                          },
+                          onDecimalValueSelected: (p0) {},
                           inputValue: _currentValue,
-                          onValueSelected: (newValue) {},
+                          onValueSelected: (newValue) {
+                            busSubmissionController
+                                .updateOdometerValue(newValue.toString());
+                          },
                           containerHeight: 85.h,
                           containerWidth: 160.w,
                           isButtonsVisible: true,
@@ -272,31 +289,62 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                     Padding(
                         padding:
                             EdgeInsets.only(bottom: 9.w, left: 8.w, right: 8.w),
-                        child: Row(
-                          children: [
-                            WheelSelector(
-                              inputValue: 0,
-                              onValueSelected: (newValue) {},
-                              howMuchToGenerate: 50,
-                              containerHeight: 80.h,
-                              containerWidth: 80.w,
-                              isButtonsVisible: false,
-                              initValue: 150,
-                              itemExtent: 50.h,
-                              showDecimal: false,
-                            ),
-                            WheelSelector(
-                              inputValue: 0,
-                              onValueSelected: (newValue) {},
-                              howMuchToGenerate: 100,
-                              containerHeight: 80.h,
-                              containerWidth: 57.w,
-                              isButtonsVisible: true,
-                              initValue: 0,
-                              itemExtent: 50.h,
-                              showDecimal: false,
-                            ),
-                          ],
+                        child: GetBuilder<BusSelectedController>(
+                          builder: (controller) {
+                            final String? vhactFuelQuantity =
+                                busSelectedController.busSelectionData.data!
+                                    .busFuelDetails![0].vhactQuantity;
+                            return Row(
+                              children: [
+                                WheelSelector(
+                                  noValuesSelected: (initValue) {
+                                    busSubmissionController
+                                        .updatefuelQuantityValue(
+                                            initValue.toString());
+                                  },
+                                  onDecimalValueSelected: (newValue) {},
+                                  inputValue: 0,
+                                  onValueSelected: (newValue) {
+                                    busSubmissionController
+                                        .updateCalculatedValue();
+                                    busSubmissionController
+                                        .updatefuelQuantityValue(
+                                            newValue.toString());
+                                  },
+                                  howMuchToGenerate: 50,
+                                  containerHeight: 80.h,
+                                  containerWidth: 80.w,
+                                  isButtonsVisible: false,
+                                  initValue: double.parse(vhactFuelQuantity!),
+                                  itemExtent: 50.h,
+                                  showDecimal: false,
+                                ),
+                                WheelSelector(
+                                  noValuesSelected: (initValue) {
+                                    busSubmissionController
+                                        .updatefuelQuantityDecimalValue(
+                                            initValue.toString());
+                                  },
+                                  onDecimalValueSelected: (newValue) {},
+                                  inputValue: 0,
+                                  onValueSelected: (newValue) {
+                                    busSubmissionController
+                                        .updateCalculatedValue();
+                                    busSubmissionController
+                                        .updatefuelQuantityDecimalValue(
+                                            newValue!);
+                                  },
+                                  howMuchToGenerate: 100,
+                                  containerHeight: 80.h,
+                                  containerWidth: 57.w,
+                                  isButtonsVisible: true,
+                                  initValue: 0,
+                                  itemExtent: 50.h,
+                                  showDecimal: false,
+                                ),
+                              ],
+                            );
+                          },
                         )),
                   ],
                 ),
@@ -369,20 +417,38 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
 
                     //  fuel price wheel
 
-                    Padding(
-                        padding:
-                            EdgeInsets.only(bottom: 9.w, left: 2.w, right: 8.w),
-                        child: WheelSelector(
-                          inputValue: 0,
-                          onValueSelected: (newValue) {},
-                          howMuchToGenerate: 21,
-                          initValue: 2.0,
-                          itemExtent: 50.h,
-                          showDecimal: true,
-                          isButtonsVisible: true,
-                          containerWidth: 82.w,
-                          containerHeight: 80.h,
-                        )),
+                    GetBuilder<UserAuthController>(
+                      builder: (controller) {
+                        final String? vhactFuelRate = busSelectedController
+                            .busSelectionData
+                            .data!
+                            .busFuelDetails![0]
+                            .vhactRate;
+                        return Padding(
+                            padding: EdgeInsets.only(
+                                bottom: 9.w, left: 2.w, right: 8.w),
+                            child: WheelSelector(
+                              noValuesSelected: (initValue) {
+                                busSubmissionController
+                                    .updatefuelPriceValue(initValue!);
+                              },
+                              onDecimalValueSelected: (newValue) {
+                                busSubmissionController.updateCalculatedValue();
+                                busSubmissionController
+                                    .updatefuelPriceValue(newValue!);
+                              },
+                              inputValue: 0,
+                              onValueSelected: (newValue) {},
+                              howMuchToGenerate: 21,
+                              initValue: double.tryParse(vhactFuelRate!)!,
+                              itemExtent: 50.h,
+                              showDecimal: true,
+                              isButtonsVisible: true,
+                              containerWidth: 82.w,
+                              containerHeight: 80.h,
+                            ));
+                      },
+                    ),
                   ],
                 ),
               ),
@@ -400,26 +466,30 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
             left: 7.w,
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: SizedBox(
-                  width: 220.w,
-                  height: 18.h,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Row(
-                      children: [
-                        SvgPicture.asset('assets/vehicleScreen/info (3) 1.svg'),
-                        SizedBox(
-                          width: 7.w,
-                        ),
-                        Text(
-                          '150.12 ltr X 2.68 aed = 402.32 Aed',
-                          style: GoogleFonts.poppins(
-                              fontWeight: FontWeight.w500, fontSize: 12.sp),
-                        )
-                      ],
-                    ),
+              SizedBox(
+                width: 220.w,
+                height: 18.h,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Row(
+                    children: [
+                      SvgPicture.asset('assets/vehicleScreen/info (3) 1.svg'),
+                      SizedBox(
+                        width: 7.w,
+                      ),
+                      GetX<BusSubmissionController>(
+                        builder: (busSubmissionController) {
+                          return Text(
+                            '${busSubmissionController.totalFuelQuantityValue.value} ltr X ${busSubmissionController.fuelPriceValue.value} aed = ${busSubmissionController.calculatedValue.value} Aed' ??
+                                '',
+                            style: GoogleFonts.poppins(
+                                fontWeight: FontWeight.w500, fontSize: 12.sp),
+                          );
+                        },
+                      )
+                    ],
                   ),
                 ),
               ),

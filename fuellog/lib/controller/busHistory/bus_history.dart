@@ -71,6 +71,7 @@ class BusHistoryController extends GetxController {
         noResults(true);
       }
     } catch (e) {
+      print('this is the bushistory error $e');
       isSuccess(false);
       noResults(true);
     } finally {

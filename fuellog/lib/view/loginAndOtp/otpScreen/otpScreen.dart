@@ -24,7 +24,7 @@ class OtpScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const CustomAppBar(),
+            CustomAppBar(),
             k20,
             Text(
               'Enter Pin',

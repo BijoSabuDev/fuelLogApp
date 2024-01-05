@@ -68,21 +68,18 @@ class _OtpFieldState extends State<OtpField> {
               border: Border.all(color: const Color(0xFFD10000)),
             )),
             onCompleted: (String value) async {
-            
-
-                final isAuthorised = await userAuthController.fetchUserData(
-                    'fuel_login', value, widget.phoneNo);
-                print('this is whether authorised or not ---- $isAuthorised');
-                if (isAuthorised) {
-                  if (mounted) {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) {
-                        return MainScreen();
-                      },
-                    ));
-                  }
+              final isAuthorised = await userAuthController.fetchUserData(
+                  'fuel_login', value, widget.phoneNo);
+              print('this is whether authorised or not ---- $isAuthorised');
+              if (isAuthorised) {
+                if (mounted) {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) {
+                      return MainScreen();
+                    },
+                  ));
                 }
-             
+              }
             },
             forceErrorState: userAuthController.isLoading.value ||
                 userAuthController.isNetwrkError.value ||
@@ -90,15 +87,15 @@ class _OtpFieldState extends State<OtpField> {
             closeKeyboardWhenCompleted: true,
             keyboardType: TextInputType.number,
             errorTextStyle: GoogleFonts.inter(
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w400,
+                fontSize: 8.sp,
+                fontWeight: FontWeight.w200,
                 color: const Color(0xFFF54135)),
             errorText: (() {
               if (userAuthController.isLoading.value) {
                 return 'Checking...';
               }
               if (userAuthController.isPinError.value) {
-                return 'Invalid Credentials, please try again ';
+                return 'Invalid credentials, or check your network connection';
               }
               if (userAuthController.isNetwrkError.value) {
                 return 'Please check your internet connection';
@@ -115,12 +112,15 @@ class _OtpFieldState extends State<OtpField> {
             //             : 'Error occurred. Please try again later',
             errorBuilder: (String? errorText, String? enteredValue) {
               return Center(
-                child: Text(
-                  errorText!,
-                  style: const TextStyle(
-                    color: Color(0xFFF54135),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Text(
+                    errorText!,
+                    style: TextStyle(
+                      color: const Color(0xFFF54135),
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
               );

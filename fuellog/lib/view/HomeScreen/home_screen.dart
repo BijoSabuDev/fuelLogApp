@@ -117,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                                           builder: (context, snapshot) {
                                             if (snapshot.connectionState ==
                                                 ConnectionState.none) {
-                                              return const CircularProgressIndicator();
+                                              return const CupertinoActivityIndicator();
                                             } else if (snapshot.hasError) {
                                               return Text(
                                                   'Error: ${snapshot.error}');

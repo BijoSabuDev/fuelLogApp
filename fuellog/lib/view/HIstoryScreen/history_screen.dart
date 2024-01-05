@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +20,6 @@ class HistoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
@@ -60,7 +60,7 @@ class HistoryScreen extends StatelessWidget {
                 return const SearchOrScan();
               } else if (busHistoryController.isLoading.value) {
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: CupertinoActivityIndicator(),
                 );
               } else if (busHistoryController.isSuccess.value &&
                   busHistoryController.busHistory.value!.data != null &&
@@ -74,8 +74,6 @@ class HistoryScreen extends StatelessWidget {
                     .vehicleActivityHistory![0]['vhact_veh_id'];
                 return Column(
                   children: [
-              
-
                     BusNumberBox(busNo: busNo!, regNo: busNo, fuelType: busNo),
                     SizedBox(
                       height: 33.h,

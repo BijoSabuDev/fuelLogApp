@@ -36,6 +36,7 @@ class BusSelectedController extends GetxController {
         return false;
       }
     } catch (e) {
+      print('this is the busselection error $e');
       isLoading(false);
       noResults(true);
       return false;

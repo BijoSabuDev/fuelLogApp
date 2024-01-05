@@ -9,6 +9,7 @@ import 'package:fuellog/view/ProfileScreen/enquiry_container.dart';
 import 'package:fuellog/view/ProfileScreen/profile_app_bar.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:fuellog/view/loginAndOtp/login_screen.dart';
+import 'package:fuellog/view/mainScreen/bottom_nav_bar.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -163,6 +164,7 @@ class ProfileScreen extends StatelessWidget {
         GestureDetector(
           onTap: () async {
             await logout();
+            selectedIndexNotifier.value = 0;
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
               builder: (context) {
                 return const LoginScreen();

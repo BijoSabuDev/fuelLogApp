@@ -112,7 +112,7 @@ class VehicleScreen extends StatelessWidget {
                     await Future.delayed(const Duration(milliseconds: 1800));
                     Navigator.of(context)
                         .pushReplacement(MaterialPageRoute(builder: (context) {
-                      return const SuccessPage();
+                      return SuccessPage();
                     }));
                     controller.reset();
                   },

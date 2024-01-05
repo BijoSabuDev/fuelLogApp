@@ -1,17 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fuellog/controller/busSubmission/busSubmission.dart';
 import 'package:fuellog/view/mainScreen/bottom_nav_bar.dart';
 import 'package:fuellog/view/mainScreen/main_screen.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SuccessPage extends StatelessWidget {
-  const SuccessPage({super.key});
+  SuccessPage({super.key});
+
+  final BusSubmissionController busSubmissionController =
+      Get.find<BusSubmissionController>();
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       selectedIndexNotifier.value = 0;
+      print(
+          'this is the odometer value ----------- ${busSubmissionController.odometerValue.value}');
+      print(
+          "this is the fuelprice value --------------------- ${busSubmissionController.fuelPriceValue.value}");
+      print(
+          'this is the fuelquatity value ---------------- ${busSubmissionController.fuelQuantityValue.value}');
+      print(
+          "this is the fuelquantity decimal value --------------  ${busSubmissionController.fuelQuantityDecimalValue.value}");
     });
     return Scaffold(
       body: Center(
@@ -57,6 +70,7 @@ class SuccessPage extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
+                busSubmissionController.resetValues();
                 Navigator.of(context)
                     .pushReplacement(MaterialPageRoute(builder: (context) {
                   return MainScreen();

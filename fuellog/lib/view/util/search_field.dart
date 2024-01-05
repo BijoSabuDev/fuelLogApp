@@ -46,6 +46,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
         onSubmitted: (value) async {
           final success = await busSelectedController.fetchBusSelectionData(
               'fuel_bus_selection', busSearchController.text);
+          print(success);
           busSearchController.clear();
 
           if (busSelectedController.isLoading.value) {

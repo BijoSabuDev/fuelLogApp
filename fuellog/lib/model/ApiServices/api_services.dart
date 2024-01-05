@@ -69,7 +69,7 @@ class ApiServices {
         headers: headers,
         body: jsonEncode(body),
       );
-      print('this is the reponse from api call ${response.body}');
+      print('this is the reponse from api call ${response.statusCode}');
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         print(data);
@@ -90,10 +90,12 @@ class ApiServices {
         }
         return userData;
       } else {
+        print(response.reasonPhrase);
         throw Exception(
             'Failed to load bus selection data. Status Code: ${response.statusCode}, Body: ${response.body}');
       }
     } catch (e) {
+      print(e);
       rethrow;
     }
   }

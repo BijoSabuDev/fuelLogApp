@@ -2,11 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fuellog/controller/busSubmission/busSubmission.dart';
 import 'package:fuellog/view/VehicleScreen/increment_decrement_buttons.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class WheelSelector extends StatefulWidget {
-  final Function(String) onValueSelected;
+  final Function(String?) noValuesSelected;
+  final Function(String?) onValueSelected;
+  final Function(String?) onDecimalValueSelected;
   late double inputValue = 0;
   final double containerHeight;
   final double containerWidth;
@@ -25,11 +29,16 @@ class WheelSelector extends StatefulWidget {
       required this.showDecimal,
       required this.howMuchToGenerate,
       required this.onValueSelected,
-      required this.inputValue});
+      required this.inputValue,
+      required this.onDecimalValueSelected,
+      required this.noValuesSelected});
 
   @override
   State<WheelSelector> createState() => _WheelSelectorState();
 }
+
+final BusSubmissionController busSubmissionController =
+    Get.find<BusSubmissionController>();
 
 class _WheelSelectorState extends State<WheelSelector> {
   late FixedExtentScrollController scrollController;
@@ -39,7 +48,9 @@ class _WheelSelectorState extends State<WheelSelector> {
   @override
   void initState() {
     super.initState();
-
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      widget.noValuesSelected(widget.initValue.toString());
+    });
     scrollController = FixedExtentScrollController(initialItem: 0);
     // _textController =
     //     TextEditingController(text: widget.currentValue.toString());
@@ -76,10 +87,12 @@ class _WheelSelectorState extends State<WheelSelector> {
               backgroundColor: Colors.white,
               itemExtent: widget.itemExtent,
               onSelectedItemChanged: (index) {
-                double selectedValue = widget.initValue + (index);
+                int selectedValue = widget.initValue.toInt() + (index);
 
                 double decimalValue = widget.initValue + (index / 10);
 
+                widget.onValueSelected(selectedValue.toString());
+                widget.onDecimalValueSelected(decimalValue.toString());
                 // Do something with the selected value
                 print('Selected Value: $selectedValue');
                 print('Selected decimal Value: $decimalValue');

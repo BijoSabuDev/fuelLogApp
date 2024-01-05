@@ -1,6 +1,7 @@
 import 'dart:io';
 // import 'dart:js_interop';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -23,13 +24,22 @@ class _CameraCaptureState extends State<CameraCapture> {
     }
   }
 
-  Future pickImage() async {
+  Future<File?> pickImage() async {
     try {
-      final image = ImagePicker().pickImage(source: ImageSource.camera);
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
 
-      // final imageTemperory = File(image.path);
+      if (image == null) {
+        return null;
+      }
+
+      File imageFile = File(image.path);
+      print(image.path);
+      return imageFile;
     } catch (e) {
-      print(e.toString());
+      if (kDebugMode) {
+        print(e.toString());
+      }
+      return null;
     }
   }
 
