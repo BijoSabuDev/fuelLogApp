@@ -53,6 +53,66 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
             const Center(
               child: CircularProgressIndicator(),
             );
+          } else if (busSelectedController.noConnection.value) {
+            // ignore: use_build_context_synchronously
+            showCupertinoDialog(
+                context: context,
+                builder: (ctx) {
+                  return CupertinoAlertDialog(
+                    title: Text(
+                      'Error!',
+                      style: GoogleFonts.poppins(
+                          fontSize: 26.sp,
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xFFEF4348)),
+                    ),
+                    content: SizedBox(
+                      height: 24.h,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: RichText(
+                          textAlign: TextAlign.center,
+                          text: TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'No network connection',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 24.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text: ' ',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    actions: [
+                      CupertinoDialogAction(
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(ctx).pop();
+                          },
+                          child: Text(
+                            'Exit',
+                            style: GoogleFonts.poppins(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w600,
+                                color: appTheme),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                });
           } else if (success) {
             // ignore: use_build_context_synchronously
             Navigator.of(context).pushReplacement(MaterialPageRoute(

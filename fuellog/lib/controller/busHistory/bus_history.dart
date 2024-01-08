@@ -1,7 +1,8 @@
 import 'package:fuellog/model/ApiServices/api_services.dart';
 import 'package:fuellog/model/apiModels/bus_history.dart';
-
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
+import 'package:http/retry.dart';
 import 'package:intl/intl.dart';
 
 //this is initialized in the main.dart
@@ -13,6 +14,7 @@ class BusHistoryController extends GetxController {
   Rx<bool> isLoading = false.obs;
   Rx<bool> isSuccess = false.obs;
   Rx<bool> noResults = false.obs;
+  Rx<bool> noConnection = false.obs;
 
   Rx<String> userInput = ''.obs;
 
@@ -40,15 +42,24 @@ class BusHistoryController extends GetxController {
   }
 
   Future<void> fetchBusHistoryData(String input) async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
     try {
       isLoading(true);
+      if (connectivityResult == ConnectivityResult.none) {
+        noConnection(true);
+        isLoading(false);
+        return;
+      }
 
       await apiServices.getBusHistory(input).then((value) {
         print('api is called');
 
         busHistory.value = value;
         isSuccess(true);
+      }).catchError((error) {
+        print('Error during API call: $error');
       });
+      
 
       print(
           'bushistory vvalue${busHistory.value!.data!.data!.vehicleActivityHistory}');

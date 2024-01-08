@@ -89,7 +89,10 @@ class _WheelSelectorState extends State<WheelSelector> {
               onSelectedItemChanged: (index) {
                 int selectedValue = widget.initValue.toInt() + (index);
 
-                double decimalValue = widget.initValue + (index / 10);
+                // double decimalValue = widget.initValue.toDouble() + (index / 10).toStringAsFixed(1);
+                double decimalValue = double.parse(
+                    (widget.initValue.toDouble() + (index / 10))
+                        .toStringAsFixed(1));
 
                 widget.onValueSelected(selectedValue.toString());
                 widget.onDecimalValueSelected(decimalValue.toString());

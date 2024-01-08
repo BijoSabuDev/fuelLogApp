@@ -23,7 +23,9 @@ class BusSubmissionController extends GetxController {
     double price = double.tryParse(fuelPriceValue.value) ?? 0;
     totalFuelQuantityValue.value = "$quantity.$decimalQuantity".toString();
 
-    double result = (quantity + decimalQuantity) * price;
+    int resultValue = quantity + decimalQuantity;
+
+    double result = resultValue * price;
 
     calculatedValue.value =
         result.toStringAsFixed(2); // Format result as needed
@@ -43,5 +45,9 @@ class BusSubmissionController extends GetxController {
 
   void updatefuelPriceValue(String value) {
     fuelPriceValue.value = value;
+  }
+
+  Future<void> submitBusData() async {
+    try {} catch (e) {}
   }
 }

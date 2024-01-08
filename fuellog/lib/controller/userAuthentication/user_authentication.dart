@@ -2,6 +2,8 @@ import 'package:fuellog/model/ApiServices/api_services.dart';
 import 'package:fuellog/model/apiModels/user_auth_model.dart';
 import 'package:get/get.dart';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
+
 // this is initiated in the login screen
 
 class UserAuthController extends GetxController {
@@ -22,8 +24,14 @@ class UserAuthController extends GetxController {
 
   Future<bool> fetchUserData(
       String action, String pin, String phoneNumber) async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
     try {
       isLoading(true);
+
+      if (connectivityResult == ConnectivityResult.none) {
+        isNetwrkError(true);
+        return false;
+      }
       final data = await apiServices.userAuthData(action, pin, phoneNumber);
       print(data);
 
@@ -43,7 +51,6 @@ class UserAuthController extends GetxController {
     } catch (e) {
       print('this is the authentication issue $e');
       isPinError(true);
-      isNetwrkError(true);
 
       return false;
     } finally {
