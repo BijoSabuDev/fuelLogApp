@@ -95,10 +95,10 @@ class _OtpFieldState extends State<OtpField> {
                 return 'Checking...';
               }
               if (userAuthController.isPinError.value) {
-                return 'Invalid credentials, or check your network connection';
+                return 'Invalid credentials,please try again';
               }
               if (userAuthController.isNetwrkError.value) {
-                return 'Please check your internet connection';
+                return 'Please check your network connection';
               } else {
                 return 'Error occurred. Please try again later';
               }
@@ -118,7 +118,7 @@ class _OtpFieldState extends State<OtpField> {
                     errorText!,
                     style: TextStyle(
                       color: const Color(0xFFF54135),
-                      fontSize: 14.sp,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w400,
                     ),
                   ),

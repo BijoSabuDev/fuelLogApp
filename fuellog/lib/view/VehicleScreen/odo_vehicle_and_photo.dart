@@ -19,7 +19,7 @@ class Odo_details_photo extends StatefulWidget {
 }
 
 class _Odo_details_photoState extends State<Odo_details_photo> {
-  // late TextEditingController _textController;
+  late TextEditingController _textController;
   late final double _currentValue = 0;
   final BusSelectedController busSelectedController =
       Get.find<BusSelectedController>();
@@ -27,15 +27,15 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
   final BusSubmissionController busSubmissionController =
       Get.find<BusSubmissionController>();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _textController = TextEditingController();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    _textController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // final txtController = TextEditingController();
+    final txtController = TextEditingController();
     // final sw = MediaQuery.of(context).size.width;
     return Column(
       children: [
@@ -144,10 +144,13 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                     //             CupertinoDialogAction(
                     //               child: GestureDetector(
                     //                 onTap: () {
-                    //                   setState(() {
-                    //                     _currentValue =
-                    //                         double.parse(txtController.text);
-                    //                   });
+                    //                   busSubmissionController
+                    //                       .updateOdometerValue(
+                    //                           txtController.text);
+                    //                   // setState(() {
+                    //                   //   _currentValue =
+                    //                   //       double.parse(txtController.text);
+                    //                   // });
                     //                   Navigator.of(context).pop();
                     //                 },
                     //                 child: Text(
@@ -202,7 +205,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                                 .updateOdometerValue(initValue.toString());
                           },
                           onDecimalValueSelected: (p0) {},
-                          inputValue: _currentValue,
+                          inputValue: 0,
                           onValueSelected: (newValue) {
                             busSubmissionController
                                 .updateOdometerValue(newValue.toString());
@@ -210,7 +213,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                           containerHeight: 85.h,
                           containerWidth: 160.w,
                           isButtonsVisible: true,
-                          itemExtent: 50.h,
+                          itemExtent: 55.h,
                           initValue: double.parse(vhactReadng!),
                           showDecimal: false,
                           howMuchToGenerate: 20000,

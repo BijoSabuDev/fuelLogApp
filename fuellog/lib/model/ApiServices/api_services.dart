@@ -16,7 +16,6 @@ class ApiServices {
     try {
       final Uri uri = Uri.parse(ApiUrl().baseUrl);
       final Map<String, String> headers = {
-        'Content-Type': 'application/json',
         'API-Key': apiKey,
       };
 
@@ -28,7 +27,7 @@ class ApiServices {
       final response = await http.post(
         uri,
         headers: headers,
-        body: jsonEncode(body),
+        body: body,
       );
 
       if (response.statusCode == 200) {
@@ -55,7 +54,6 @@ class ApiServices {
     try {
       final Uri uri = Uri.parse('https://alpha.docme.cloud/api_fuel/action');
       final Map<String, String> headers = {
-        'Content-Type': 'application/json',
         'API-Key': apiKey,
       };
 
@@ -68,7 +66,7 @@ class ApiServices {
       final response = await http.post(
         uri,
         headers: headers,
-        body: jsonEncode(body),
+        body: body,
       );
       print('this is the reponse from api call ${response.statusCode}');
       if (response.statusCode == 200) {
@@ -107,7 +105,6 @@ class ApiServices {
     try {
       final Uri uri = Uri.parse(ApiUrl().baseUrl);
       final Map<String, String> headers = {
-        'Content-Type': 'application/json',
         'API-Key': apiKey,
       };
 
@@ -119,7 +116,7 @@ class ApiServices {
       final response = await http.post(
         uri,
         headers: headers,
-        body: jsonEncode(body),
+        body: body,
       );
       print('this is the reponse from api call ${response.body}');
       if (response.statusCode == 200) {
