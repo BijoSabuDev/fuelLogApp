@@ -19,7 +19,7 @@ class Odo_details_photo extends StatefulWidget {
 }
 
 class _Odo_details_photoState extends State<Odo_details_photo> {
-  late TextEditingController _textController;
+  // late TextEditingController _textController;
   late final double _currentValue = 0;
   final BusSelectedController busSelectedController =
       Get.find<BusSelectedController>();
@@ -27,15 +27,15 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
   final BusSubmissionController busSubmissionController =
       Get.find<BusSubmissionController>();
 
-  @override
-  void initState() {
-    super.initState();
-    _textController = TextEditingController();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _textController = TextEditingController();
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final txtController = TextEditingController();
+    // final txtController = TextEditingController();
     // final sw = MediaQuery.of(context).size.width;
     return Column(
       children: [
