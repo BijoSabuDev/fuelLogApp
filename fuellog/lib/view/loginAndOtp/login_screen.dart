@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
-import 'package:fuellog/model/ApiServices/api_services.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:fuellog/view/constants/dimensions.dart';
 import 'package:fuellog/view/loginAndOtp/otpScreen/otpScreen.dart';
