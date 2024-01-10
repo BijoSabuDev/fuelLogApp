@@ -9,7 +9,6 @@ import 'package:fuellog/view/HIstoryScreen/historySearch/history_search_bar.dart
 import 'package:fuellog/view/HIstoryScreen/listview_item.dart';
 import 'package:fuellog/view/HIstoryScreen/no_record_screen.dart';
 import 'package:fuellog/view/HIstoryScreen/search_or_scan.dart';
-import 'package:fuellog/view/constants/colors.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -87,6 +86,43 @@ class HistoryScreen extends StatelessWidget {
                 return Column(
                   children: [
                     // BusNumberBox(busNo: busNo!, regNo: busNo, fuelType: busNo),
+
+                    FittedBox(
+                      child: Row(
+                        children: [
+                          Text(
+                            'Bus No',
+                            style: GoogleFonts.readexPro(
+                                fontSize: 20.sp, fontWeight: FontWeight.w500),
+                          ),
+                          SizedBox(
+                            width: 6.w,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.black,
+                                borderRadius: BorderRadius.circular(5)),
+                            width: 30.w,
+                            height: 30.h,
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: Text(
+                                    busNo!,
+                                    style: GoogleFonts.readexPro(
+                                        color: Colors.white,
+                                        fontSize: 20.sp,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                     SizedBox(
                       height: 33.h,
                     ),

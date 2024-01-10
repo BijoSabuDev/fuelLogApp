@@ -42,8 +42,6 @@ final BusSubmissionController busSubmissionController =
 
 class _WheelSelectorState extends State<WheelSelector> {
   late FixedExtentScrollController scrollController;
-  // late TextEditingController _textController;
-  // double currentValue = 2.0;
 
   @override
   void initState() {
@@ -52,8 +50,6 @@ class _WheelSelectorState extends State<WheelSelector> {
       widget.noValuesSelected(widget.initValue.toString());
     });
     scrollController = FixedExtentScrollController(initialItem: 0);
-    // _textController =
-    //     TextEditingController(text: widget.currentValue.toString());
   }
 
   @override

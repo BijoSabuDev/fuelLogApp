@@ -2,7 +2,6 @@ import 'package:fuellog/model/ApiServices/api_services.dart';
 import 'package:fuellog/model/apiModels/bus_history.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
-import 'package:http/retry.dart';
 import 'package:intl/intl.dart';
 
 //this is initialized in the main.dart
@@ -62,7 +61,7 @@ class BusHistoryController extends GetxController {
       
 
       print(
-          'bushistory vvalue${busHistory.value!.data!.data!.vehicleActivityHistory}');
+          'bushistory value${busHistory.value!.data!.data!.vehicleActivityHistory}');
 
       if (busHistory.value!.data != null &&
           busHistory.value!.data!.data != null &&

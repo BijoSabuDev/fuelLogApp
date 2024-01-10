@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:fuellog/localStorage/local_storage.dart';
@@ -6,12 +7,16 @@ import 'package:fuellog/model/apiConstants/api_endpoints.dart';
 import 'package:fuellog/model/apiConstants/api_key.dart';
 import 'package:fuellog/model/apiModels/bus_history.dart';
 import 'package:fuellog/model/apiModels/bus_selection.dart';
+import 'package:fuellog/model/apiModels/bus_submission.dart';
 import 'package:fuellog/model/apiModels/user_auth_model.dart';
+import 'package:fuellog/view/VehicleScreen/cupertino_picker.dart';
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
 
 class ApiServices {
+  // GET THE DETAILS OF SELECTED BUS
+
   Future<BusSelectionData> fetchSelectedBus(String action, String busId) async {
     try {
       final Uri uri = Uri.parse(ApiUrl().baseUrl);
@@ -45,9 +50,7 @@ class ApiServices {
     }
   }
 
-//     "action": "fuel_login",
-  // "password": "1234",
-  //  "phone": "9747887948"
+  // GET THE DETAILS OF USER LOGGED IN
 
   Future<UserData> userAuthData(
       String action, String pin, String phoneNumber) async {
@@ -82,6 +85,7 @@ class ApiServices {
         await UserPreferences.saveUserData(
           userData.data!.data!.conductorDetails!.condName!,
           userData.data!.data!.conductorDetails!.condPhone!,
+          userData.data!.data!.conductorDetails!.condId!,
         );
 
         if (kDebugMode) {
@@ -98,6 +102,8 @@ class ApiServices {
       rethrow;
     }
   }
+
+  // GET THE DETAILS OF BUS HISTORY
 
   Future<BusHistory> getBusHistory(
     String busId,
@@ -137,6 +143,58 @@ class ApiServices {
     } catch (e) {
       print(e);
       rethrow;
+    }
+  }
+
+  // SUBMIT THE FUEL VALUE ,IMAGE IS OPTIONAL
+
+  Future<BusSubmittedResponse?> submitFuelValue(
+      String action,
+      String busId,
+      File? file,
+      String busOdometer,
+      String fuelPrice,
+      String fuelQuantity,
+      String logId) async {
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(ApiUrl().baseUrl));
+
+      var headers = {
+        'Authorization': '525-777-777',
+      };
+      request.headers.addAll(headers);
+      request.fields.addAll({
+        'action': action,
+        'bus_Id': busId,
+        'bus_odometer': busOdometer,
+        'fuel_price': fuelPrice,
+        'fuel_quantity': fuelQuantity,
+        'log_ID': logId,
+      });
+
+      request.files.add(http.MultipartFile.fromBytes(
+          'bus_Image', await file!.readAsBytes(),
+          filename: 'fuelImage.jpg'));
+
+      // Send the request
+      http.StreamedResponse response = await request.send();
+
+      print(response.reasonPhrase);
+
+      if (response.statusCode == 200) {
+        final data = await jsonDecode(await response.stream.bytesToString());
+
+        final busSubmittedResponse = BusSubmittedResponse.fromJson(data);
+        print(
+            'bussubmitted result------ ${busSubmittedResponse.data!.message}');
+
+        return busSubmittedResponse;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print('Error: $e');
+      throw e;
     }
   }
 }

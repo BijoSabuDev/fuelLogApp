@@ -60,24 +60,7 @@ class OnboardingScreen extends StatelessWidget {
                   ),
             ),
 
-            // SvgPicture.asset(
-            //   'assets/onboardingScreen/image 160.svg',
-            //   height: sw,
-            //   width: sw,
-            // )
-            // Image.asset(
-            //   'assets/onboardingScreen/fuel-log-bg.webp',
-            //   height: 460.h,
-            //   width: 383.w,
-            //   fit: BoxFit.scaleDown,
-            // )
-            //     .animate(
-            //       delay: 400.ms,
-            //     )
-            //     .fadeIn(
-            //       delay: 500.ms,
-            //       curve: Curves.easeIn,
-            //     ),
+  
             SizedBox(
               height: 40.h,
             ),
@@ -163,17 +146,6 @@ class OnboardingScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // child: Container(
-                  //   height: 44.h,
-                  //   child: Text(
-                  //     'Monitor fuel efficiency and spending\nacross all routes',
-                  // style: GoogleFonts.inter(
-                  //     color: Colors.black.withOpacity(0.5),
-                  //     fontSize: 18.sp,
-                  //     letterSpacing: 0.2,
-                  //     fontWeight: FontWeight.w400),
-                  //   ),
-                  // ),
                 ),
                 SizedBox(
                   height: 26.h,
@@ -217,13 +189,6 @@ class OnboardingScreen extends StatelessWidget {
                   begin: 0.2,
                   end: 0.0,
                 ),
-
-            // SizedBox(
-            //   height: sw * 0.50,
-            //   width: double.infinity,
-            //   child:
-            //       SvgPicture.asset('assets/onboardingScreen/image 160.svg'),
-            // )
           ],
         ),
       ),

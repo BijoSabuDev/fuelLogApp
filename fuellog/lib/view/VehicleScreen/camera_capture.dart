@@ -5,9 +5,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fuellog/controller/busSubmission/busSubmission.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class CameraCapture extends StatefulWidget {
   const CameraCapture({super.key});
@@ -17,6 +20,8 @@ class CameraCapture extends StatefulWidget {
 }
 
 class _CameraCaptureState extends State<CameraCapture> {
+  final BusSubmissionController busSubmissionController =
+      Get.find<BusSubmissionController>();
   Future<void> requestCameraPermission() async {
     var status = await Permission.camera.status;
     if (!status.isGranted) {
@@ -24,22 +29,38 @@ class _CameraCaptureState extends State<CameraCapture> {
     }
   }
 
-  Future<File?> pickImage() async {
+  Future<void> pickImage() async {
+    // busSubmissionController.imageFile.value == null;
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
 
       if (image == null) {
-        return null;
-      }
+        return;
+      } else {
+        File imageFile = File(image.path);
 
-      File imageFile = File(image.path);
-      print(image.path);
-      return imageFile;
+        EasyLoading.show(status: 'loading...', dismissOnTap: true);
+        busSubmissionController.imageFile.value = imageFile;
+        print(
+            'this is the image file ${busSubmissionController.imageFile.value}');
+        await Future.delayed(const Duration(seconds: 1));
+        EasyLoading.showProgress(
+          0.7,
+          status: 'uploading...',
+        );
+
+        EasyLoading.showSuccess('Uploaded!', dismissOnTap: true);
+        await Future.delayed(const Duration(seconds: 3));
+        EasyLoading.dismiss();
+
+        print(image.path);
+      }
     } catch (e) {
       if (kDebugMode) {
         print(e.toString());
       }
-      return null;
+      return;
+      
     }
   }
 
@@ -47,9 +68,9 @@ class _CameraCaptureState extends State<CameraCapture> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        requestCameraPermission();
-        pickImage();
+      onTap: () async {
+        await requestCameraPermission();
+        await pickImage();
       },
       child: Container(
         width: 124.w,

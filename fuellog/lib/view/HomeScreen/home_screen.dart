@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fuellog/controller/BusSelected/bus_selected.dart';
 import 'package:fuellog/controller/busHistory/bus_history.dart';
+import 'package:fuellog/controller/busSubmission/busSubmission.dart';
 import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/localStorage/local_storage.dart';
 import 'package:fuellog/view/VehicleScreen/vehicle_screen.dart';
@@ -27,11 +28,15 @@ class HomeScreen extends StatelessWidget {
   final BusHistoryController busHistoryController =
       Get.find<BusHistoryController>();
 
+  final BusSubmissionController busSubmissionController =
+      Get.find<BusSubmissionController>();
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      busSubmissionController.resetValues();
       final userData = await UserPreferences.getUserData();
       // Use the retrieved user data as needed
+      print('Cond Id: ${userData['cond_Id']}');
       print('User Name: ${userData['user_name']}');
       print('Phone Number: ${userData['phone_number']}');
       busHistoryController.userInput.value = '';
@@ -55,9 +60,6 @@ class HomeScreen extends StatelessWidget {
                     padding: EdgeInsets.only(top: 81.h, left: 25.w),
                     child: LogoWithText(sw: sw),
                   ),
-                  // SizedBox(
-                  //   height: 21.h,
-                  // ),
                   SizedBox(
                     height: 30.h,
                   ),
@@ -164,39 +166,6 @@ class HomeScreen extends StatelessWidget {
                                             }
                                           },
                                         )
-
-                                        // RichText(
-                                        //   maxLines: 3,
-                                        //   overflow: TextOverflow.ellipsis,
-                                        //   textAlign: TextAlign.start,
-                                        //   text: TextSpan(
-                                        //     style: GoogleFonts.readexPro(
-                                        //         fontWeight: FontWeight.w400,
-                                        //         color: const Color(0xFFA2B2C8)),
-                                        //     children: [
-                                        //       TextSpan(
-                                        //         text: 'Welcome\n',
-                                        //         style: GoogleFonts.readexPro(
-                                        //             fontWeight: FontWeight.w400,
-                                        //             fontSize: 14.sp,
-                                        //             color: const Color(
-                                        //                 0xFFA2B2C8)),
-                                        //       ),
-                                        //       TextSpan(text:  ,
-                                        //         // text: userAuthController
-                                        //         //     .userAuthData!
-                                        //         //     .data!
-                                        //         //     .data!
-                                        //         //     .conductorDetails!
-                                        //         //     .condName,
-                                        //         style: GoogleFonts.readexPro(
-                                        //             fontWeight: FontWeight.w500,
-                                        //             fontSize: 16.sp,
-                                        //             color: Colors.black),
-                                        //       ),
-                                        //     ],
-                                        //   ),
-                                        // )
                                       ],
                                     ),
                                   )
@@ -232,18 +201,7 @@ class HomeScreen extends StatelessWidget {
                                         fontSize: 18.sp,
                                         color: Colors.white),
                                   ),
-                                  // SizedBox(
-                                  //   height: 17.h,
-                                  //   child: FittedBox(
-                                  //     child: Text(
-                                  //       'How to use this application',
-                                  //       style: GoogleFonts.readexPro(
-                                  //           fontWeight: FontWeight.w400,
-                                  //           fontSize: 13.77.sp,
-                                  //           color: Colors.white),
-                                  //     ),
-                                  //   ),
-                                  // ),
+                           
                                   SizedBox(
                                     height: 5.h,
                                   ),
@@ -357,6 +315,7 @@ class HomeScreen extends StatelessWidget {
 
                                       await requestCameraPermission();
 
+                                      // ignore: use_build_context_synchronously
                                       startScanAndNavigate(context);
 
                                       buttonPressed.value =
@@ -398,10 +357,7 @@ class HomeScreen extends StatelessWidget {
                       .scaleXY(duration: 300.ms, curve: Curves.easeIn),
                 ),
               ),
-              // SizedBox(
-              //   height: 27.h,
-              // ),
-              // SizedBox(height: 10.h),
+           
             ],
           );
         },
@@ -421,7 +377,7 @@ class HomeScreen extends StatelessWidget {
         qrScanner,
       );
 
-      // await Future.delayed(const Duration(seconds: 1));
+     
 
       if (success) {
         // ignore: use_build_context_synchronously

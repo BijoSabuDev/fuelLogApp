@@ -165,6 +165,7 @@ class ProfileScreen extends StatelessWidget {
           onTap: () async {
             await logout();
             selectedIndexNotifier.value = 0;
+            // ignore: use_build_context_synchronously
             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
               builder: (context) {
                 return const LoginScreen();

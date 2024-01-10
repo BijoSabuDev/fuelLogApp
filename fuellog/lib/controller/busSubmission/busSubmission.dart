@@ -1,13 +1,25 @@
+import 'dart:io';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:fuellog/model/ApiServices/api_services.dart';
+import 'package:fuellog/model/apiModels/bus_submission.dart';
 import 'package:get/get.dart';
 
 class BusSubmissionController extends GetxController {
+  ApiServices apiServices = ApiServices();
   Rx<String> odometerValue = ''.obs;
   Rx<String> fuelQuantityValue = ''.obs;
   Rx<String> fuelQuantityDecimalValue = ''.obs;
   Rx<String> fuelPriceValue = ''.obs;
   Rx<String> calculatedValue = ''.obs;
   Rx<String> totalFuelQuantityValue = ''.obs;
+  Rx<File?> imageFile = Rx<File?>(null);
 
+  Rx<bool> isLoading = false.obs;
+  Rx<bool> isSuccess = false.obs;
+  Rx<bool> noConnection = false.obs;
+
+  BusSubmittedResponse busSubmittedResponse = BusSubmittedResponse();
   void resetValues() {
     odometerValue.value = '';
     fuelQuantityValue.value = '';
@@ -15,6 +27,52 @@ class BusSubmissionController extends GetxController {
     fuelPriceValue.value = '';
     calculatedValue.value = '';
     totalFuelQuantityValue.value = '';
+    imageFile.value = null;
+  }
+
+  Future<bool> submitFuelValue(
+      String action,
+      String busId,
+      File? file,
+      String busOdometer,
+      String fuelPrice,
+      String fuelQuantity,
+      String logId) async {
+    final connectivityResult = await (Connectivity().checkConnectivity());
+
+    try {
+      isLoading(true);
+      if (connectivityResult == ConnectivityResult.none) {
+        noConnection(true);
+        isLoading(false);
+        // return false;
+      }
+
+      final data = await apiServices.submitFuelValue(
+          action, busId, file!, busOdometer, fuelPrice, fuelQuantity, logId);
+
+      print('this is data from controller ${data!.data!.message}');
+
+      busSubmittedResponse = data;
+      isSuccess(true);
+      return true;
+
+      // if (data.data!.errorStatus == 0) {
+      //   isSuccess(true);
+      //   isLoading(false);
+
+      //   return true;
+      // } else {
+      //   isLoading(false);
+
+      //   return false;
+      // }
+    } catch (e) {
+      print('this is the busselection error $e');
+      isLoading(false);
+
+      return false;
+    }
   }
 
   void updateCalculatedValue() {
@@ -36,7 +94,7 @@ class BusSubmissionController extends GetxController {
   }
 
   void updatefuelQuantityValue(String value) {
-    fuelQuantityValue.value = value;
+    fuelQuantityValue.value = value.toString();
   }
 
   void updatefuelQuantityDecimalValue(String value) {

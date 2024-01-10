@@ -66,18 +66,7 @@ class BottomNavBar extends StatelessWidget {
                     ? appTheme
                     : const Color(0xFFB8B8B8),
               ),
-              // icon: SvgPicture.asset(
-              //   'assets/homeScreen/Vector.svg',
-              //   colorFilter: selectedIndexNotifier.value == 2
-              //       ? const ColorFilter.mode(
-              //           appTheme,
-              //           BlendMode.srcIn,
-              //         )
-              //       : const ColorFilter.mode(
-              //           Color(0xFFB8B8B8),
-              //           BlendMode.srcIn,
-              //         ),
-              // ),
+       
               label: 'Profile',
             ),
           ],

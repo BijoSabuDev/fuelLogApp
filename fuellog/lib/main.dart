@@ -1,7 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:fuellog/controller/BusSelected/bus_selected.dart';
 import 'package:fuellog/controller/busHistory/bus_history.dart';
 import 'package:fuellog/controller/busSubmission/busSubmission.dart';
@@ -63,6 +63,7 @@ class MyApp extends StatelessWidget {
         designSize: const Size(430, 932),
         builder: (_, child) {
           return GetMaterialApp(
+            builder: EasyLoading.init(),
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: ThemeData(

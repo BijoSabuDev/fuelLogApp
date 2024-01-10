@@ -8,6 +8,7 @@ import 'package:fuellog/view/VehicleScreen/camera_capture.dart';
 import 'package:fuellog/view/VehicleScreen/cupertino_picker.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class Odo_details_photo extends StatefulWidget {
   const Odo_details_photo({
@@ -36,7 +37,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
   @override
   Widget build(BuildContext context) {
     final txtController = TextEditingController();
-    // final sw = MediaQuery.of(context).size.width;
+    
     return Column(
       children: [
         Stack(

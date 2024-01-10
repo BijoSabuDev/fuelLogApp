@@ -1,10 +1,18 @@
 // ignore_for_file: use_build_context_synchronously
+import 'dart:io';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fuellog/controller/BusSelected/bus_selected.dart';
+import 'package:fuellog/controller/busSubmission/busSubmission.dart';
+import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
+import 'package:fuellog/localStorage/local_storage.dart';
 import 'package:fuellog/view/VehicleScreen/app_bar.dart';
+import 'package:fuellog/view/VehicleScreen/cupertino_picker.dart';
 import 'package:fuellog/view/VehicleScreen/odo_vehicle_and_photo.dart';
 import 'package:fuellog/view/VehicleScreen/successPage/success_page.dart';
 import 'package:fuellog/view/constants/colors.dart';
@@ -20,23 +28,23 @@ class VehicleScreen extends StatelessWidget {
   final BusSelectedController busSelectedController =
       Get.find<BusSelectedController>();
 
+  final UserAuthController userAuthController = Get.find<UserAuthController>();
+
+  final BusSubmissionController busSubmissionController =
+      Get.find<BusSubmissionController>();
+
   @override
   Widget build(BuildContext context) {
-    // final sw = MediaQuery.of(context).size.width;
-    // final sh = MediaQuery.of(context).size.height;
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        // appBar: const PreferredSize(
-        //     preferredSize: Size(70, 70), child: VehicleScreenAppBar()),
         body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 22.w),
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SizedBox(
                   height: 75.h,
                 ),
-                const VehicleScreenAppBar(),
+                VehicleScreenAppBar(),
                 SizedBox(
                   height: 18.h,
                 ),
@@ -73,7 +81,7 @@ class VehicleScreen extends StatelessWidget {
                         busSelectedController.busSelectionData;
                     print(busSelectionData);
                     final busNumber =
-                        busSelectionData.data!.busDetails!.vehSchoolNo;
+                        busSelectionData.data!.busDetails!.vehId;
                     final fuelType = busSelectionData.data!.busDetails!.fuel;
 
                     final regNo = busSelectionData.data!.busDetails!.vehRegNo;
@@ -102,19 +110,68 @@ class VehicleScreen extends StatelessWidget {
                   height: 32.h,
                 ),
                 ActionSlider.standard(
-                  // height: 68.h,
                   foregroundBorderRadius: BorderRadius.circular(42),
-
                   action: (controller) async {
+                    final userData = await UserPreferences.getUserData();
+                    print('Cond Id: ${userData['cond_Id']}');
+                    final condID = userData['cond_Id'];
+                    print('this is cond id --------- $condID');
+
+                    final busID = busSelectedController.busSelectionData.busID;
+                    print('this is bus id --------- $busID');
+
+                    final file = busSubmissionController.imageFile.value ??
+                        File('assets/profileScreen/profilee.png');
+                    print('this is file --------- ${file.path}');
+
+                    final odoMeterValue =
+                        busSubmissionController.odometerValue.value;
+                    print(
+                        'this is odoMeterValue value --------- $odoMeterValue');
+                    final fuelPrice =
+                        busSubmissionController.fuelPriceValue.value;
+                    print('this is fuelPrice --------- $fuelPrice');
+                    final fuelQuantity =
+                        "${busSubmissionController.fuelQuantityValue.value}.${busSubmissionController.fuelQuantityDecimalValue.value}"
+                            .toString();
+                    print('this is fuelquantity--------- $fuelQuantity');
+
+                    final connectivityResult =
+                        await (Connectivity().checkConnectivity());
+
                     controller.loading();
-                    // await Future.delayed(const Duration(seconds: 1));
+
+                    // if (busSubmissionController.imageFile.value == null) {
+                    //   showErrorDialog(
+                    //       context, controller, 'Image File Required');
+
+                    //   return;
+                    // }
+                    if (connectivityResult == ConnectivityResult.none) {
+                      showErrorDialog(context, controller,
+                          'Please check your internet connection');
+                      controller.reset();
+                      return;
+                    }
+
+                    await busSubmissionController.submitFuelValue(
+                        'fuel_log_submit',
+                        busID!,
+                        file,
+                        odoMeterValue,
+                        fuelPrice,
+                        fuelQuantity,
+                        condID!);
+
                     controller.success();
                     await Future.delayed(const Duration(milliseconds: 1800));
                     Navigator.of(context)
                         .pushReplacement(MaterialPageRoute(builder: (context) {
                       return SuccessPage();
                     }));
-                    controller.reset();
+
+                    // showErrorDialog(
+                    //     context, controller, 'Unable to upload data');
                   },
                   reverseSlideAnimationCurve: Curves.easeInOut,
                   boxShadow: const [
@@ -126,12 +183,10 @@ class VehicleScreen extends StatelessWidget {
                   reverseSlideAnimationDuration:
                       const Duration(milliseconds: 500),
                   rolling: true,
-
                   successIcon: Lottie.asset(
                       'assets/vehicleScreen/Animation - 1702541179923.json'),
                   toggleColor: Colors.white,
                   loadingAnimationCurve: Curves.easeIn,
-
                   icon: Container(
                     decoration: const BoxDecoration(boxShadow: [
                       BoxShadow(
@@ -169,5 +224,69 @@ class VehicleScreen extends StatelessWidget {
                     ),
               ],
             )));
+  }
+
+  Future<dynamic> showErrorDialog(
+      BuildContext context, ActionSliderController controller, String error) {
+    return showCupertinoDialog(
+        context: context,
+        builder: (ctx) {
+          return CupertinoAlertDialog(
+            title: Text(
+              'Error',
+              style: GoogleFonts.poppins(
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.red),
+            ),
+            content: SizedBox(
+              width: 300.w,
+              height: 48.h,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: error,
+                        style: GoogleFonts.poppins(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' ',
+                        style: GoogleFonts.poppins(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            actions: [
+              CupertinoDialogAction(
+                child: GestureDetector(
+                  onTap: () {
+                    controller.reset();
+                    Navigator.of(ctx).pop();
+                  },
+                  child: Text(
+                    'Ok',
+                    style: GoogleFonts.poppins(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w600,
+                        color: appTheme),
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
   }
 }
