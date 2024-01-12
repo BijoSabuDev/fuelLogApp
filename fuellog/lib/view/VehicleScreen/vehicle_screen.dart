@@ -12,7 +12,6 @@ import 'package:fuellog/controller/busSubmission/busSubmission.dart';
 import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/localStorage/local_storage.dart';
 import 'package:fuellog/view/VehicleScreen/app_bar.dart';
-import 'package:fuellog/view/VehicleScreen/cupertino_picker.dart';
 import 'package:fuellog/view/VehicleScreen/odo_vehicle_and_photo.dart';
 import 'package:fuellog/view/VehicleScreen/successPage/success_page.dart';
 import 'package:fuellog/view/constants/colors.dart';
@@ -80,8 +79,7 @@ class VehicleScreen extends StatelessWidget {
                     final busSelectionData =
                         busSelectedController.busSelectionData;
                     print(busSelectionData);
-                    final busNumber =
-                        busSelectionData.data!.busDetails!.vehId;
+                    final busNumber = busSelectionData.data!.busDetails!.vehId;
                     final fuelType = busSelectionData.data!.busDetails!.fuel;
 
                     final regNo = busSelectionData.data!.busDetails!.vehRegNo;
@@ -120,9 +118,9 @@ class VehicleScreen extends StatelessWidget {
                     final busID = busSelectedController.busSelectionData.busID;
                     print('this is bus id --------- $busID');
 
-                    final file = busSubmissionController.imageFile.value ??
-                        File('assets/profileScreen/profilee.png');
-                    print('this is file --------- ${file.path}');
+                    final File? file = busSubmissionController.imageFile.value;
+
+                    // print('this is file --------- ${file!.path}');
 
                     final odoMeterValue =
                         busSubmissionController.odometerValue.value;
@@ -136,6 +134,9 @@ class VehicleScreen extends StatelessWidget {
                             .toString();
                     print('this is fuelquantity--------- $fuelQuantity');
 
+                    // load the controller and check the connectivity
+
+                    controller.loading();
                     final connectivityResult =
                         await (Connectivity().checkConnectivity());
 
@@ -147,6 +148,9 @@ class VehicleScreen extends StatelessWidget {
 
                     //   return;
                     // }
+
+                    // if  there is no network  then return from the function
+
                     if (connectivityResult == ConnectivityResult.none) {
                       showErrorDialog(context, controller,
                           'Please check your internet connection');
@@ -154,6 +158,14 @@ class VehicleScreen extends StatelessWidget {
                       return;
                     }
 
+//  submit the bus data
+
+                    // if (busSubmissionController.imageFile.value == null) {
+                    //   showErrorDialog(
+                    //       context, controller, 'Image File Required');
+
+                    //   return;
+                    // }
                     await busSubmissionController.submitFuelValue(
                         'fuel_log_submit',
                         busID!,

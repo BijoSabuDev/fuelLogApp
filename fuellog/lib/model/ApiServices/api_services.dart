@@ -9,7 +9,6 @@ import 'package:fuellog/model/apiModels/bus_history.dart';
 import 'package:fuellog/model/apiModels/bus_selection.dart';
 import 'package:fuellog/model/apiModels/bus_submission.dart';
 import 'package:fuellog/model/apiModels/user_auth_model.dart';
-import 'package:fuellog/view/VehicleScreen/cupertino_picker.dart';
 import 'dart:async';
 
 import 'package:http/http.dart' as http;
@@ -172,9 +171,11 @@ class ApiServices {
         'log_ID': logId,
       });
 
-      request.files.add(http.MultipartFile.fromBytes(
-          'bus_Image', await file!.readAsBytes(),
-          filename: 'fuelImage.jpg'));
+      if (file != null) {
+        request.files.add(http.MultipartFile.fromBytes(
+            'bus_Image', await file.readAsBytes(),
+            filename: 'fuelImage.jpg'));
+      }
 
       // Send the request
       http.StreamedResponse response = await request.send();
@@ -194,7 +195,7 @@ class ApiServices {
       }
     } catch (e) {
       print('Error: $e');
-      throw e;
+      rethrow;
     }
   }
 }

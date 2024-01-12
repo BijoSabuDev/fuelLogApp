@@ -8,12 +8,12 @@ class UserPreferences {
   static const String _KeyCond_Id = 'cond_Id';
 
   static Future<void> saveUserData(
-      String userName, String phoneNumber, String cond_Id) async {
+      String userName, String phoneNumber, String condId) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       prefs.setString(_keyUserName, userName);
       prefs.setString(_keyPhoneNumber, phoneNumber);
-      prefs.setString(_KeyCond_Id, cond_Id);
+      prefs.setString(_KeyCond_Id, condId);
     } catch (e) {
       print(e);
     }

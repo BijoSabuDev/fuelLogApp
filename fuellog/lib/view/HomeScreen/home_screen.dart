@@ -201,7 +201,6 @@ class HomeScreen extends StatelessWidget {
                                         fontSize: 18.sp,
                                         color: Colors.white),
                                   ),
-                           
                                   SizedBox(
                                     height: 5.h,
                                   ),
@@ -263,12 +262,14 @@ class HomeScreen extends StatelessWidget {
                     begin: -0.1,
                     end: 0.0,
                   ),
+              // SizedBox(
+              //   height: 8.h,
+              // ),
               SizedBox(
-                height: 14.h,
-              ),
-              Row(
-                children: [
-                  Expanded(
+                height: 250.h,
+                child: Stack(children: [
+                  Positioned(
+                    top: 30.h,
                     child: Row(
                       children: [
                         Image.asset(
@@ -278,15 +279,30 @@ class HomeScreen extends StatelessWidget {
                           fit: BoxFit.fill,
                         ),
                       ],
-                    ),
+                    )
+                        .animate(delay: 0.ms)
+                        .fadeIn(
+                            delay: 100.ms,
+                            duration: 600.ms,
+                            curve: Curves.easeOut)
+                        .slideX(delay: 300.ms, duration: 800.ms),
                   ),
-                ],
-              )
-                  .animate(delay: 0.ms)
-                  .fadeIn(
-                      delay: 200.ms, duration: 600.ms, curve: Curves.easeOut)
-                  .slideX(delay: 100.ms),
-              SizedBox(height: 31.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/homeScreen/busbground.svg',
+                        width: 390.w,
+                        height: 220.h,
+                      )
+                    ],
+                  )
+                  // .animate(delay: 0.ms).slideX(
+                  //       duration: 800.ms,
+                  //     ),
+                ]),
+              ),
+              SizedBox(height: 16.h),
               SizedBox(
                 height: 190.h,
                 child: FittedBox(
@@ -357,7 +373,6 @@ class HomeScreen extends StatelessWidget {
                       .scaleXY(duration: 300.ms, curve: Curves.easeIn),
                 ),
               ),
-           
             ],
           );
         },
@@ -376,8 +391,6 @@ class HomeScreen extends StatelessWidget {
         'fuel_bus_selection',
         qrScanner,
       );
-
-     
 
       if (success) {
         // ignore: use_build_context_synchronously

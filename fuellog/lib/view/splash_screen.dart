@@ -11,7 +11,7 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // checking if the user has already logged in , if already logged in then go home screen instead of login -----
+    // checking if the user has already logged in , if already logged in then go to home screen instead of login -----
 
     Future.delayed(const Duration(seconds: 5), () async {
       final userData = await UserPreferences.getUserData();

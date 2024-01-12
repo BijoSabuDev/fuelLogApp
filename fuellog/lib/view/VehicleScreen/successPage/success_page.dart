@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fuellog/controller/busSubmission/busSubmission.dart';
-import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/localStorage/local_storage.dart';
 import 'package:fuellog/view/mainScreen/bottom_nav_bar.dart';
 import 'package:fuellog/view/mainScreen/main_screen.dart';

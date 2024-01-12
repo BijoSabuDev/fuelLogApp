@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,9 +8,9 @@ import 'package:fuellog/controller/busSubmission/busSubmission.dart';
 import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/view/VehicleScreen/camera_capture.dart';
 import 'package:fuellog/view/VehicleScreen/cupertino_picker.dart';
+import 'package:fuellog/view/constants/colors.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class Odo_details_photo extends StatefulWidget {
   const Odo_details_photo({
@@ -20,8 +22,9 @@ class Odo_details_photo extends StatefulWidget {
 }
 
 class _Odo_details_photoState extends State<Odo_details_photo> {
-  late TextEditingController _textController;
-  late final double _currentValue = 0;
+  late Timer _timer;
+  // late TextEditingController _textController;
+  // late final double _currentValue = 0;
   final BusSelectedController busSelectedController =
       Get.find<BusSelectedController>();
 
@@ -31,13 +34,26 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
   @override
   void initState() {
     super.initState();
-    _textController = TextEditingController();
+    // _textController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final txtController = TextEditingController();
-    
+    // final txtController = TextEditingController();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _timer =
+          Timer.periodic(const Duration(milliseconds: 1500), (Timer timer) {
+        busSubmissionController.updateCalculatedValue();
+      });
+    });
+
     return Column(
       children: [
         Stack(
@@ -295,9 +311,9 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                             EdgeInsets.only(bottom: 9.w, left: 8.w, right: 8.w),
                         child: GetBuilder<BusSelectedController>(
                           builder: (controller) {
-                            final String? vhactFuelQuantity =
-                                busSelectedController.busSelectionData.data!
-                                    .busFuelDetails![0].vhactQuantity;
+                            // final String? vhactFuelQuantity =
+                            //     busSelectedController.busSelectionData.data!
+                            //         .busFuelDetails![0].vhactQuantity;
                             return Row(
                               children: [
                                 WheelSelector(
@@ -310,16 +326,14 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                                   inputValue: 0,
                                   onValueSelected: (newValue) {
                                     busSubmissionController
-                                        .updateCalculatedValue();
-                                    busSubmissionController
                                         .updatefuelQuantityValue(
                                             newValue.toString());
                                   },
-                                  howMuchToGenerate: 50,
+                                  howMuchToGenerate: 200,
                                   containerHeight: 80.h,
                                   containerWidth: 80.w,
                                   isButtonsVisible: false,
-                                  initValue: double.parse(vhactFuelQuantity!),
+                                  initValue: 0,
                                   itemExtent: 50.h,
                                   showDecimal: false,
                                 ),
@@ -332,8 +346,6 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                                   onDecimalValueSelected: (newValue) {},
                                   inputValue: 0,
                                   onValueSelected: (newValue) {
-                                    busSubmissionController
-                                        .updateCalculatedValue();
                                     busSubmissionController
                                         .updatefuelQuantityDecimalValue(
                                             newValue!);
@@ -437,7 +449,6 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                                     .updatefuelPriceValue(initValue!);
                               },
                               onDecimalValueSelected: (newValue) {
-                                busSubmissionController.updateCalculatedValue();
                                 busSubmissionController
                                     .updatefuelPriceValue(newValue!);
                               },
@@ -479,18 +490,56 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                   fit: BoxFit.scaleDown,
                   child: Row(
                     children: [
-                      SvgPicture.asset('assets/vehicleScreen/info (3) 1.svg'),
+                      Icon(
+                        Icons.calculate_outlined,
+                        size: 20.sp,
+                        color: Colors.grey,
+                      ),
+                      // SvgPicture.asset('assets/vehicleScreen/info (3) 1.svg'),
                       SizedBox(
                         width: 7.w,
                       ),
                       GetX<BusSubmissionController>(
                         builder: (busSubmissionController) {
-                          return Text(
-                            '${busSubmissionController.totalFuelQuantityValue.value} ltr X ${busSubmissionController.fuelPriceValue.value} aed = ${busSubmissionController.calculatedValue.value} Aed' ??
-                                '',
-                            style: GoogleFonts.poppins(
-                                fontWeight: FontWeight.w500, fontSize: 12.sp),
+                          return RichText(
+                            text: TextSpan(
+                              style: TextStyle(
+                                  fontSize: 14.sp, color: Colors.black),
+                              children: <TextSpan>[
+                                const TextSpan(text: ''),
+                                TextSpan(
+                                  text:
+                                      busSubmissionController.totalFuelQuantityValue.value,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: appTheme),
+                                ),
+                                const TextSpan(text: ' ltr X '),
+                                TextSpan(
+                                  text:
+                                      busSubmissionController.fuelPriceValue.value,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: appTheme),
+                                ),
+                                const TextSpan(text: ' aed = '),
+                                TextSpan(
+                                  text:
+                                      busSubmissionController.calculatedValue.value,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: appTheme),
+                                ),
+                                const TextSpan(text: ' Aed'),
+                              ],
+                            ),
                           );
+
+                          // return Text(
+                          //   '${busSubmissionController.totalFuelQuantityValue.value} ltr X ${busSubmissionController.fuelPriceValue.value} aed = ${busSubmissionController.calculatedValue.value} Aed',
+                          //   style: GoogleFonts.poppins(
+                          //       fontWeight: FontWeight.w500, fontSize: 12.sp),
+                          // );
                         },
                       )
                     ],

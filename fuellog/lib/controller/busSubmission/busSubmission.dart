@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 class BusSubmissionController extends GetxController {
   ApiServices apiServices = ApiServices();
+
   Rx<String> odometerValue = ''.obs;
   Rx<String> fuelQuantityValue = ''.obs;
   Rx<String> fuelQuantityDecimalValue = ''.obs;
@@ -20,6 +21,9 @@ class BusSubmissionController extends GetxController {
   Rx<bool> noConnection = false.obs;
 
   BusSubmittedResponse busSubmittedResponse = BusSubmittedResponse();
+
+  //resetting the values stored in the variables
+
   void resetValues() {
     odometerValue.value = '';
     fuelQuantityValue.value = '';
@@ -29,6 +33,8 @@ class BusSubmissionController extends GetxController {
     totalFuelQuantityValue.value = '';
     imageFile.value = null;
   }
+
+//  submit the values from the screen
 
   Future<bool> submitFuelValue(
       String action,
@@ -49,7 +55,7 @@ class BusSubmissionController extends GetxController {
       }
 
       final data = await apiServices.submitFuelValue(
-          action, busId, file!, busOdometer, fuelPrice, fuelQuantity, logId);
+          action, busId, file, busOdometer, fuelPrice, fuelQuantity, logId);
 
       print('this is data from controller ${data!.data!.message}');
 
@@ -75,18 +81,20 @@ class BusSubmissionController extends GetxController {
     }
   }
 
-  void updateCalculatedValue() {
+//to update the calculated value in the text section of the vehicle screen
+
+  Future<void> updateCalculatedValue() async {
     int quantity = int.tryParse(fuelQuantityValue.value) ?? 0;
     int decimalQuantity = int.tryParse(fuelQuantityDecimalValue.value) ?? 0;
     double price = double.tryParse(fuelPriceValue.value) ?? 0;
     totalFuelQuantityValue.value = "$quantity.$decimalQuantity".toString();
+    String resultValue = "$quantity.$decimalQuantity";
+    // int resultValue = quantity + decimalQuantity;
 
-    int resultValue = quantity + decimalQuantity;
+    // double result = resultValue * price;
+    double result = double.parse(resultValue) * price;
 
-    double result = resultValue * price;
-
-    calculatedValue.value =
-        result.toStringAsFixed(2); // Format result as needed
+    calculatedValue.value = result.toStringAsFixed(2);
   }
 
   void updateOdometerValue(String value) {
@@ -103,9 +111,5 @@ class BusSubmissionController extends GetxController {
 
   void updatefuelPriceValue(String value) {
     fuelPriceValue.value = value;
-  }
-
-  Future<void> submitBusData() async {
-    try {} catch (e) {}
   }
 }
