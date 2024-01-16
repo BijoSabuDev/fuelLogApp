@@ -31,7 +31,7 @@ class BusSelectedController extends GetxController {
 
       busSelectionData = data;
       isSuccess(true);
-      print(data.busID);
+      print(data.data!.busDetails![0].vehId);
 
       if (data.data!.busDetails != null) {
         isSuccess(true);

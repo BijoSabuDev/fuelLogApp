@@ -79,10 +79,12 @@ class VehicleScreen extends StatelessWidget {
                     final busSelectionData =
                         busSelectedController.busSelectionData;
                     print(busSelectionData);
-                    final busNumber = busSelectionData.data!.busDetails!.vehId;
-                    final fuelType = busSelectionData.data!.busDetails!.fuel;
+                    final busNumber =
+                        busSelectionData.data!.busDetails![0].vehId;
+                    final fuelType = busSelectionData.data!.busDetails![0].fuel;
 
-                    final regNo = busSelectionData.data!.busDetails!.vehRegNo;
+                    final regNo =
+                        busSelectionData.data!.busDetails![0].vehRegNo;
                     return SizedBox(
                       height: 30.h,
                       child: BusNumberBox(
@@ -115,7 +117,8 @@ class VehicleScreen extends StatelessWidget {
                     final condID = userData['cond_Id'];
                     print('this is cond id --------- $condID');
 
-                    final busID = busSelectedController.busSelectionData.busID;
+                    final busID = busSelectedController
+                        .busSelectionData.data!.busDetails![0].vehId;
                     print('this is bus id --------- $busID');
 
                     final File? file = busSubmissionController.imageFile.value;
@@ -289,7 +292,7 @@ class VehicleScreen extends StatelessWidget {
                     Navigator.of(ctx).pop();
                   },
                   child: Text(
-                    'Ok',
+                    'OK',
                     style: GoogleFonts.poppins(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w600,

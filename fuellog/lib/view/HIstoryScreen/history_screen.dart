@@ -62,8 +62,8 @@ class HistoryScreen extends StatelessWidget {
                 return const Center(
                   child: CupertinoActivityIndicator(),
                 );
-              } 
-              
+              }
+
               // else if (!busHistoryController.noResults.value) {
               //   return NoRecordScreen();
               // }
@@ -85,15 +85,17 @@ class HistoryScreen extends StatelessWidget {
                       null &&
                   busHistoryController.busHistory.value!.data!.data!
                       .vehicleActivityHistory!.isNotEmpty) {
-                final busNo = busHistoryController.busHistory.value!.busNo;
-                final regNo = busHistoryController.busHistory.value!.regNo;
+                final busNo =
+                    busHistoryController.busHistory.value!.busNo ?? '0';
+                final regNo =
+                    busHistoryController.busHistory.value!.regNo ?? '0';
                 final fuelType =
-                    busHistoryController.busHistory.value!.fuelType;
+                    busHistoryController.busHistory.value!.fuelType ?? '0';
 
                 return Column(
                   children: [
                     BusNumberBox(
-                        busNo: busNo!, regNo: regNo!, fuelType: fuelType!),
+                        busNo: busNo, regNo: regNo, fuelType: fuelType),
 
                     SizedBox(
                       height: 33.h,

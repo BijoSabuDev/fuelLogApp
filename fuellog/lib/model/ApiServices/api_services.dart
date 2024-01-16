@@ -104,7 +104,7 @@ class ApiServices {
 
   // GET THE DETAILS OF BUS HISTORY
 
-  Future<BusHistory> getBusHistory(
+  Future<BusHistoryData> getBusHistory(
     String busId,
   ) async {
     try {
@@ -123,13 +123,13 @@ class ApiServices {
         headers: headers,
         body: body,
       );
-      print('this is the reponse from api call ${response.body}');
+      // print('this is the reponse from api call ${response.body}');
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        print(data);
-        final busHistory = BusHistory.fromJson(data);
+        print('this is data after decoding --- $data');
+        final busHistory = BusHistoryData.fromJson(data);
         print(
-            'vehicle history from api call-------------------------------------${busHistory.data!.data!.vehicleActivityHistory}');
+            'vehicle history from api call-------------------------------------${busHistory.data!.data!.vehicleActivityHistory!}');
 
         if (kDebugMode) {
           print('this is from the apiservice ----------- $busHistory');
@@ -140,7 +140,7 @@ class ApiServices {
             'Failed to load bus selection data. Status Code: ${response.statusCode}, Body: ${response.body}');
       }
     } catch (e) {
-      print(e);
+      print('this is the exception from the apiservice $e');
       rethrow;
     }
   }

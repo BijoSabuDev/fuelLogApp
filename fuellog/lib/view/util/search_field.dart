@@ -102,7 +102,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                             Navigator.of(ctx).pop();
                           },
                           child: Text(
-                            'Exit',
+                            'OK',
                             style: GoogleFonts.poppins(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w600,
@@ -169,7 +169,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                             Navigator.of(ctx).pop();
                           },
                           child: Text(
-                            'Exit',
+                            'OK',
                             style: GoogleFonts.poppins(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w600,
@@ -213,11 +213,11 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                       builder: (ctx) {
                         return CupertinoAlertDialog(
                           title: Text(
-                            'Error',
+                            'Error!',
                             style: GoogleFonts.poppins(
-                                fontSize: 20.sp,
+                                fontSize: 26.sp,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.black),
+                                color: const Color(0xFFEF4348)),
                           ),
                           content: SizedBox(
                             width: 300.w,
@@ -231,7 +231,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                                     TextSpan(
                                       text: 'No search results for this ID',
                                       style: GoogleFonts.poppins(
-                                        fontSize: 16.sp,
+                                        fontSize: 24.sp,
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black,
                                       ),
@@ -256,7 +256,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                                   Navigator.of(ctx).pop();
                                 },
                                 child: Text(
-                                  'Ok',
+                                  'OK',
                                   style: GoogleFonts.poppins(
                                       fontSize: 20.sp,
                                       fontWeight: FontWeight.w600,

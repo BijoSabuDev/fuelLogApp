@@ -449,7 +449,7 @@ class HomeScreen extends StatelessWidget {
                         Navigator.of(ctx).pop();
                       },
                       child: Text(
-                        'Ok',
+                        'OK',
                         style: GoogleFonts.poppins(
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w600,

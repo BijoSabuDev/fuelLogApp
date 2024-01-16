@@ -17,7 +17,6 @@ class ApiUrl {
 // {
 //     "action": "fuel_bus_selection",
 //     "bus_id": "408"
-//     "bus_image":File
 // }
 // [12:06] Muhammad Sajaad
 // Bus History

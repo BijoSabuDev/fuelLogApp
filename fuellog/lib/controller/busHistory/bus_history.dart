@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 
 class BusHistoryController extends GetxController {
   ApiServices apiServices = ApiServices();
-  Rx<BusHistory?> busHistory = Rx<BusHistory?>(null);
+  Rx<BusHistoryData?> busHistory = Rx<BusHistoryData?>(null);
 
   Rx<bool> isLoading = false.obs;
   Rx<bool> isSuccess = false.obs;
@@ -39,6 +39,7 @@ class BusHistoryController extends GetxController {
 
   Future<void> fetchBusHistoryData(String input) async {
     final connectivityResult = await (Connectivity().checkConnectivity());
+
     try {
       isLoading(true);
       if (connectivityResult == ConnectivityResult.none) {
