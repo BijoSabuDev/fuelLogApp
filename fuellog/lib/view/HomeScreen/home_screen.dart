@@ -8,6 +8,7 @@ import 'package:fuellog/controller/busHistory/bus_history.dart';
 import 'package:fuellog/controller/busSubmission/busSubmission.dart';
 import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/localStorage/local_storage.dart';
+import 'package:fuellog/view/ProfileScreen/profile_screen.dart';
 import 'package:fuellog/view/VehicleScreen/vehicle_screen.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:fuellog/view/constants/dimensions.dart';
@@ -98,13 +99,16 @@ class HomeScreen extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      radius: 25,
-                                      child: Icon(
-                                        Icons.person_2_outlined,
-                                        color: appTheme,
-                                      )),
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: const CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        radius: 25,
+                                        child: Icon(
+                                          Icons.person_2_outlined,
+                                          color: appTheme,
+                                        )),
+                                  ),
                                   kw10,
                                   SizedBox(
                                     width: 110.w,

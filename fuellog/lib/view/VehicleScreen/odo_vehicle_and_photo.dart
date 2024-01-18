@@ -209,13 +209,25 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
 
                     GetBuilder<BusSelectedController>(
                       builder: (controller) {
-                        final String? vhactReadng = busSelectedController
-                            .busSelectionData
-                            .data!
-                            .busFuelDetails![0]
-                            .vhactReading;
+                        final busFuelDetails = busSelectedController
+                            .busSelectionData.data?.busFuelDetails;
+                        String vhactReading;
 
-                        print(vhactReadng);
+// Check if busFuelDetails is not null and not empty
+                        if (busFuelDetails!.isNotEmpty) {
+                          vhactReading = busFuelDetails[0].vhactReading ?? '0';
+                          // Use vhactReading as needed
+                        } else {
+                          vhactReading = '0';
+                        }
+                        // final vhactReadng = busSelectedController
+                        //         .busSelectionData
+                        //         .data!
+                        //         .busFuelDetails![0]
+                        //         .vhactReading ??
+                        //     '0';
+
+                        // print(vhactReadng);
                         return WheelSelector(
                           noValuesSelected: (initValue) {
                             busSubmissionController
@@ -231,7 +243,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                           containerWidth: 160.w,
                           isButtonsVisible: true,
                           itemExtent: 55.h,
-                          initValue: double.parse(vhactReadng!),
+                          initValue: double.parse(vhactReading),
                           showDecimal: false,
                           howMuchToGenerate: 20000,
                         );
@@ -435,11 +447,22 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
 
                     GetBuilder<UserAuthController>(
                       builder: (controller) {
-                        final String? vhactFuelRate = busSelectedController
-                            .busSelectionData
-                            .data!
-                            .busFuelDetails![0]
-                            .vhactRate;
+                        final busFuelDetails = busSelectedController
+                            .busSelectionData.data?.busFuelDetails;
+                        String vhactFuelRate;
+
+                        if (busFuelDetails!.isNotEmpty) {
+                          vhactFuelRate = busFuelDetails[0].vhactRate ?? '0';
+                        } else {
+                          vhactFuelRate = '0';
+                        }
+
+                        // final vhactFuelRate = busSelectedController
+                        //         .busSelectionData
+                        //         .data!
+                        //         .busFuelDetails![0]
+                        //         .vhactRate ??
+                        //     '0';
                         return Padding(
                             padding: EdgeInsets.only(
                                 bottom: 9.w, left: 2.w, right: 8.w),
@@ -454,8 +477,8 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                               },
                               inputValue: 0,
                               onValueSelected: (newValue) {},
-                              howMuchToGenerate: 21,
-                              initValue: double.tryParse(vhactFuelRate!)!,
+                              howMuchToGenerate: 72,
+                              initValue: 0.0,
                               itemExtent: 50.h,
                               showDecimal: true,
                               isButtonsVisible: true,
@@ -508,24 +531,24 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                               children: <TextSpan>[
                                 const TextSpan(text: ''),
                                 TextSpan(
-                                  text:
-                                      busSubmissionController.totalFuelQuantityValue.value,
+                                  text: busSubmissionController
+                                      .totalFuelQuantityValue.value,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: appTheme),
                                 ),
                                 const TextSpan(text: ' ltr X '),
                                 TextSpan(
-                                  text:
-                                      busSubmissionController.fuelPriceValue.value,
+                                  text: busSubmissionController
+                                      .fuelPriceValue.value,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: appTheme),
                                 ),
                                 const TextSpan(text: ' aed = '),
                                 TextSpan(
-                                  text:
-                                      busSubmissionController.calculatedValue.value,
+                                  text: busSubmissionController
+                                      .calculatedValue.value,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: appTheme),

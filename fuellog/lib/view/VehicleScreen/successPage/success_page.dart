@@ -13,13 +13,18 @@ class SuccessPage extends StatelessWidget {
 
   final BusSubmissionController busSubmissionController =
       Get.find<BusSubmissionController>();
- 
+
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp)async {
-   final userData = await UserPreferences.getUserData();
-   
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      final userData = await UserPreferences.getUserData();
+
       selectedIndexNotifier.value = 0;
+
+      print(
+          'this is the odometer value ----------- ${busSubmissionController.selectedVendor.value}');
+      print(
+          'this is the odometer value ----------- ${busSubmissionController.billNumber.value}');
       print(
           'this is the odometer value ----------- ${busSubmissionController.odometerValue.value}');
       print(

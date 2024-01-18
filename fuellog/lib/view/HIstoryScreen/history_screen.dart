@@ -11,6 +11,7 @@ import 'package:fuellog/view/HIstoryScreen/no_record_screen.dart';
 import 'package:fuellog/view/HIstoryScreen/search_or_scan.dart';
 import 'package:fuellog/view/util/bus_no_box.dart';
 import 'package:get/get.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class HistoryScreen extends StatelessWidget {
   HistoryScreen({super.key});
@@ -56,6 +57,11 @@ class HistoryScreen extends StatelessWidget {
               height: 33.h,
             ),
             GetX<BusHistoryController>(builder: (busHistoryController) {
+              if (busHistoryController.isLoading.value) {
+                context.loaderOverlay.show();
+              } else {
+                context.loaderOverlay.hide();
+              }
               if (busHistoryController.userInput.value.isEmpty) {
                 return SearchOrScan();
               } else if (busHistoryController.isLoading.value) {

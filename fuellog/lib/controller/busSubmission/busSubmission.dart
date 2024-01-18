@@ -8,6 +8,9 @@ import 'package:get/get.dart';
 class BusSubmissionController extends GetxController {
   ApiServices apiServices = ApiServices();
 
+  Rx<String> selectedVendor = ''.obs;
+  Rx<String> billNumber = ''.obs;
+
   Rx<String> odometerValue = ''.obs;
   Rx<String> fuelQuantityValue = ''.obs;
   Rx<String> fuelQuantityDecimalValue = ''.obs;
