@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/controller/busSubmission/busSubmission.dart';
+import 'package:fuellog/view/util/search_field.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,11 +24,11 @@ final BusSubmissionController busSubmissionController =
 
 String? dropDownValue = '';
 
-List<String> dropDownItem = [
-  'Al amera fuels',
-  'al am fuel',
-  'al jaseera fuels'
-];
+// List<String> dropDownItem = [
+//   'Al amera fuels',
+//   'al am fuel',
+//   'al jaseera fuels'
+// ];
 
 // final TextEditingController billNumberController = TextEditingController();
 // final FocusNode billNumberFocus = FocusNode();
@@ -86,7 +87,8 @@ class __VendorAndBillNumberState extends State<VendorAndBillNumber> {
                           fontSize: 16.sp,
                         ),
                       ),
-                      items: dropDownItem.map((String value) {
+                      items:
+                          busSelectedController.vendorList.map((String value) {
                         return DropdownMenuItem<String>(
                           value: value,
                           child: Padding(
@@ -116,7 +118,7 @@ class __VendorAndBillNumberState extends State<VendorAndBillNumber> {
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return 'Vendor required';
+                          return '    Vendor required';
                         }
                         return null;
                       },
@@ -146,7 +148,7 @@ class __VendorAndBillNumberState extends State<VendorAndBillNumber> {
                       },
                       validator: (value) {
                         if (widget.billNumberController.text.isEmpty) {
-                          return ' Bill number required';
+                          return 'Bill number required';
                         }
                         return null;
                       },

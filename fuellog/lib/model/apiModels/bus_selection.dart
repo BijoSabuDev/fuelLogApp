@@ -1,28 +1,25 @@
 class BusSelectionData {
   bool? status;
   String? message;
+  String? instId;
   BusSelectionDataData? data;
 
   BusSelectionData({
     this.status,
     this.message,
+    this.instId,
     this.data,
   });
 
   factory BusSelectionData.fromJson(Map<String, dynamic> json) {
     return BusSelectionData(
       status: json['status'],
+      instId: json['inst_id'],
       message: json['message'],
-      data: BusSelectionDataData.fromJson(json['data']),
+      data: json['data'] != null
+          ? BusSelectionDataData.fromJson(json['data'])
+          : null,
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'status': status,
-      'message': message,
-      'data': data?.toJson(),
-    };
   }
 }
 
@@ -33,6 +30,7 @@ class BusSelectionDataData {
   DataData? data;
   List<BusDetail>? busDetails;
   List<BusFuelDetail>? busFuelDetails;
+  List<VendorDetail>? vendorDetails;
 
   BusSelectionDataData({
     this.dataStatus,
@@ -41,6 +39,7 @@ class BusSelectionDataData {
     this.data,
     this.busDetails,
     this.busFuelDetails,
+    this.vendorDetails,
   });
 
   factory BusSelectionDataData.fromJson(Map<String, dynamic> json) {
@@ -48,25 +47,17 @@ class BusSelectionDataData {
       dataStatus: json['data_status'],
       errorStatus: json['error_status'],
       message: json['message'],
-      data: DataData.fromJson(json['data']),
-      busDetails: (json['bus_details'] as List?)
+      data: json['data'] != null ? DataData.fromJson(json['data']) : null,
+      busDetails: (json['bus_details'] as List<dynamic>?)
           ?.map((e) => BusDetail.fromJson(e))
           .toList(),
-      busFuelDetails: (json['bus_fuel_details'] as List?)
+      busFuelDetails: (json['bus_fuel_details'] as List<dynamic>?)
           ?.map((e) => BusFuelDetail.fromJson(e))
           .toList(),
+      vendorDetails: (json['vendor_details'] as List<dynamic>?)
+          ?.map((e) => VendorDetail.fromJson(e))
+          .toList(),
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'data_status': dataStatus,
-      'error_status': errorStatus,
-      'message': message,
-      'data': data?.toJson(),
-      'bus_details': busDetails?.map((e) => e.toJson()).toList(),
-      'bus_fuel_details': busFuelDetails?.map((e) => e.toJson()).toList(),
-    };
   }
 }
 
@@ -77,7 +68,7 @@ class BusDetail {
   String? vehType;
   String? vehDesc;
   String? vehMake;
-  String? vehMakeTemp;
+  dynamic vehMakeTemp;
   String? vehFuelType;
   String? vehRegYear;
   DateTime? vehRegValidity;
@@ -91,13 +82,13 @@ class BusDetail {
   String? active;
   String? entryBy;
   DateTime? entryDate;
-  String? modBy;
-  String? modDate;
-  dynamic vehVenderId;
+  dynamic modBy;
+  dynamic modDate;
+  String? vehVenderId;
   dynamic docCounts;
   dynamic docType;
   dynamic docTypeCount;
-  dynamic vendrName;
+  String? vendrName;
   String? vehInsuranceValidityDisplay;
   String? fuel;
   String? vehMakeName;
@@ -148,17 +139,22 @@ class BusDetail {
       vehMakeTemp: json['veh_make_temp'],
       vehFuelType: json['veh_fuel_type'],
       vehRegYear: json['veh_reg_year'],
-      vehRegValidity: DateTime.parse(json['veh_reg_validity']),
+      vehRegValidity: json['veh_reg_validity'] != null
+          ? DateTime.parse(json['veh_reg_validity'])
+          : null,
       vehEngineNo: json['veh_engine_no'],
       vehChasisNo: json['veh_chasis_no'],
       vehGpsEmi: json['veh_gps_emi'],
       vehSeatCapacity: json['veh_seat_capacity'],
       vehInsuranceNo: json['veh_insurance_no'],
       vehInsuranceCompany: json['veh_insurance_company'],
-      vehInsuranceValidity: DateTime.parse(json['veh_insurance_validity']),
+      vehInsuranceValidity: json['veh_insurance_validity'] != null
+          ? DateTime.parse(json['veh_insurance_validity'])
+          : null,
       active: json['Active'],
       entryBy: json['EntryBy'],
-      entryDate: DateTime.parse(json['EntryDate']),
+      entryDate:
+          json['EntryDate'] != null ? DateTime.parse(json['EntryDate']) : null,
       modBy: json['ModBy'],
       modDate: json['ModDate'],
       vehVenderId: json['veh_vender_id'],
@@ -171,42 +167,6 @@ class BusDetail {
       vehMakeName: json['veh_make_name'],
       vehTypeName: json['veh_type_name'],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'veh_id': vehId,
-      'veh_reg_no': vehRegNo,
-      'veh_school_no': vehSchoolNo,
-      'veh_type': vehType,
-      'veh_desc': vehDesc,
-      'veh_make': vehMake,
-      'veh_make_temp': vehMakeTemp,
-      'veh_fuel_type': vehFuelType,
-      'veh_reg_year': vehRegYear,
-      'veh_reg_validity': vehRegValidity?.toIso8601String(),
-      'veh_engine_no': vehEngineNo,
-      'veh_chasis_no': vehChasisNo,
-      'veh_gps_emi': vehGpsEmi,
-      'veh_seat_capacity': vehSeatCapacity,
-      'veh_insurance_no': vehInsuranceNo,
-      'veh_insurance_company': vehInsuranceCompany,
-      'veh_insurance_validity': vehInsuranceValidity?.toIso8601String(),
-      'Active': active,
-      'EntryBy': entryBy,
-      'EntryDate': entryDate?.toIso8601String(),
-      'ModBy': modBy,
-      'ModDate': modDate,
-      'veh_vender_id': vehVenderId,
-      'doc_counts': docCounts,
-      'doc_type': docType,
-      'doc_type_count': docTypeCount,
-      'vendr_name': vendrName,
-      'veh_insurance_validity_display': vehInsuranceValidityDisplay,
-      'fuel': fuel,
-      'veh_make_name': vehMakeName,
-      'veh_type_name': vehTypeName,
-    };
   }
 }
 
@@ -269,7 +229,9 @@ class BusFuelDetail {
       vhactVehId: json['vhact_veh_id'],
       vhactContractId: json['vhact_contract_id'],
       vhactType: json['vhact_type'],
-      vhactDate: DateTime.parse(json['vhact_date']),
+      vhactDate: json['vhact_date'] != null
+          ? DateTime.parse(json['vhact_date'])
+          : null,
       vhactDesc: json['vhact_desc'],
       vhactReadingStatus: json['vhact_reading_status'],
       vhactReading: json['vhact_reading'],
@@ -283,38 +245,11 @@ class BusFuelDetail {
       vhactVehImage: json['vhact_veh_image'],
       active: json['Active'],
       entryBy: json['EntryBy'],
-      entryDate: DateTime.parse(json['EntryDate']),
+      entryDate:
+          json['EntryDate'] != null ? DateTime.parse(json['EntryDate']) : null,
       modBy: json['ModBy'],
       modDate: json['ModDate'],
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'ClientId': clientId,
-      'AcdYear': acdYear,
-      'vhact_id': vhactId,
-      'vhact_veh_id': vhactVehId,
-      'vhact_contract_id': vhactContractId,
-      'vhact_type': vhactType,
-      'vhact_date': vhactDate?.toIso8601String(),
-      'vhact_desc': vhactDesc,
-      'vhact_reading_status': vhactReadingStatus,
-      'vhact_reading': vhactReading,
-      'vhact_reset_reading': vhactResetReading,
-      'vhact_vendor': vhactVendor,
-      'vhact_quantity': vhactQuantity,
-      'vhact_rate': vhactRate,
-      'vhact_amount': vhactAmount,
-      'vhact_bill': vhactBill,
-      'vhact_file': vhactFile,
-      'vhact_veh_image': vhactVehImage,
-      'Active': active,
-      'EntryBy': entryBy,
-      'EntryDate': entryDate?.toIso8601String(),
-      'ModBy': modBy,
-      'ModDate': modDate,
-    };
   }
 }
 
@@ -330,10 +265,30 @@ class DataData {
       apiKey: json['api_key'],
     );
   }
+}
 
-  Map<String, dynamic> toJson() {
-    return {
-      'api_key': apiKey,
-    };
+class VendorDetail {
+  String? vendorId;
+  String? vendorName;
+  String? vendorAddress;
+  String? vendorPhone;
+  String? vendorEmail;
+
+  VendorDetail({
+    this.vendorId,
+    this.vendorName,
+    this.vendorAddress,
+    this.vendorPhone,
+    this.vendorEmail,
+  });
+
+  factory VendorDetail.fromJson(Map<String, dynamic> json) {
+    return VendorDetail(
+      vendorId: json['vendor_id'],
+      vendorName: json['vendor_name'],
+      vendorAddress: json['vendor_address'],
+      vendorPhone: json['vendor_phone'],
+      vendorEmail: json['vendor_email'],
+    );
   }
 }

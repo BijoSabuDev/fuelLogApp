@@ -22,9 +22,9 @@ class SuccessPage extends StatelessWidget {
       selectedIndexNotifier.value = 0;
 
       print(
-          'this is the odometer value ----------- ${busSubmissionController.selectedVendor.value}');
+          'this is the vendor name ----------- ${busSubmissionController.selectedVendor.value}');
       print(
-          'this is the odometer value ----------- ${busSubmissionController.billNumber.value}');
+          'this is the billnumber  ----------- ${busSubmissionController.billNumber.value}');
       print(
           'this is the odometer value ----------- ${busSubmissionController.odometerValue.value}');
       print(

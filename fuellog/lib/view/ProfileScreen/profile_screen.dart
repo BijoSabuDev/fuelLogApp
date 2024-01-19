@@ -139,11 +139,15 @@ class ProfileScreen extends StatelessWidget {
                     ],
                   )
                       .animate(delay: 0.ms)
-                      .fade(delay: 300.ms, duration: 600.ms)
+                      .fadeIn(
+                          delay: 200.ms,
+                          duration: 400.ms,
+                          curve: Curves.easeOut)
                       .slideY(
-                        duration: 100.ms,
+                        delay: 100.ms,
                         curve: Curves.linear,
-                        begin: -0.2,
+                        duration: 500.ms,
+                        begin: -0.1,
                         end: 0.0,
                       );
                 }
@@ -156,8 +160,8 @@ class ProfileScreen extends StatelessWidget {
         ),
         const EnquiryContainer()
             .animate()
-            .fadeIn(delay: 300.ms, duration: 400.ms)
-            .scaleXY(duration: 200.ms, curve: Curves.easeIn),
+            .fadeIn(delay: 200.ms, duration: 100.ms)
+            .scaleXY(duration: 400.ms, curve: Curves.easeIn),
         SizedBox(
           height: 28.h,
         ),

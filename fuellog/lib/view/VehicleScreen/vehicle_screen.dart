@@ -42,6 +42,9 @@ class _VehicleScreenState extends State<VehicleScreen> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      print(busSelectedController.vendorList);
+    });
     return Scaffold(
         // resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
@@ -163,8 +166,11 @@ class _VehicleScreenState extends State<VehicleScreen> {
                       "${busSubmissionController.fuelQuantityValue.value}.${busSubmissionController.fuelQuantityDecimalValue.value}"
                           .toString();
                   print('this is fuelquantity--------- $fuelQuantity');
-
+                  final vendorName =
+                      busSubmissionController.selectedVendor.value;
+                  final billNo = busSubmissionController.billNumber.value;
                   // load the controller and check the connectivity
+                  final instId = busSelectedController.instId.value;
 
                   controller.loading();
                   final connectivityResult =
@@ -207,7 +213,10 @@ class _VehicleScreenState extends State<VehicleScreen> {
                       odoMeterValue,
                       fuelPrice,
                       fuelQuantity,
-                      condID!);
+                      vendorName,
+                      billNo,
+                      condID!,
+                      instId);
 
                   controller.success();
                   await Future.delayed(const Duration(milliseconds: 1800));

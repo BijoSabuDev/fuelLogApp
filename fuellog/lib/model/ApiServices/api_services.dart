@@ -152,9 +152,12 @@ class ApiServices {
       String busId,
       File? file,
       String busOdometer,
+      String vendorName,
+      String billNo,
       String fuelPrice,
       String fuelQuantity,
-      String logId) async {
+      String logId,
+      String instId) async {
     try {
       var request = http.MultipartRequest('POST', Uri.parse(ApiUrl().baseUrl));
 
@@ -168,7 +171,10 @@ class ApiServices {
         'bus_odometer': busOdometer,
         'fuel_price': fuelPrice,
         'fuel_quantity': fuelQuantity,
+        'vendor_name': vendorName,
+        'bill_no': billNo,
         'log_ID': logId,
+        'inst_ID': instId,
       });
 
       if (file != null) {

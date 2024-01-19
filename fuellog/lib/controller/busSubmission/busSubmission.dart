@@ -46,7 +46,10 @@ class BusSubmissionController extends GetxController {
       String busOdometer,
       String fuelPrice,
       String fuelQuantity,
-      String logId) async {
+      String vendorName,
+      String billNo,
+      String logId,
+      String instId) async {
     final connectivityResult = await (Connectivity().checkConnectivity());
 
     try {
@@ -58,7 +61,16 @@ class BusSubmissionController extends GetxController {
       }
 
       final data = await apiServices.submitFuelValue(
-          action, busId, file, busOdometer, fuelPrice, fuelQuantity, logId);
+          action,
+          busId,
+          file,
+          busOdometer,
+          fuelPrice,
+          fuelQuantity,
+          vendorName,
+          billNo,
+          logId,
+          instId);
 
       print('this is data from controller ${data!.data!.message}');
 
