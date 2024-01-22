@@ -18,7 +18,8 @@ class BusSelectedController extends GetxController {
   Rx<bool> isSuccess = false.obs;
   Rx<bool> noConnection = false.obs;
 
-  Future<bool> fetchBusSelectionData(String action, String busId) async {
+  Future<bool> fetchBusSelectionData(
+      String action, String busId, String instiId) async {
     final connectivityResult = await (Connectivity().checkConnectivity());
     try {
       isLoading(true);
@@ -29,7 +30,7 @@ class BusSelectedController extends GetxController {
       }
       vendorList.clear();
       print('vendorlist cleared');
-      final data = await apiServices.fetchSelectedBus(action, busId);
+      final data = await apiServices.fetchSelectedBus(action, busId, instiId);
       print('this is from the controller ---------------$data');
 
       busSelectionData = data;

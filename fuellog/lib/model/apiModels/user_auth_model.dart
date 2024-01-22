@@ -1,7 +1,7 @@
 class UserData {
-  final UserInnerData? data;
-  final bool? status;
-  final String? message;
+  DataData? data;
+  bool? status;
+  String? message;
 
   UserData({
     this.data,
@@ -11,29 +11,32 @@ class UserData {
 
   factory UserData.fromJson(Map<String, dynamic> json) {
     return UserData(
-      data: UserInnerData.fromJson(json['data']),
+      data: DataData.fromJson(json['data']),
       status: json['status'],
       message: json['message'],
     );
   }
 }
 
-class UserInnerData {
-  final UserDataDetails? data;
-  final int? dataStatus;
-  final int? errorStatus;
-  final String? message;
+class DataData {
+  String? instId;
+  DataDetails? data;
+  int? dataStatus;
+  int? errorStatus;
+  String? message;
 
-  UserInnerData({
+  DataData({
+    this.instId,
     this.data,
     this.dataStatus,
     this.errorStatus,
     this.message,
   });
 
-  factory UserInnerData.fromJson(Map<String, dynamic> json) {
-    return UserInnerData(
-      data: UserDataDetails.fromJson(json['data']),
+  factory DataData.fromJson(Map<String, dynamic> json) {
+    return DataData(
+      instId: json['inst_id'],
+      data: DataDetails.fromJson(json['data']),
       dataStatus: json['data_status'],
       errorStatus: json['error_status'],
       message: json['message'],
@@ -41,19 +44,19 @@ class UserInnerData {
   }
 }
 
-class UserDataDetails {
-  final bool? checkerStatus;
-  final String? apiKey;
-  final ConductorDetails? conductorDetails;
+class DataDetails {
+  bool? checkerStatus;
+  String? apiKey;
+  ConductorDetails? conductorDetails;
 
-  UserDataDetails({
+  DataDetails({
     this.checkerStatus,
     this.apiKey,
     this.conductorDetails,
   });
 
-  factory UserDataDetails.fromJson(Map<String, dynamic> json) {
-    return UserDataDetails(
+  factory DataDetails.fromJson(Map<String, dynamic> json) {
+    return DataDetails(
       checkerStatus: json['checker_status'],
       apiKey: json['api_key'],
       conductorDetails: ConductorDetails.fromJson(json['conductor_details']),
@@ -62,29 +65,29 @@ class UserDataDetails {
 }
 
 class ConductorDetails {
-  final String? clientId;
-  final String? condId;
-  final String? condName;
-  final String? condEmpId;
-  final dynamic condType;
-  final String? condEmail;
-  final String? condPhone;
-  final String? condUsername;
-  final String? condPassword;
-  final dynamic condImage;
-  final String? condSalary;
-  final String? condIsChecker;
-  final String? active;
-  final String? entryBy;
-  final DateTime? entryDate;
-  final dynamic modBy;
-  final dynamic modDate;
-  final String? tripconId;
-  final String? tripconTripId;
-  final String? tripconConductorId;
-  final String? tripconStartDate;
-  final String? tripconEndDate;
-  final dynamic tripconType;
+  String? clientId;
+  String? condId;
+  String? condName;
+  String? condEmpId;
+  dynamic condType;
+  String? condEmail;
+  String? condPhone;
+  String? condUsername;
+  String? condPassword;
+  dynamic condImage;
+  String? condSalary;
+  String? condIsChecker;
+  String? active;
+  String? entryBy;
+  DateTime? entryDate;
+  dynamic modBy;
+  dynamic modDate;
+  String? tripconId;
+  String? tripconTripId;
+  String? tripconConductorId;
+  String? tripconStartDate;
+  String? tripconEndDate;
+  dynamic tripconType;
 
   ConductorDetails({
     this.clientId,

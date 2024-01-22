@@ -1,4 +1,3 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/controller/busSubmission/busSubmission.dart';
@@ -84,8 +83,9 @@ class __VendorAndBillNumberState extends State<VendorAndBillNumber> {
                         ),
                         hintText: '   Choose Vendor',
                         hintStyle: GoogleFonts.poppins(
-                          fontSize: 16.sp,
-                        ),
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
                       ),
                       items:
                           busSelectedController.vendorList.map((String value) {
@@ -157,8 +157,9 @@ class __VendorAndBillNumberState extends State<VendorAndBillNumber> {
                         border: InputBorder.none,
                         hintText: 'Enter Bill No',
                         hintStyle: GoogleFonts.poppins(
-                          fontSize: 16.sp,
-                        ),
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
                       ),
                     ),
                   ),

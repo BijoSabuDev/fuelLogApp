@@ -37,7 +37,7 @@ class BusHistoryController extends GetxController {
     super.onClose();
   }
 
-  Future<void> fetchBusHistoryData(String input) async {
+  Future<void> fetchBusHistoryData(String input, String instId) async {
     final connectivityResult = await (Connectivity().checkConnectivity());
 
     try {
@@ -54,7 +54,7 @@ class BusHistoryController extends GetxController {
       vhactFuelQuantityList.clear();
       vhactReading.clear();
 
-      await apiServices.getBusHistory(input).then((value) {
+      await apiServices.getBusHistory(input, instId).then((value) {
         print('api is called');
 
         busHistory.value = value;

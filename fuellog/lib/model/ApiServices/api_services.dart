@@ -16,7 +16,8 @@ import 'package:http/http.dart' as http;
 class ApiServices {
   // GET THE DETAILS OF SELECTED BUS
 
-  Future<BusSelectionData> fetchSelectedBus(String action, String busId) async {
+  Future<BusSelectionData> fetchSelectedBus(
+      String action, String busId, String instId) async {
     try {
       final Uri uri = Uri.parse(ApiUrl().baseUrl);
       final Map<String, String> headers = {
@@ -26,6 +27,7 @@ class ApiServices {
       final Map<String, dynamic> body = {
         'action': action,
         'bus_id': busId.toString(),
+        "inst_id": instId
       };
 
       final response = await http.post(
@@ -104,9 +106,7 @@ class ApiServices {
 
   // GET THE DETAILS OF BUS HISTORY
 
-  Future<BusHistoryData> getBusHistory(
-    String busId,
-  ) async {
+  Future<BusHistoryData> getBusHistory(String busId, String instId) async {
     try {
       final Uri uri = Uri.parse(ApiUrl().baseUrl);
       final Map<String, String> headers = {
@@ -116,6 +116,7 @@ class ApiServices {
       final Map<String, dynamic> body = {
         'action': 'fuel_bus_history',
         'bus_id': busId.toString(),
+        "inst_id": instId
       };
 
       final response = await http.post(

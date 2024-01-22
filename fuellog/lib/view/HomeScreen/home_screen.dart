@@ -8,7 +8,6 @@ import 'package:fuellog/controller/busHistory/bus_history.dart';
 import 'package:fuellog/controller/busSubmission/busSubmission.dart';
 import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/localStorage/local_storage.dart';
-import 'package:fuellog/view/ProfileScreen/profile_screen.dart';
 import 'package:fuellog/view/VehicleScreen/vehicle_screen.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:fuellog/view/constants/dimensions.dart';
@@ -37,6 +36,7 @@ class HomeScreen extends StatelessWidget {
       busSubmissionController.resetValues();
       final userData = await UserPreferences.getUserData();
       // Use the retrieved user data as needed
+      print('inst id: ${userData['inst_id']}');
       print('Cond Id: ${userData['cond_Id']}');
       print('User Name: ${userData['user_name']}');
       print('Phone Number: ${userData['phone_number']}');
@@ -392,15 +392,13 @@ class HomeScreen extends StatelessWidget {
 
     if (qrScanner != '-1') {
       final success = await busSelectedController.fetchBusSelectionData(
-        'fuel_bus_selection',
-        qrScanner,
-      );
+          'fuel_bus_selection', qrScanner, userAuthController.instId.value);
 
       if (success) {
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) {
-            return VehicleScreen();
+            return const VehicleScreen();
           },
         ));
       } else {

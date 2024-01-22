@@ -25,9 +25,9 @@ class BusDetailsListview extends StatelessWidget {
         decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Color(0xFF3150F5).withOpacity(0.4), // BoxShadow color
+                color: const Color(0xFF3150F5).withOpacity(0.4), // BoxShadow color
                 blurRadius: 2, // Spread of the shadow
-                offset: Offset(0, 2), // Offset of the shadow
+                offset: const Offset(0, 2), // Offset of the shadow
               ),
             ],
             borderRadius: BorderRadius.circular(10),

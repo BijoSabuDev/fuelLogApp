@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/controller/busHistory/bus_history.dart';
+import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/view/constants/colors.dart';
+import 'package:fuellog/view/util/search_field.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -26,6 +28,7 @@ class HistorySearchBarCustom extends StatefulWidget {
 class _HistorySearchBarCustomState extends State<HistorySearchBarCustom> {
   final BusHistoryController busHistoryController =
       Get.find<BusHistoryController>();
+  final UserAuthController userAuthController = Get.find<UserAuthController>();
 
   // final _debouncer = Debouncer(milliseconds: 1 * 1000);
 
@@ -47,7 +50,8 @@ class _HistorySearchBarCustomState extends State<HistorySearchBarCustom> {
           print('editing complete');
           busHistoryController.userInput.value = textController.text;
 
-          await busHistoryController.fetchBusHistoryData(textController.text);
+          await busHistoryController.fetchBusHistoryData(
+              textController.text, userAuthController.instId.value);
         },
         obscureText: false,
         decoration: InputDecoration(
@@ -107,8 +111,7 @@ void startScanAndNavigate(BuildContext context) async {
 
   if (qrScanner != '-1') {
     await busHistoryController.fetchBusHistoryData(
-      qrScanner,
-    );
+        qrScanner, userAuthController.instId.value);
     // context.loaderOverlay.show();
     // await Future.delayed(const Duration(seconds: 1));
     busHistoryController.userInput.value = 'value';
