@@ -3,32 +3,37 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BusDetailsListview extends StatelessWidget {
- 
   final String busHistoryDate;
   final String busHistoryTime;
   final String fuelQty;
   final String fuelPrice;
   final String odometerReading;
 
-  const BusDetailsListview(
-      {super.key,
-      required this.busHistoryDate,
-      required this.busHistoryTime,
-      required this.fuelQty,
-      required this.fuelPrice,
-      required this.odometerReading,
-       });
+  const BusDetailsListview({
+    super.key,
+    required this.busHistoryDate,
+    required this.busHistoryTime,
+    required this.fuelQty,
+    required this.fuelPrice,
+    required this.odometerReading,
+  });
 
   @override
   Widget build(BuildContext context) {
     return UnconstrainedBox(
       child: Container(
         decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF3150F5).withOpacity(0.4), // BoxShadow color
+                blurRadius: 2, // Spread of the shadow
+                offset: const Offset(0, 2), // Offset of the shadow
+              ),
+            ],
             borderRadius: BorderRadius.circular(10),
             color: const Color(0xFFF3F3F3)),
         child: Column(
           children: [
-            
             SizedBox(
               height: 17.h,
             ),

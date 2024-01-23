@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fuellog/controller/busSubmission/busSubmission.dart';
+import 'package:fuellog/localStorage/local_storage.dart';
 import 'package:fuellog/view/mainScreen/bottom_nav_bar.dart';
 import 'package:fuellog/view/mainScreen/main_screen.dart';
 import 'package:get/get.dart';
@@ -15,8 +16,15 @@ class SuccessPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
+      final userData = await UserPreferences.getUserData();
+
       selectedIndexNotifier.value = 0;
+
+      print(
+          'this is the vendor name ----------- ${busSubmissionController.selectedVendor.value}');
+      print(
+          'this is the billnumber  ----------- ${busSubmissionController.billNumber.value}');
       print(
           'this is the odometer value ----------- ${busSubmissionController.odometerValue.value}');
       print(

@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/controller/busHistory/bus_history.dart';
-import 'package:fuellog/view/HIstoryScreen/historySearch/debouncer.dart';
+import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/view/constants/colors.dart';
+import 'package:fuellog/view/util/search_field.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -27,8 +28,9 @@ class HistorySearchBarCustom extends StatefulWidget {
 class _HistorySearchBarCustomState extends State<HistorySearchBarCustom> {
   final BusHistoryController busHistoryController =
       Get.find<BusHistoryController>();
+  final UserAuthController userAuthController = Get.find<UserAuthController>();
 
-  final _debouncer = Debouncer(milliseconds: 1 * 1000);
+  // final _debouncer = Debouncer(milliseconds: 1 * 1000);
 
   String searchValue = '';
 
@@ -39,34 +41,18 @@ class _HistorySearchBarCustomState extends State<HistorySearchBarCustom> {
       padding: EdgeInsets.symmetric(horizontal: 18.w),
       child: TextField(
         controller: textController,
-
+        // onSubmitted: (value) {
+        //   if (value.isEmpty) {
+        //     busHistoryController.busHistory.value = null;
+        //   }
+        // },
         onEditingComplete: () async {
           print('editing complete');
           busHistoryController.userInput.value = textController.text;
-          await busHistoryController.fetchBusHistoryData(textController.text);
 
-          FocusScope.of(context).unfocus();
+          await busHistoryController.fetchBusHistoryData(
+              textController.text, userAuthController.instId.value);
         },
-        // onSubmitted: (value) async {
-        //   await _debouncer.run(() {
-        //     searchValue = value;
-        //   });
-        //   await busHistoryController.fetchBusHistoryData(searchValue);
-        //   // historyController.userInput.value = value;
-        // },
-        // // onTapOutside: (value) {
-        // //   _debouncer.run(() {
-        // //     historyController.userInput.value = '';
-        // //   });
-        // // },
-        // onChanged: (value) async {
-        //   await _debouncer.run(() {
-        //     searchValue = value;
-        //   });
-        //   await busHistoryController.fetchBusHistoryData(searchValue);
-        //   // historyController.userInput.value = value;
-        // },
-        // controller: controller,
         obscureText: false,
         decoration: InputDecoration(
             suffixIcon: GestureDetector(
@@ -125,8 +111,7 @@ void startScanAndNavigate(BuildContext context) async {
 
   if (qrScanner != '-1') {
     await busHistoryController.fetchBusHistoryData(
-      qrScanner,
-    );
+        qrScanner, userAuthController.instId.value);
     // context.loaderOverlay.show();
     // await Future.delayed(const Duration(seconds: 1));
     busHistoryController.userInput.value = 'value';

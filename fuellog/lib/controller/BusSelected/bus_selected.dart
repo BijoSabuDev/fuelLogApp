@@ -10,13 +10,16 @@ class BusSelectedController extends GetxController {
 
   // Rx<dynamic> busSelectionData = BusSelectionData().obs;
   BusSelectionData busSelectionData = BusSelectionData();
-  Rx<String> odoMeterReading = ''.obs;
 
+  RxList<String> vendorList = <String>[].obs;
+  Rx<String> odoMeterReading = ''.obs;
+  Rx<String> instId = ''.obs;
   Rx<bool> isLoading = false.obs;
   Rx<bool> isSuccess = false.obs;
   Rx<bool> noConnection = false.obs;
 
-  Future<bool> fetchBusSelectionData(String action, String busId) async {
+  Future<bool> fetchBusSelectionData(
+      String action, String busId, String instiId) async {
     final connectivityResult = await (Connectivity().checkConnectivity());
     try {
       isLoading(true);
@@ -25,13 +28,28 @@ class BusSelectedController extends GetxController {
         isLoading(false);
         return false;
       }
-
-      final data = await apiServices.fetchSelectedBus(action, busId);
+      vendorList.clear();
+      print('vendorlist cleared');
+      final data = await apiServices.fetchSelectedBus(action, busId, instiId);
       print('this is from the controller ---------------$data');
 
       busSelectionData = data;
+      if (busSelectionData.instId != null) {
+        instId.value = busSelectionData.instId!;
+      }
+      if (busSelectionData.data!.vendorDetails != null) {
+        final List<VendorDetail> vendorDetails =
+            busSelectionData.data!.vendorDetails!;
+        for (var data in vendorDetails) {
+          vendorList.add(data.vendorName!);
+        }
+        print('vendorlist added');
+      } else {
+        print('no vendordata');
+        vendorList.add('Vendor list unavailable');
+      }
       isSuccess(true);
-      print(data.busID);
+      print(data.data!.busDetails![0].vehId);
 
       if (data.data!.busDetails != null) {
         isSuccess(true);

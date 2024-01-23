@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fuellog/controller/busHistory/bus_history.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SearchOrScan extends StatelessWidget {
-  const SearchOrScan({super.key});
-
+  SearchOrScan({super.key});
+  final BusHistoryController busHistoryController =
+      Get.find<BusHistoryController>();
   @override
   Widget build(BuildContext context) {
+  
     return Center(
       child: Column(
         children: [

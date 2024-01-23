@@ -1,15 +1,16 @@
+// ignore_for_file: invalid_use_of_protected_member
+
 import 'package:fuellog/model/ApiServices/api_services.dart';
 import 'package:fuellog/model/apiModels/bus_history.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
-import 'package:http/retry.dart';
 import 'package:intl/intl.dart';
 
 //this is initialized in the main.dart
 
 class BusHistoryController extends GetxController {
   ApiServices apiServices = ApiServices();
-  Rx<BusHistory?> busHistory = BusHistory().obs;
+  Rx<BusHistoryData?> busHistory = Rx<BusHistoryData?>(null);
 
   Rx<bool> isLoading = false.obs;
   Rx<bool> isSuccess = false.obs;
@@ -17,12 +18,6 @@ class BusHistoryController extends GetxController {
   Rx<bool> noConnection = false.obs;
 
   Rx<String> userInput = ''.obs;
-
-  // List<String> dateList = [];
-  // List<String> timeList = [];
-  // List<String> vhactRateList = [];
-  // List<String> vhactFuelQuantityList = [];
-  // List<String> vhactReading = [];
 
   RxList<String> dateList = <String>[].obs;
   RxList<String> timeList = <String>[].obs;
@@ -32,6 +27,7 @@ class BusHistoryController extends GetxController {
 
   @override
   void onClose() {
+    busHistory.close();
     dateList.clear();
     timeList.clear();
     vhactRateList.clear();
@@ -41,8 +37,9 @@ class BusHistoryController extends GetxController {
     super.onClose();
   }
 
-  Future<void> fetchBusHistoryData(String input) async {
+  Future<void> fetchBusHistoryData(String input, String instId) async {
     final connectivityResult = await (Connectivity().checkConnectivity());
+
     try {
       isLoading(true);
       if (connectivityResult == ConnectivityResult.none) {
@@ -51,7 +48,13 @@ class BusHistoryController extends GetxController {
         return;
       }
 
-      await apiServices.getBusHistory(input).then((value) {
+      dateList.clear();
+      timeList.clear();
+      vhactRateList.clear();
+      vhactFuelQuantityList.clear();
+      vhactReading.clear();
+
+      await apiServices.getBusHistory(input, instId).then((value) {
         print('api is called');
 
         busHistory.value = value;
@@ -59,10 +62,14 @@ class BusHistoryController extends GetxController {
       }).catchError((error) {
         print('Error during API call: $error');
       });
-      
 
       print(
-          'bushistory vvalue${busHistory.value!.data!.data!.vehicleActivityHistory}');
+          'bushistory value${busHistory.value!.data!.data!.vehicleActivityHistory}');
+      // if (busHistory.value!.data == null &&
+      //     busHistory.value!.data!.data == null) {
+      //   noResults(true);
+      //   return;
+      // }
 
       if (busHistory.value!.data != null &&
           busHistory.value!.data!.data != null &&
@@ -71,11 +78,13 @@ class BusHistoryController extends GetxController {
             in busHistory.value!.data!.data!.vehicleActivityHistory!) {
           DateTime entryDate = DateTime.parse(entry['EntryDate']!);
           String formattedDate = DateFormat('yyyy-MM-dd').format(entryDate);
-          dateList.add(formattedDate);
-          timeList.add(entry['EntryDate'].toString().split(' ')[1]);
-          vhactRateList.add(entry['vhact_rate']!);
-          vhactFuelQuantityList.add(entry['vhact_quantity']!);
-          vhactReading.add(entry['vhact_reading']!);
+
+          dateList.value.add(formattedDate);
+
+          timeList.value.add(entry['EntryDate'].toString().split(' ')[1]);
+          vhactRateList.value.add(entry['vhact_rate']!);
+          vhactFuelQuantityList.value.add(entry['vhact_quantity']!);
+          vhactReading.value.add(entry['vhact_reading']!);
         }
       } else {
         isSuccess(false);

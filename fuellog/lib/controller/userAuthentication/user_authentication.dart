@@ -12,6 +12,7 @@ class UserAuthController extends GetxController {
   UserData? userAuthData = UserData();
   Rx<String> userLocalName = ''.obs;
 
+  Rx<String> instId = ''.obs;
   Rx<bool> isLoading = false.obs;
   Rx<bool> isPinError = false.obs;
   Rx<bool> isNetwrkError = false.obs;
@@ -40,6 +41,7 @@ class UserAuthController extends GetxController {
 
       if (data.data!.errorStatus == 0) {
         userAuthData = data;
+        instId.value = userAuthData!.data!.instId!;
         return true;
       } else if (data.data!.errorStatus == 1) {
         isPinError(true);

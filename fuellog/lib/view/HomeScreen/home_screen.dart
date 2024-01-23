@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fuellog/controller/BusSelected/bus_selected.dart';
 import 'package:fuellog/controller/busHistory/bus_history.dart';
+import 'package:fuellog/controller/busSubmission/busSubmission.dart';
 import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/localStorage/local_storage.dart';
 import 'package:fuellog/view/VehicleScreen/vehicle_screen.dart';
@@ -27,11 +28,16 @@ class HomeScreen extends StatelessWidget {
   final BusHistoryController busHistoryController =
       Get.find<BusHistoryController>();
 
+  final BusSubmissionController busSubmissionController =
+      Get.find<BusSubmissionController>();
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      busSubmissionController.resetValues();
       final userData = await UserPreferences.getUserData();
       // Use the retrieved user data as needed
+      print('inst id: ${userData['inst_id']}');
+      print('Cond Id: ${userData['cond_Id']}');
       print('User Name: ${userData['user_name']}');
       print('Phone Number: ${userData['phone_number']}');
       busHistoryController.userInput.value = '';
@@ -55,9 +61,6 @@ class HomeScreen extends StatelessWidget {
                     padding: EdgeInsets.only(top: 81.h, left: 25.w),
                     child: LogoWithText(sw: sw),
                   ),
-                  // SizedBox(
-                  //   height: 21.h,
-                  // ),
                   SizedBox(
                     height: 30.h,
                   ),
@@ -96,13 +99,16 @@ class HomeScreen extends StatelessWidget {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  const CircleAvatar(
-                                      backgroundColor: Colors.white,
-                                      radius: 25,
-                                      child: Icon(
-                                        Icons.person_2_outlined,
-                                        color: appTheme,
-                                      )),
+                                  GestureDetector(
+                                    onTap: () {},
+                                    child: const CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        radius: 25,
+                                        child: Icon(
+                                          Icons.person_2_outlined,
+                                          color: appTheme,
+                                        )),
+                                  ),
                                   kw10,
                                   SizedBox(
                                     width: 110.w,
@@ -164,39 +170,6 @@ class HomeScreen extends StatelessWidget {
                                             }
                                           },
                                         )
-
-                                        // RichText(
-                                        //   maxLines: 3,
-                                        //   overflow: TextOverflow.ellipsis,
-                                        //   textAlign: TextAlign.start,
-                                        //   text: TextSpan(
-                                        //     style: GoogleFonts.readexPro(
-                                        //         fontWeight: FontWeight.w400,
-                                        //         color: const Color(0xFFA2B2C8)),
-                                        //     children: [
-                                        //       TextSpan(
-                                        //         text: 'Welcome\n',
-                                        //         style: GoogleFonts.readexPro(
-                                        //             fontWeight: FontWeight.w400,
-                                        //             fontSize: 14.sp,
-                                        //             color: const Color(
-                                        //                 0xFFA2B2C8)),
-                                        //       ),
-                                        //       TextSpan(text:  ,
-                                        //         // text: userAuthController
-                                        //         //     .userAuthData!
-                                        //         //     .data!
-                                        //         //     .data!
-                                        //         //     .conductorDetails!
-                                        //         //     .condName,
-                                        //         style: GoogleFonts.readexPro(
-                                        //             fontWeight: FontWeight.w500,
-                                        //             fontSize: 16.sp,
-                                        //             color: Colors.black),
-                                        //       ),
-                                        //     ],
-                                        //   ),
-                                        // )
                                       ],
                                     ),
                                   )
@@ -232,18 +205,6 @@ class HomeScreen extends StatelessWidget {
                                         fontSize: 18.sp,
                                         color: Colors.white),
                                   ),
-                                  // SizedBox(
-                                  //   height: 17.h,
-                                  //   child: FittedBox(
-                                  //     child: Text(
-                                  //       'How to use this application',
-                                  //       style: GoogleFonts.readexPro(
-                                  //           fontWeight: FontWeight.w400,
-                                  //           fontSize: 13.77.sp,
-                                  //           color: Colors.white),
-                                  //     ),
-                                  //   ),
-                                  // ),
                                   SizedBox(
                                     height: 5.h,
                                   ),
@@ -305,12 +266,14 @@ class HomeScreen extends StatelessWidget {
                     begin: -0.1,
                     end: 0.0,
                   ),
+              // SizedBox(
+              //   height: 8.h,
+              // ),
               SizedBox(
-                height: 14.h,
-              ),
-              Row(
-                children: [
-                  Expanded(
+                height: 250.h,
+                child: Stack(children: [
+                  Positioned(
+                    top: 30.h,
                     child: Row(
                       children: [
                         Image.asset(
@@ -320,15 +283,30 @@ class HomeScreen extends StatelessWidget {
                           fit: BoxFit.fill,
                         ),
                       ],
-                    ),
+                    )
+                        .animate(delay: 0.ms)
+                        .fadeIn(
+                            delay: 100.ms,
+                            duration: 600.ms,
+                            curve: Curves.easeOut)
+                        .slideX(delay: 300.ms, duration: 800.ms),
                   ),
-                ],
-              )
-                  .animate(delay: 0.ms)
-                  .fadeIn(
-                      delay: 200.ms, duration: 600.ms, curve: Curves.easeOut)
-                  .slideX(delay: 100.ms),
-              SizedBox(height: 31.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/homeScreen/busbground.svg',
+                        width: 390.w,
+                        height: 220.h,
+                      )
+                    ],
+                  )
+                  // .animate(delay: 0.ms).slideX(
+                  //       duration: 800.ms,
+                  //     ),
+                ]),
+              ),
+              SizedBox(height: 16.h),
               SizedBox(
                 height: 190.h,
                 child: FittedBox(
@@ -357,6 +335,7 @@ class HomeScreen extends StatelessWidget {
 
                                       await requestCameraPermission();
 
+                                      // ignore: use_build_context_synchronously
                                       startScanAndNavigate(context);
 
                                       buttonPressed.value =
@@ -398,10 +377,6 @@ class HomeScreen extends StatelessWidget {
                       .scaleXY(duration: 300.ms, curve: Curves.easeIn),
                 ),
               ),
-              // SizedBox(
-              //   height: 27.h,
-              // ),
-              // SizedBox(height: 10.h),
             ],
           );
         },
@@ -417,17 +392,13 @@ class HomeScreen extends StatelessWidget {
 
     if (qrScanner != '-1') {
       final success = await busSelectedController.fetchBusSelectionData(
-        'fuel_bus_selection',
-        qrScanner,
-      );
-
-      // await Future.delayed(const Duration(seconds: 1));
+          'fuel_bus_selection', qrScanner, userAuthController.instId.value);
 
       if (success) {
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) {
-            return VehicleScreen();
+            return const VehicleScreen();
           },
         ));
       } else {
@@ -480,7 +451,7 @@ class HomeScreen extends StatelessWidget {
                         Navigator.of(ctx).pop();
                       },
                       child: Text(
-                        'Ok',
+                        'OK',
                         style: GoogleFonts.poppins(
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w600,

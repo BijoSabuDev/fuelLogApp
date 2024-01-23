@@ -41,12 +41,15 @@ class BusNumberBox extends StatelessWidget {
                 height: 30.h,
                 child: FittedBox(
                   child: Center(
-                    child: Text(
-                      busNo,
-                      style: GoogleFonts.readexPro(
-                          color: Colors.white,
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w500),
+                    child: Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Text(
+                        busNo,
+                        style: GoogleFonts.readexPro(
+                            color: Colors.white,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w500),
+                      ),
                     ),
                   ),
                 ),

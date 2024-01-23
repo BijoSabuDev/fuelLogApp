@@ -9,9 +9,9 @@ import 'package:fuellog/view/HIstoryScreen/historySearch/history_search_bar.dart
 import 'package:fuellog/view/HIstoryScreen/listview_item.dart';
 import 'package:fuellog/view/HIstoryScreen/no_record_screen.dart';
 import 'package:fuellog/view/HIstoryScreen/search_or_scan.dart';
-import 'package:fuellog/view/constants/colors.dart';
+import 'package:fuellog/view/util/bus_no_box.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class HistoryScreen extends StatelessWidget {
   HistoryScreen({super.key});
@@ -57,13 +57,22 @@ class HistoryScreen extends StatelessWidget {
               height: 33.h,
             ),
             GetX<BusHistoryController>(builder: (busHistoryController) {
+              if (busHistoryController.isLoading.value) {
+                context.loaderOverlay.show();
+              } else {
+                context.loaderOverlay.hide();
+              }
               if (busHistoryController.userInput.value.isEmpty) {
-                return const SearchOrScan();
+                return SearchOrScan();
               } else if (busHistoryController.isLoading.value) {
                 return const Center(
                   child: CupertinoActivityIndicator(),
                 );
               }
+
+              // else if (!busHistoryController.noResults.value) {
+              //   return NoRecordScreen();
+              // }
               //  else if (busHistoryController.noConnection.value) {
               //   return const Center(
               //     child: SnackBar(
@@ -82,11 +91,18 @@ class HistoryScreen extends StatelessWidget {
                       null &&
                   busHistoryController.busHistory.value!.data!.data!
                       .vehicleActivityHistory!.isNotEmpty) {
-                final busNo = busHistoryController.busHistory.value!.data!.data!
-                    .vehicleActivityHistory![0]['vhact_veh_id'];
+                final busNo =
+                    busHistoryController.busHistory.value!.busNo ?? '0';
+                final regNo =
+                    busHistoryController.busHistory.value!.regNo ?? '0';
+                final fuelType =
+                    busHistoryController.busHistory.value!.fuelType ?? '0';
+
                 return Column(
                   children: [
-                    // BusNumberBox(busNo: busNo!, regNo: busNo, fuelType: busNo),
+                    BusNumberBox(
+                        busNo: busNo, regNo: regNo, fuelType: fuelType),
+
                     SizedBox(
                       height: 33.h,
                     ),
@@ -114,29 +130,33 @@ class HistoryScreen extends StatelessWidget {
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
-                          return BusDetailsListview(
-                            busHistoryDate:
-                                busHistoryController.dateList[index],
-                            busHistoryTime:
-                                busHistoryController.timeList[index],
-                            fuelPrice:
-                                busHistoryController.vhactRateList[index],
-                            fuelQty: busHistoryController
-                                .vhactFuelQuantityList[index],
-                            odometerReading:
-                                busHistoryController.vhactReading[index],
-                          )
-                              .animate()
-                              .fadeIn(
-                                  delay: 100.ms,
-                                  duration: 500.ms,
-                                  curve: Curves.easeOut)
-                              .slideY(
-                                delay: 100.ms,
-                                curve: Curves.linear,
-                                begin: 0.2,
-                                end: 0.0,
-                              );
+                          return GetX<BusHistoryController>(
+                            builder: (busHistoryController) {
+                              return BusDetailsListview(
+                                busHistoryDate:
+                                    busHistoryController.dateList[index],
+                                busHistoryTime:
+                                    busHistoryController.timeList[index],
+                                fuelPrice:
+                                    busHistoryController.vhactRateList[index],
+                                fuelQty: busHistoryController
+                                    .vhactFuelQuantityList[index],
+                                odometerReading:
+                                    busHistoryController.vhactReading[index],
+                              )
+                                  .animate()
+                                  .fadeIn(
+                                      delay: 100.ms,
+                                      duration: 500.ms,
+                                      curve: Curves.easeOut)
+                                  .slideY(
+                                    delay: 100.ms,
+                                    curve: Curves.linear,
+                                    begin: 0.2,
+                                    end: 0.0,
+                                  );
+                            },
+                          );
                         },
                         separatorBuilder: (builder, context) {
                           return SizedBox(
@@ -150,9 +170,9 @@ class HistoryScreen extends StatelessWidget {
                   ],
                 );
               } else if (!busHistoryController.noResults.value) {
-                return const NoRecordScreen();
+                return NoRecordScreen();
               } else {
-                return const NoRecordScreen();
+                return NoRecordScreen();
               }
             })
           ],

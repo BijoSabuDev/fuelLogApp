@@ -46,9 +46,7 @@ class ResetPinScreeen extends StatelessWidget {
           SizedBox(
             height: sw * 0.3,
           ),
-          Container(
-            child: SvgPicture.asset('assets/onboardingScreen/logo.svg'),
-          ),
+          SvgPicture.asset('assets/onboardingScreen/logo.svg'),
           k30,
           Text(
             'Contact Admin',

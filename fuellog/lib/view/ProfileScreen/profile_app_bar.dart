@@ -29,55 +29,7 @@ class ProfileAppBar extends StatelessWidget {
             SizedBox(
               width: 67.w,
             ),
-            // Container(
-            //   height: 41.h,
-            //   width: 93.w,
-            //   decoration: BoxDecoration(
-            //     color: const Color(0xFFF3F3F3),
-            //     borderRadius: BorderRadius.circular(9),
-            //   ),
-            //   child: Row(
-            //     children: [
-            //       SizedBox(
-            //         width: 20.w,
-            //       ),
-            //       Text(
-            //         'Edit',
-            //         style: GoogleFonts.poppins(
-            //           fontSize: 14.sp,
-            //           fontWeight: FontWeight.w500,
-            //         ),
-            //       ),
-            //       SizedBox(
-            //         width: 10.w,
-            //       ),
-            //       Container(
-            //         width: 29.w,
-            //         height: 29.h,
-            //         decoration: BoxDecoration(
-            //           borderRadius: BorderRadius.circular(6),
-            //           gradient: const LinearGradient(
-            //             colors: [
-            //               Color(0xFFEAEAEA), // #EAEAEA
-            //               Color(0xFFBABEC3), // #BABEC3
-            //             ],
-            //             stops: [0.0, 1.0],
-            //             begin: Alignment.centerLeft,
-            //             end: Alignment.centerRight,
-            //           ),
-            //         ),
-            //         child: FittedBox(
-            //           fit: BoxFit.scaleDown,
-            //           child: SvgPicture.asset(
-            //             'assets/profileScreen/pen.svg',
-            //             height: 16.h,
-            //             width: 16.w,
-            //           ),
-            //         ),
-            //       )
-            //     ],
-            //   ),
-            // )
+          
           ],
         ),
       ],

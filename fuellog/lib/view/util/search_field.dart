@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/controller/BusSelected/bus_selected.dart';
+import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/view/VehicleScreen/vehicle_screen.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:get/get.dart';
@@ -24,10 +25,9 @@ class SearchBarCustom extends StatefulWidget {
   State<SearchBarCustom> createState() => _SearchBarCustomState();
 }
 
-// final BusSelectedController busSelectedController =
-//     Get.put(BusSelectedController());
 final BusSelectedController busSelectedController =
     Get.find<BusSelectedController>();
+final UserAuthController userAuthController = Get.find<UserAuthController>();
 
 class _SearchBarCustomState extends State<SearchBarCustom> {
   final TextEditingController busSearchController = TextEditingController();
@@ -45,7 +45,9 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
       child: TextField(
         onSubmitted: (value) async {
           final success = await busSelectedController.fetchBusSelectionData(
-              'fuel_bus_selection', busSearchController.text);
+              'fuel_bus_selection',
+              busSearchController.text,
+              userAuthController.instId.value);
           print(success);
           busSearchController.clear();
 
@@ -102,7 +104,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                             Navigator.of(ctx).pop();
                           },
                           child: Text(
-                            'Exit',
+                            'OK',
                             style: GoogleFonts.poppins(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w600,
@@ -117,7 +119,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
             // ignore: use_build_context_synchronously
             Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) {
-                return VehicleScreen();
+                return const VehicleScreen();
               },
             ));
           } else {
@@ -169,7 +171,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                             Navigator.of(ctx).pop();
                           },
                           child: Text(
-                            'Exit',
+                            'OK',
                             style: GoogleFonts.poppins(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w600,
@@ -189,7 +191,9 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
               onTap: () async {
                 final success =
                     await busSelectedController.fetchBusSelectionData(
-                        'fuel_bus_selection', busSearchController.text);
+                        'fuel_bus_selection',
+                        busSearchController.text,
+                        userAuthController.instId.value);
                 busSearchController.clear();
                 if (success) {
                   const Center(
@@ -199,7 +203,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                   // ignore: use_build_context_synchronously
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) {
-                      return VehicleScreen();
+                      return const VehicleScreen();
                     },
                   ));
                 } else {
@@ -213,11 +217,11 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                       builder: (ctx) {
                         return CupertinoAlertDialog(
                           title: Text(
-                            'Error',
+                            'Error!',
                             style: GoogleFonts.poppins(
-                                fontSize: 20.sp,
+                                fontSize: 26.sp,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.black),
+                                color: const Color(0xFFEF4348)),
                           ),
                           content: SizedBox(
                             width: 300.w,
@@ -231,7 +235,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                                     TextSpan(
                                       text: 'No search results for this ID',
                                       style: GoogleFonts.poppins(
-                                        fontSize: 16.sp,
+                                        fontSize: 24.sp,
                                         fontWeight: FontWeight.w500,
                                         color: Colors.black,
                                       ),
@@ -256,7 +260,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                                   Navigator.of(ctx).pop();
                                 },
                                 child: Text(
-                                  'Ok',
+                                  'OK',
                                   style: GoogleFonts.poppins(
                                       fontSize: 20.sp,
                                       fontWeight: FontWeight.w600,

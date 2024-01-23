@@ -9,7 +9,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   UserAuthController userAuthController = Get.find<UserAuthController>();
   @override
   Widget build(BuildContext context) {
-    final sw = MediaQuery.of(context).size.width;
+ 
     return Padding(
       padding: EdgeInsets.only(top: 40.h, left: 0),
       child: Row(

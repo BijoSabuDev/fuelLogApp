@@ -2,16 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fuellog/controller/busSubmission/busSubmission.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:fuellog/view/mainScreen/bottom_nav_bar.dart';
 import 'package:fuellog/view/mainScreen/main_screen.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class VehicleScreenAppBar extends StatelessWidget {
-  const VehicleScreenAppBar({
+  VehicleScreenAppBar({
     super.key,
   });
 
+  final BusSubmissionController busSubmissionController =
+      Get.find<BusSubmissionController>();
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -81,6 +85,7 @@ class VehicleScreenAppBar extends StatelessWidget {
                         child: GestureDetector(
                           onTap: () {
                             selectedIndexNotifier.value = 0;
+                            busSubmissionController.resetValues();
                             Navigator.of(ctx).pushAndRemoveUntil(
                                 MaterialPageRoute(builder: (context) {
                               return MainScreen();
