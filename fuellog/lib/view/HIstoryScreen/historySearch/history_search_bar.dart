@@ -5,6 +5,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/controller/busHistory/bus_history.dart';
 import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
+import 'package:fuellog/localStorage/local_storage.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:fuellog/view/util/search_field.dart';
 import 'package:get/get.dart';
@@ -47,11 +48,14 @@ class _HistorySearchBarCustomState extends State<HistorySearchBarCustom> {
         //   }
         // },
         onEditingComplete: () async {
+          final userData = await UserPreferences.getUserData();
+          final instId = userData['inst_id'];
+
           print('editing complete');
           busHistoryController.userInput.value = textController.text;
 
           await busHistoryController.fetchBusHistoryData(
-              textController.text, userAuthController.instId.value);
+              textController.text, instId!);
         },
         obscureText: false,
         decoration: InputDecoration(
@@ -110,8 +114,9 @@ void startScanAndNavigate(BuildContext context) async {
   }
 
   if (qrScanner != '-1') {
-    await busHistoryController.fetchBusHistoryData(
-        qrScanner, userAuthController.instId.value);
+    final userData = await UserPreferences.getUserData();
+    final instId = userData['inst_id'];
+    await busHistoryController.fetchBusHistoryData(qrScanner, instId!);
     // context.loaderOverlay.show();
     // await Future.delayed(const Duration(seconds: 1));
     busHistoryController.userInput.value = 'value';
