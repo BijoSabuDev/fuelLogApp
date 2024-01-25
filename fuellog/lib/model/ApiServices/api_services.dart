@@ -87,6 +87,7 @@ class ApiServices {
           userData.data!.data!.conductorDetails!.condName!,
           userData.data!.data!.conductorDetails!.condPhone!,
           userData.data!.data!.conductorDetails!.condId!,
+          userData.data!.instId!,
         );
 
         if (kDebugMode) {
@@ -149,16 +150,17 @@ class ApiServices {
   // SUBMIT THE FUEL VALUE ,IMAGE IS OPTIONAL
 
   Future<BusSubmittedResponse?> submitFuelValue(
-      String action,
-      String busId,
-      File? file,
-      String busOdometer,
-      String vendorName,
-      String billNo,
-      String fuelPrice,
-      String fuelQuantity,
-      String logId,
-      String instId) async {
+    String action,
+    String busId,
+    String busOdometer,
+    String fuelPrice,
+    String fuelQuantity,
+    String vendorName,
+    String billNo,
+    String logId,
+    String instId,
+    File? file,
+  ) async {
     try {
       var request = http.MultipartRequest('POST', Uri.parse(ApiUrl().baseUrl));
 

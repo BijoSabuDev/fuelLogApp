@@ -193,10 +193,35 @@ class _VehicleScreenState extends State<VehicleScreen> {
                     controller.reset();
                     return;
                   }
+
                   final isSubmitted = formKey.currentState!.validate();
                   if (!isSubmitted) {
                     controller.reset();
                     return;
+                  } else if (busSubmissionController.fuelQuantityValue.value ==
+                      '0.0') {
+                    showErrorDialog(
+                        context, controller, 'Fuel quantity cannot be zero');
+                    controller.reset();
+                    return;
+                  } else if (busSubmissionController.fuelPriceValue.value ==
+                      '0.0') {
+                    showErrorDialog(
+                        context, controller, 'Fuel price cannot be zero');
+                    controller.reset();
+                    return;
+                  } else {
+                    await busSubmissionController.submitFuelValue(
+                        'fuel_log_submit',
+                        busID!,
+                        odoMeterValue,
+                        fuelPrice,
+                        fuelQuantity,
+                        vendorName,
+                        billNo,
+                        condID!,
+                        instId,
+                        file);
                   }
                   //  submit the bus data
 
@@ -206,17 +231,17 @@ class _VehicleScreenState extends State<VehicleScreen> {
 
                   //   return;
                   // }
-                  await busSubmissionController.submitFuelValue(
-                      'fuel_log_submit',
-                      busID!,
-                      file,
-                      odoMeterValue,
-                      fuelPrice,
-                      fuelQuantity,
-                      vendorName,
-                      billNo,
-                      condID!,
-                      instId);
+                  // await busSubmissionController.submitFuelValue(
+                  //     'fuel_log_submit',
+                  //     busID!,
+                  //     odoMeterValue,
+                  //     fuelPrice,
+                  //     fuelQuantity,
+                  //     vendorName,
+                  //     billNo,
+                  //     condID!,
+                  //     instId,
+                  //     file);
 
                   controller.success();
                   await Future.delayed(const Duration(milliseconds: 1800));

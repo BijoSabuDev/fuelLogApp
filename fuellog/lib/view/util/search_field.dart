@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fuellog/controller/BusSelected/bus_selected.dart';
 import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
+import 'package:fuellog/localStorage/local_storage.dart';
 import 'package:fuellog/view/VehicleScreen/vehicle_screen.dart';
 import 'package:fuellog/view/constants/colors.dart';
 import 'package:get/get.dart';
@@ -43,11 +44,12 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 18.w),
       child: TextField(
-        onSubmitted: (value) async {
+        onSubmitted: (value) async {   final userData = await UserPreferences.getUserData();
+                final instId = userData['inst_id'];
           final success = await busSelectedController.fetchBusSelectionData(
               'fuel_bus_selection',
               busSearchController.text,
-              userAuthController.instId.value);
+            instId!);
           print(success);
           busSearchController.clear();
 
@@ -189,11 +191,13 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
         decoration: InputDecoration(
             suffixIcon: GestureDetector(
               onTap: () async {
+                final userData = await UserPreferences.getUserData();
+                final instId = userData['inst_id'];
                 final success =
                     await busSelectedController.fetchBusSelectionData(
                         'fuel_bus_selection',
                         busSearchController.text,
-                        userAuthController.instId.value);
+                        instId!);
                 busSearchController.clear();
                 if (success) {
                   const Center(

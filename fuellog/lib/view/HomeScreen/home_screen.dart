@@ -36,7 +36,8 @@ class HomeScreen extends StatelessWidget {
       busSubmissionController.resetValues();
       final userData = await UserPreferences.getUserData();
       // Use the retrieved user data as needed
-      print('inst id: ${userData['inst_id']}');
+
+      print('this is the inst id ${userData['inst_id']}');
       print('Cond Id: ${userData['cond_Id']}');
       print('User Name: ${userData['user_name']}');
       print('Phone Number: ${userData['phone_number']}');
@@ -385,6 +386,8 @@ class HomeScreen extends StatelessWidget {
   }
 
   void startScanAndNavigate(BuildContext context) async {
+    final userData = await UserPreferences.getUserData();
+    final instId = userData['inst_id'];
     String qrScanner = await FlutterBarcodeScanner.scanBarcode(
         '#ff6666', 'Cancel', true, ScanMode.QR);
 
@@ -392,7 +395,7 @@ class HomeScreen extends StatelessWidget {
 
     if (qrScanner != '-1') {
       final success = await busSelectedController.fetchBusSelectionData(
-          'fuel_bus_selection', qrScanner, userAuthController.instId.value);
+          'fuel_bus_selection', qrScanner, instId!);
 
       if (success) {
         // ignore: use_build_context_synchronously
