@@ -408,7 +408,7 @@ class HomeScreen extends StatelessWidget {
               .busSelectionData.data!.busDetails![0].fuel ==
           "ELECTRIC") {
         // ignore: use_build_context_synchronously
-        showError(context, 'Selected ID is an Electric Vehicle');
+        showError(context, 'Searched vehicle is Electric');
       } else if (success) {
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushReplacement(MaterialPageRoute(

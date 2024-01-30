@@ -63,7 +63,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                   .busSelectionData.data!.busDetails![0].fuel ==
               "ELECTRIC") {
             // ignore: use_build_context_synchronously
-            showError(context, 'Selected ID is an Electric Vehicle');
+            showError(context, 'Searched Vehicle is Electric');
           } else if (success) {
             // ignore: use_build_context_synchronously
             Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -107,7 +107,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                         .busSelectionData.data!.busDetails![0].fuel ==
                     "ELECTRIC") {
                   // ignore: use_build_context_synchronously
-                  showError(context, 'Selected ID is an Electric Vehicle');
+                  showError(context, 'Searched Vehicle is Electric');
                 } else {
                   const Center(
                     child: CircularProgressIndicator(),
@@ -148,7 +148,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
               ),
             ),
             filled: true,
-            hintText: 'Bus No 52 or DXB135.',
+            hintText: 'Bus No or Registration Number.',
             hintStyle: TextStyle(color: Colors.grey[500])),
       ),
     );
