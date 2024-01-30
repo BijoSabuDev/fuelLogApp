@@ -42,6 +42,7 @@ class BusHistoryController extends GetxController {
 
     try {
       isLoading(true);
+
       if (connectivityResult == ConnectivityResult.none) {
         noConnection(true);
         isLoading(false);
@@ -63,10 +64,8 @@ class BusHistoryController extends GetxController {
         print('Error during API call: $error');
       });
 
-      print(
-          'bushistory value${busHistory.value!.data!.data!.vehicleActivityHistory}');
-      // if (busHistory.value!.data == null &&
-      //     busHistory.value!.data!.data == null) {
+      print('bushistory value${busHistory.value!}');
+      // if (busHistory.value!.data!.dataStatus == 0) {
       //   noResults(true);
       //   return;
       // }
@@ -96,7 +95,7 @@ class BusHistoryController extends GetxController {
       noResults(true);
     } finally {
       isLoading(false);
-      noResults(false);
+      // noResults(false);
     }
   }
 }

@@ -404,8 +404,15 @@ class HomeScreen extends StatelessWidget {
       } else if (busSelectedController.noConnection.value) {
         // ignore: use_build_context_synchronously
         showError(context, 'No network connection');
-      } else if (busSelectedController
-              .busSelectionData.data!.busDetails![0].fuel ==
+      } 
+       else if (busSelectedController.busSelectionData!.data!.dataStatus ==
+              0) {
+            // ignore: use_build_context_synchronously
+            showError(context, 'No search results for this ID');
+          }
+      
+      else if (busSelectedController
+              .busSelectionData!.data!.busDetails![0].fuel ==
           "ELECTRIC") {
         // ignore: use_build_context_synchronously
         showError(context, 'Searched vehicle is Electric');

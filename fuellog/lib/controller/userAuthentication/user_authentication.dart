@@ -23,7 +23,7 @@ class UserAuthController extends GetxController {
   }
 
   Future<bool> fetchUserData(
-      String action, String pin, String phoneNumber) async {
+      String action, String pin, String phoneNumber, String version) async {
     final connectivityResult = await (Connectivity().checkConnectivity());
     try {
       isLoading(true);
@@ -32,7 +32,7 @@ class UserAuthController extends GetxController {
         isNetwrkError(true);
         return false;
       }
-      final data = await apiServices.userAuthData(action, pin, phoneNumber);
+      final data = await apiServices.userAuthData(action, pin, phoneNumber,version);
       print(data);
 
       // final userData = await UserPreferences.getUserData();

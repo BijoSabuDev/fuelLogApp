@@ -18,7 +18,7 @@ class LogoWithText extends StatelessWidget {
       children: [
         SizedBox(
           height: 65.h,
-          width: 214.w,
+          width: 320.w,
           child: Row(
             children: [
               FittedBox(
@@ -41,11 +41,27 @@ class LogoWithText extends StatelessWidget {
                                 fontSize: 24.sp, fontWeight: FontWeight.w700),
                           ),
                           TextSpan(
-                            text: 'Fuel Log',
-                            style: GoogleFonts.inter(
-                                fontSize: 36.sp,
-                                letterSpacing: 0.5,
-                                fontWeight: FontWeight.w700),
+                            children: [
+                              TextSpan(
+                                text: 'Fuel Log',
+                                style: GoogleFonts.inter(
+                                    fontSize: 36.sp,
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              TextSpan(
+                                text: ' v1.0.0',
+                                style: GoogleFonts.inter(
+                                    fontSize: 14.sp,
+                                    letterSpacing: 0.5,
+                                    fontWeight: FontWeight.w400),
+                              )
+                            ],
+                            // text: 'Fuel Log',
+                            // style: GoogleFonts.inter(
+                            //     fontSize: 36.sp,
+                            //     letterSpacing: 0.5,
+                            //     fontWeight: FontWeight.w700),
                           ),
                         ],
                       ),

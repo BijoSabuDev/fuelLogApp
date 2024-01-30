@@ -1,5 +1,5 @@
 class UserData {
-  DataData? data;
+  UserDataData? data;
   bool? status;
   String? message;
 
@@ -11,21 +11,21 @@ class UserData {
 
   factory UserData.fromJson(Map<String, dynamic> json) {
     return UserData(
-      data: DataData.fromJson(json['data']),
+      data: json['data'] != null ? UserDataData.fromJson(json['data']) : null,
       status: json['status'],
       message: json['message'],
     );
   }
 }
 
-class DataData {
+class UserDataData {
   String? instId;
-  DataDetails? data;
+  DataData? data;
   int? dataStatus;
   int? errorStatus;
   String? message;
 
-  DataData({
+  UserDataData({
     this.instId,
     this.data,
     this.dataStatus,
@@ -33,10 +33,10 @@ class DataData {
     this.message,
   });
 
-  factory DataData.fromJson(Map<String, dynamic> json) {
-    return DataData(
+  factory UserDataData.fromJson(Map<String, dynamic> json) {
+    return UserDataData(
       instId: json['inst_id'],
-      data: DataDetails.fromJson(json['data']),
+      data: json['data'] != null ? DataData.fromJson(json['data']) : null,
       dataStatus: json['data_status'],
       errorStatus: json['error_status'],
       message: json['message'],
@@ -44,22 +44,30 @@ class DataData {
   }
 }
 
-class DataDetails {
+class DataData {
   bool? checkerStatus;
   String? apiKey;
   ConductorDetails? conductorDetails;
+  List<VersionDetail>? versionDetails;
 
-  DataDetails({
+  DataData({
     this.checkerStatus,
     this.apiKey,
     this.conductorDetails,
+    this.versionDetails,
   });
 
-  factory DataDetails.fromJson(Map<String, dynamic> json) {
-    return DataDetails(
+  factory DataData.fromJson(Map<String, dynamic> json) {
+    return DataData(
       checkerStatus: json['checker_status'],
       apiKey: json['api_key'],
-      conductorDetails: ConductorDetails.fromJson(json['conductor_details']),
+      conductorDetails: json['conductor_details'] != null
+          ? ConductorDetails.fromJson(json['conductor_details'])
+          : null,
+      versionDetails: json['version_Details'] != null
+          ? List<VersionDetail>.from(
+              json['version_Details'].map((x) => VersionDetail.fromJson(x)))
+          : null,
     );
   }
 }
@@ -79,7 +87,7 @@ class ConductorDetails {
   String? condIsChecker;
   String? active;
   String? entryBy;
-  DateTime? entryDate;
+  String? entryDate;
   dynamic modBy;
   dynamic modDate;
   String? tripconId;
@@ -131,7 +139,7 @@ class ConductorDetails {
       condIsChecker: json['cond_is_checker'],
       active: json['Active'],
       entryBy: json['EntryBy'],
-      entryDate: DateTime.parse(json['EntryDate']),
+      entryDate: json['EntryDate'],
       modBy: json['ModBy'],
       modDate: json['ModDate'],
       tripconId: json['tripcon_id'],
@@ -140,6 +148,47 @@ class ConductorDetails {
       tripconStartDate: json['tripcon_start_date'],
       tripconEndDate: json['tripcon_end_date'],
       tripconType: json['tripcon_type'],
+    );
+  }
+}
+
+class VersionDetail {
+  String? verId;
+  String? verAppId;
+  String? verTitle;
+  String? verStatus;
+  String? verUrl;
+  String? verNote;
+  String? verDate;
+  String? active;
+  dynamic entryBy;
+  String? entryDate;
+
+  VersionDetail({
+    this.verId,
+    this.verAppId,
+    this.verTitle,
+    this.verStatus,
+    this.verUrl,
+    this.verNote,
+    this.verDate,
+    this.active,
+    this.entryBy,
+    this.entryDate,
+  });
+
+  factory VersionDetail.fromJson(Map<String, dynamic> json) {
+    return VersionDetail(
+      verId: json['ver_id'],
+      verAppId: json['ver_app_id'],
+      verTitle: json['ver_title'],
+      verStatus: json['ver_status'],
+      verUrl: json['ver_url'],
+      verNote: json['ver_note'],
+      verDate: json['ver_date'],
+      active: json['Active'],
+      entryBy: json['EntryBy'],
+      entryDate: json['EntryDate'],
     );
   }
 }

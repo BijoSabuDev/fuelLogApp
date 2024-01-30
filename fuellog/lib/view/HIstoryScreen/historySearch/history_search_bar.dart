@@ -41,10 +41,18 @@ class _HistorySearchBarCustomState extends State<HistorySearchBarCustom> {
       padding: EdgeInsets.symmetric(horizontal: 18.w),
       child: TextField(
         controller: textController,
-        // onSubmitted: (value) {
+        // onSubmitted: (value) async {
         //   if (value.isEmpty) {
         //     busHistoryController.busHistory.value = null;
         //   }
+        //   final userData = await UserPreferences.getUserData();
+        //   final instId = userData['inst_id'];
+
+        //   print('editing complete');
+        //   busHistoryController.userInput.value = textController.text;
+
+        //   await busHistoryController.fetchBusHistoryData(
+        //       textController.text, instId!);
         // },
         onEditingComplete: () async {
           final userData = await UserPreferences.getUserData();
@@ -85,7 +93,7 @@ class _HistorySearchBarCustomState extends State<HistorySearchBarCustom> {
               ),
             ),
             filled: true,
-            hintText: 'Bus No 52 or DXB135.',
+            hintText: 'Bus No or Registration Number.',
             hintStyle: TextStyle(color: Colors.grey[500])),
       ),
     );

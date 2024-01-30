@@ -9,7 +9,7 @@ class BusSelectedController extends GetxController {
   ApiServices apiServices = ApiServices();
 
   // Rx<dynamic> busSelectionData = BusSelectionData().obs;
-  BusSelectionData busSelectionData = BusSelectionData();
+  BusSelectionData? busSelectionData = BusSelectionData();
 
   RxList<String> vendorList = <String>[].obs;
   Rx<String> odoMeterReading = ''.obs;
@@ -34,12 +34,12 @@ class BusSelectedController extends GetxController {
       print('this is from the controller ---------------$data');
 
       busSelectionData = data;
-      if (busSelectionData.instId != null) {
-        instId.value = busSelectionData.instId!;
+      if (busSelectionData!.instId != null) {
+        instId.value = busSelectionData!.instId!;
       }
-      if (busSelectionData.data!.vendorDetails != null) {
+      if (busSelectionData!.data!.vendorDetails != null) {
         final List<VendorDetail> vendorDetails =
-            busSelectionData.data!.vendorDetails!;
+            busSelectionData!.data!.vendorDetails!;
         for (var data in vendorDetails) {
           vendorList.add(data.vendorName!);
         }

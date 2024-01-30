@@ -9,8 +9,10 @@ import 'package:fuellog/view/HIstoryScreen/historySearch/history_search_bar.dart
 import 'package:fuellog/view/HIstoryScreen/listview_item.dart';
 import 'package:fuellog/view/HIstoryScreen/no_record_screen.dart';
 import 'package:fuellog/view/HIstoryScreen/search_or_scan.dart';
+import 'package:fuellog/view/constants/colors.dart';
 import 'package:fuellog/view/util/bus_no_box.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 class HistoryScreen extends StatelessWidget {
@@ -68,22 +70,7 @@ class HistoryScreen extends StatelessWidget {
                 return const Center(
                   child: CupertinoActivityIndicator(),
                 );
-              }
-
-              // else if (!busHistoryController.noResults.value) {
-              //   return NoRecordScreen();
-              // }
-              //  else if (busHistoryController.noConnection.value) {
-              //   return const Center(
-              //     child: SnackBar(
-              //       content: Text(
-              //         'No network connection',
-              //       ),
-              //       duration: Duration(seconds: 2),
-              //     ),
-              //   );
-              // }
-              else if (busHistoryController.isSuccess.value &&
+              } else if (busHistoryController.isSuccess.value &&
                   busHistoryController.busHistory.value!.data != null &&
                   busHistoryController.busHistory.value!.data!.data != null &&
                   busHistoryController.busHistory.value!.data!.data!
@@ -169,7 +156,7 @@ class HistoryScreen extends StatelessWidget {
                     )
                   ],
                 );
-              } else if (!busHistoryController.noResults.value) {
+              } else if (busHistoryController.noResults.value) {
                 return NoRecordScreen();
               } else {
                 return NoRecordScreen();

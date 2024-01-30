@@ -113,7 +113,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
                       busSelectedController.busSelectionData;
                   print(busSelectionData);
                   final busNumber =
-                      busSelectionData.data!.busDetails![0].vehSchoolNo;
+                      busSelectionData!.data!.busDetails![0].vehSchoolNo;
                   final fuelType = busSelectionData.data!.busDetails![0].fuel;
 
                   final regNo = busSelectionData.data!.busDetails![0].vehRegNo;
@@ -150,7 +150,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
                   print('this is cond id --------- $condID');
 
                   final busID = busSelectedController
-                      .busSelectionData.data!.busDetails![0].vehId;
+                      .busSelectionData!.data!.busDetails![0].vehId;
                   print('this is bus id --------- $busID');
 
                   final File? file = busSubmissionController.imageFile.value;

@@ -54,7 +54,7 @@ class ApiServices {
   // GET THE DETAILS OF USER LOGGED IN
 
   Future<UserData> userAuthData(
-      String action, String pin, String phoneNumber) async {
+      String action, String pin, String phoneNumber,String version) async {
     try {
       final Uri uri = Uri.parse('https://alpha.docme.cloud/api_fuel/action');
       final Map<String, String> headers = {
@@ -65,6 +65,7 @@ class ApiServices {
         'action': action,
         'password': pin.toString(),
         'phone': phoneNumber,
+        "ver_id": version
       };
 
       final response = await http.post(

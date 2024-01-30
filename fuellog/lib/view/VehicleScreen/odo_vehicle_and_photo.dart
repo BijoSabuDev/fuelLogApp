@@ -210,7 +210,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                     GetBuilder<BusSelectedController>(
                       builder: (controller) {
                         final busFuelDetails = busSelectedController
-                            .busSelectionData.data?.busFuelDetails;
+                            .busSelectionData!.data?.busFuelDetails;
                         String vhactReading;
 
 // Check if busFuelDetails is not null and not empty
@@ -448,7 +448,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                     GetBuilder<UserAuthController>(
                       builder: (controller) {
                         final busFuelDetails = busSelectedController
-                            .busSelectionData.data?.busFuelDetails;
+                            .busSelectionData!.data?.busFuelDetails;
                         String vhactFuelRate;
 
                         if (busFuelDetails!.isNotEmpty) {

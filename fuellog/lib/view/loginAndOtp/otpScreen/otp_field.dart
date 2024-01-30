@@ -60,7 +60,8 @@ class _OtpFieldState extends State<OtpField> {
           } else {
             context.loaderOverlay.hide();
           }
-          return Pinput(autofocus: true,
+          return Pinput(
+            autofocus: true,
             defaultPinTheme: defaultPinTheme,
             focusedPinTheme: defaultPinTheme.copyWith(
                 decoration: defaultPinTheme.decoration!.copyWith(
@@ -72,7 +73,7 @@ class _OtpFieldState extends State<OtpField> {
             )),
             onCompleted: (String value) async {
               final isAuthorised = await userAuthController.fetchUserData(
-                  'fuel_login', value, widget.phoneNo);
+                  'fuel_login', value, widget.phoneNo, '1.0.0');
               print('this is whether authorised or not ---- $isAuthorised');
               if (isAuthorised) {
                 if (mounted) {

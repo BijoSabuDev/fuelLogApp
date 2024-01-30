@@ -59,8 +59,12 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
           } else if (busSelectedController.noConnection.value) {
             // ignore: use_build_context_synchronously
             showError(context, 'No network connection');
+          } else if (busSelectedController.busSelectionData!.data!.dataStatus ==
+              0) {
+            // ignore: use_build_context_synchronously
+            showError(context, 'No search results for this ID');
           } else if (busSelectedController
-                  .busSelectionData.data!.busDetails![0].fuel ==
+                  .busSelectionData!.data!.busDetails![0].fuel ==
               "ELECTRIC") {
             // ignore: use_build_context_synchronously
             showError(context, 'Searched Vehicle is Electric');
@@ -104,7 +108,12 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                   // ignore: use_build_context_synchronously
                   showError(context, 'No network connection');
                 } else if (busSelectedController
-                        .busSelectionData.data!.busDetails![0].fuel ==
+                        .busSelectionData!.data!.dataStatus ==
+                    0) {
+                  // ignore: use_build_context_synchronously
+                  showError(context, 'No search results for this ID');
+                } else if (busSelectedController
+                        .busSelectionData!.data!.busDetails![0].fuel ==
                     "ELECTRIC") {
                   // ignore: use_build_context_synchronously
                   showError(context, 'Searched Vehicle is Electric');
