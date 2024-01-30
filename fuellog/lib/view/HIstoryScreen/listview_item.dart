@@ -25,7 +25,8 @@ class BusDetailsListview extends StatelessWidget {
         decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF3150F5).withOpacity(0.4), // BoxShadow color
+                color:
+                    const Color(0xFF3150F5).withOpacity(0.4), // BoxShadow color
                 blurRadius: 2, // Spread of the shadow
                 offset: const Offset(0, 2), // Offset of the shadow
               ),
@@ -65,133 +66,135 @@ class BusDetailsListview extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18),
               child: SizedBox(
-                // height: 60.h,
-                // width: 333.w,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 10.h),
-                          child: Text(
-                            'Odometer',
-                            style: GoogleFonts.readexPro(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xFFA2B2C8),
+                height: 60.h,
+                width: 333.w,
+                child: FittedBox(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 10.h),
+                            child: Text(
+                              'Odometer',
+                              style: GoogleFonts.readexPro(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                                color: const Color(0xFFA2B2C8),
+                              ),
                             ),
                           ),
-                        ),
-                        RichText(
-                          textAlign: TextAlign.start,
-                          text: TextSpan(
-                            style: GoogleFonts.readexPro(
-                              color: const Color(0xFF1D1D1D),
-                            ),
-                            children: [
-                              TextSpan(
-                                text: odometerReading,
-                                style: GoogleFonts.readexPro(
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.w500,
+                          RichText(
+                            textAlign: TextAlign.start,
+                            text: TextSpan(
+                              style: GoogleFonts.readexPro(
+                                color: const Color(0xFF1D1D1D),
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: odometerReading,
+                                  style: GoogleFonts.readexPro(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
+                                TextSpan(
+                                  text: ' km',
+                                  style: GoogleFonts.readexPro(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        width: 39.69.w,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 10.h),
+                            child: Text(
+                              'Fuel Qty',
+                              style: GoogleFonts.readexPro(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                                color: const Color(0xFFA2B2C8),
                               ),
-                              TextSpan(
-                                text: ' km',
-                                style: GoogleFonts.readexPro(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      width: 39.69.w,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 10.h),
-                          child: Text(
-                            'Fuel Qty',
-                            style: GoogleFonts.readexPro(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xFFA2B2C8),
                             ),
                           ),
-                        ),
-                        RichText(
-                          textAlign: TextAlign.start,
-                          text: TextSpan(
-                            style: GoogleFonts.readexPro(
-                              color: const Color(0xFF1D1D1D),
+                          RichText(
+                            textAlign: TextAlign.start,
+                            text: TextSpan(
+                              style: GoogleFonts.readexPro(
+                                color: const Color(0xFF1D1D1D),
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: fuelQty,
+                                  style: GoogleFonts.readexPro(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                TextSpan(
+                                  text: ' Ltr',
+                                  style: GoogleFonts.readexPro(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
                             ),
-                            children: [
-                              TextSpan(
-                                text: fuelQty,
-                                style: GoogleFonts.readexPro(
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        width: 29.69.w,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(bottom: 10.h),
+                            child: Text(
+                              'Fuel price/Ltr',
+                              style: GoogleFonts.readexPro(
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400,
+                                color: const Color(0xFFA2B2C8),
                               ),
-                              TextSpan(
-                                text: ' ltr',
-                                style: GoogleFonts.readexPro(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      width: 29.69.w,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 10.h),
-                          child: Text(
-                            'Fuel Cost',
-                            style: GoogleFonts.readexPro(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400,
-                              color: const Color(0xFFA2B2C8),
                             ),
                           ),
-                        ),
-                        RichText(
-                          textAlign: TextAlign.start,
-                          text: TextSpan(
-                            style: GoogleFonts.readexPro(
-                              color: const Color(0xFF1D1D1D),
+                          RichText(
+                            textAlign: TextAlign.start,
+                            text: TextSpan(
+                              style: GoogleFonts.readexPro(
+                                color: const Color(0xFF1D1D1D),
+                              ),
+                              children: [
+                                TextSpan(
+                                  text: fuelPrice,
+                                  style: GoogleFonts.readexPro(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                TextSpan(
+                                  text: ' AED',
+                                  style: GoogleFonts.readexPro(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w400),
+                                ),
+                              ],
                             ),
-                            children: [
-                              TextSpan(
-                                text: fuelPrice,
-                                style: GoogleFonts.readexPro(
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              TextSpan(
-                                text: ' AED',
-                                style: GoogleFonts.readexPro(
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

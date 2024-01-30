@@ -397,7 +397,19 @@ class HomeScreen extends StatelessWidget {
       final success = await busSelectedController.fetchBusSelectionData(
           'fuel_bus_selection', qrScanner, instId!);
 
-      if (success) {
+      if (busSelectedController.isLoading.value) {
+        const Center(
+          child: CircularProgressIndicator(),
+        );
+      } else if (busSelectedController.noConnection.value) {
+        // ignore: use_build_context_synchronously
+        showError(context, 'No network connection');
+      } else if (busSelectedController
+              .busSelectionData.data!.busDetails![0].fuel ==
+          "ELECTRIC") {
+        // ignore: use_build_context_synchronously
+        showError(context, 'Selected ID is an Electric Vehicle');
+      } else if (success) {
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) {
@@ -406,65 +418,7 @@ class HomeScreen extends StatelessWidget {
         ));
       } else {
         // ignore: use_build_context_synchronously
-        showCupertinoDialog(
-            context: context,
-            builder: (ctx) {
-              return CupertinoAlertDialog(
-                title: Text(
-                  'Error',
-                  style: GoogleFonts.poppins(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black),
-                ),
-                content: SizedBox(
-                  width: 300.w,
-                  height: 48.h,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: RichText(
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: 'No search results for this ID',
-                            style: GoogleFonts.poppins(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                          TextSpan(
-                            text: ' ',
-                            style: GoogleFonts.poppins(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                actions: [
-                  CupertinoDialogAction(
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.of(ctx).pop();
-                      },
-                      child: Text(
-                        'OK',
-                        style: GoogleFonts.poppins(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w600,
-                            color: appTheme),
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            });
+        showError(context, 'No search results for this ID');
       }
     } else if (qrScanner == '-1') {
       return;
@@ -476,5 +430,66 @@ class HomeScreen extends StatelessWidget {
     if (!status.isGranted) {
       await Permission.camera.request();
     }
+  }
+
+  Future<dynamic> showError(BuildContext context, String errorMsg) {
+    return showCupertinoDialog(
+        context: context,
+        builder: (ctx) {
+          return CupertinoAlertDialog(
+            title: Text(
+              'Error!',
+              style: GoogleFonts.poppins(
+                  fontSize: 26.sp,
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xFFEF4348)),
+            ),
+            content: SizedBox(
+              height: 24.h,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: errorMsg,
+                        style: GoogleFonts.poppins(
+                          fontSize: 24.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' ',
+                        style: GoogleFonts.poppins(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            actions: [
+              CupertinoDialogAction(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(ctx).pop();
+                  },
+                  child: Text(
+                    'OK',
+                    style: GoogleFonts.poppins(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w600,
+                        color: appTheme),
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
   }
 }

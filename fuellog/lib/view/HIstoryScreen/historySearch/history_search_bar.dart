@@ -7,7 +7,6 @@ import 'package:fuellog/controller/busHistory/bus_history.dart';
 import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
 import 'package:fuellog/localStorage/local_storage.dart';
 import 'package:fuellog/view/constants/colors.dart';
-import 'package:fuellog/view/util/search_field.dart';
 import 'package:get/get.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:permission_handler/permission_handler.dart';

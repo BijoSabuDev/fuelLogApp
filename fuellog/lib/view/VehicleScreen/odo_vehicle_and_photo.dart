@@ -341,7 +341,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                                         .updatefuelQuantityValue(
                                             newValue.toString());
                                   },
-                                  howMuchToGenerate: 200,
+                                  howMuchToGenerate: 500,
                                   containerHeight: 80.h,
                                   containerWidth: 80.w,
                                   isButtonsVisible: false,
@@ -362,7 +362,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                                         .updatefuelQuantityDecimalValue(
                                             newValue!);
                                   },
-                                  howMuchToGenerate: 100,
+                                  howMuchToGenerate: 1000,
                                   containerHeight: 80.h,
                                   containerWidth: 57.w,
                                   isButtonsVisible: true,
@@ -477,8 +477,8 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                               },
                               inputValue: 0,
                               onValueSelected: (newValue) {},
-                              howMuchToGenerate: 72,
-                              initValue: 0.0,
+                              howMuchToGenerate: 10000,
+                              initValue: 0.00,
                               itemExtent: 50.h,
                               showDecimal: true,
                               isButtonsVisible: true,
@@ -537,7 +537,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                                       fontWeight: FontWeight.bold,
                                       color: appTheme),
                                 ),
-                                const TextSpan(text: ' ltr X '),
+                                const TextSpan(text: ' Ltr X '),
                                 TextSpan(
                                   text: busSubmissionController
                                       .fuelPriceValue.value,
@@ -545,7 +545,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                                       fontWeight: FontWeight.bold,
                                       color: appTheme),
                                 ),
-                                const TextSpan(text: ' aed = '),
+                                const TextSpan(text: ' AED = '),
                                 TextSpan(
                                   text: busSubmissionController
                                       .calculatedValue.value,
@@ -553,7 +553,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                                       fontWeight: FontWeight.bold,
                                       color: appTheme),
                                 ),
-                                const TextSpan(text: ' Aed'),
+                                const TextSpan(text: ' AED'),
                               ],
                             ),
                           );

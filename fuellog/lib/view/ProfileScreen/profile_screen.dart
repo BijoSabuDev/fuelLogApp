@@ -64,7 +64,9 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       SizedBox(
                         height: 34.h,
+                        width: MediaQuery.of(context).size.width - 20,
                         child: FittedBox(
+                          fit: BoxFit.scaleDown,
                           child: Text(
                             userData?['user_name'] ?? '',
                             textAlign: TextAlign.center,

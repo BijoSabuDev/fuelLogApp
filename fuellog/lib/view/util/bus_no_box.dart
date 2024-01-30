@@ -26,12 +26,12 @@ class BusNumberBox extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                'Bus No',
+                'Vh No',
                 style: GoogleFonts.readexPro(
-                    fontSize: 20.sp, fontWeight: FontWeight.w500),
+                    fontSize: 16.sp, fontWeight: FontWeight.w500),
               ),
               SizedBox(
-                width: 6.w,
+                width: 4.w,
               ),
               Container(
                 decoration: BoxDecoration(
@@ -67,12 +67,12 @@ class BusNumberBox extends StatelessWidget {
                 'assets/vehicleScreen/gas-station 1.svg',
               ),
               SizedBox(
-                width: 9.w,
+                width: 8.w,
               ),
               Text(
                 fuelType,
                 style: GoogleFonts.readexPro(
-                    fontWeight: FontWeight.w500, fontSize: 14.sp),
+                    fontWeight: FontWeight.w500, fontSize: 16.sp),
               )
             ],
           ),
@@ -82,9 +82,9 @@ class BusNumberBox extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                regNo,
+                ('RgNo $regNo'),
                 style: GoogleFonts.readexPro(
-                    fontSize: 20.sp, fontWeight: FontWeight.w500),
+                    fontSize: 16.sp, fontWeight: FontWeight.w500),
               )
             ],
           ),

@@ -22,7 +22,10 @@ class _OtpFieldState extends State<OtpField> {
   final otpController = TextEditingController();
 
   UserAuthController userAuthController = Get.find<UserAuthController>();
-
+  final List<TextEditingController> pinControllers = List.generate(
+    6,
+    (index) => TextEditingController(),
+  );
   @override
   void dispose() {
     otpController.dispose();
@@ -57,7 +60,7 @@ class _OtpFieldState extends State<OtpField> {
           } else {
             context.loaderOverlay.hide();
           }
-          return Pinput(
+          return Pinput(autofocus: true,
             defaultPinTheme: defaultPinTheme,
             focusedPinTheme: defaultPinTheme.copyWith(
                 decoration: defaultPinTheme.decoration!.copyWith(

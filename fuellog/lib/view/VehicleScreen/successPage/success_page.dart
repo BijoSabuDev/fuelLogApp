@@ -7,6 +7,7 @@ import 'package:fuellog/view/mainScreen/bottom_nav_bar.dart';
 import 'package:fuellog/view/mainScreen/main_screen.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class SuccessPage extends StatelessWidget {
   SuccessPage({super.key});
@@ -16,6 +17,10 @@ class SuccessPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DateTime currentDate = DateTime.now();
+    String formattedDate = DateFormat('dd-MM-yyyy').format(currentDate);
+    String formattedDateTime = DateFormat('hh:mm a').format(currentDate);
+
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       final userData = await UserPreferences.getUserData();
 
@@ -67,7 +72,7 @@ class SuccessPage extends StatelessWidget {
               height: 10.h,
             ),
             Text(
-              '26 Oct 2023 at 4:10 PM',
+              '$formattedDate at $formattedDateTime ',
               style: GoogleFonts.readexPro(
                   fontWeight: FontWeight.w500,
                   fontSize: 14.sp,

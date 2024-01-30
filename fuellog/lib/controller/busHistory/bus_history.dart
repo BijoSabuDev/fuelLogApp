@@ -77,7 +77,7 @@ class BusHistoryController extends GetxController {
         for (var entry
             in busHistory.value!.data!.data!.vehicleActivityHistory!) {
           DateTime entryDate = DateTime.parse(entry['EntryDate']!);
-          String formattedDate = DateFormat('yyyy-MM-dd').format(entryDate);
+          String formattedDate = DateFormat('dd-MM-yyyy').format(entryDate);
 
           dateList.value.add(formattedDate);
 

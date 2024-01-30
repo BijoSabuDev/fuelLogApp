@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 k5,
                 Text(
-                  'Please enter your phone number',
+                  'Please enter your Mobile Number',
                   style: GoogleFonts.inter(
                       color: Colors.black.withOpacity(0.7),
                       fontSize: 16.sp,
@@ -65,6 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 k5,
                 TextFormField(
                   controller: loginController,
+                  maxLength: 15,
                   decoration: InputDecoration(
                     hintText: '00 0000 0000',
                     prefixIcon: Padding(
@@ -92,10 +93,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     fillColor: const Color(0xFFF3F3F3),
                     filled: true,
                   ),
-                  keyboardType: TextInputType.phone,
+                  keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null ||
-                        value.length < 10 ||
+                        value.length < 5 ||
                         value.isAlphabetOnly) {
                       return 'Please enter a valid phone number';
                     }

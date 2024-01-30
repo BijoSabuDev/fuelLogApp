@@ -44,12 +44,11 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 18.w),
       child: TextField(
-        onSubmitted: (value) async {   final userData = await UserPreferences.getUserData();
-                final instId = userData['inst_id'];
+        onSubmitted: (value) async {
+          final userData = await UserPreferences.getUserData();
+          final instId = userData['inst_id'];
           final success = await busSelectedController.fetchBusSelectionData(
-              'fuel_bus_selection',
-              busSearchController.text,
-            instId!);
+              'fuel_bus_selection', busSearchController.text, instId!);
           print(success);
           busSearchController.clear();
 
@@ -59,64 +58,12 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
             );
           } else if (busSelectedController.noConnection.value) {
             // ignore: use_build_context_synchronously
-            showCupertinoDialog(
-                context: context,
-                builder: (ctx) {
-                  return CupertinoAlertDialog(
-                    title: Text(
-                      'Error!',
-                      style: GoogleFonts.poppins(
-                          fontSize: 26.sp,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFFEF4348)),
-                    ),
-                    content: SizedBox(
-                      height: 24.h,
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: 'No network connection',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 24.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              TextSpan(
-                                text: ' ',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    actions: [
-                      CupertinoDialogAction(
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(ctx).pop();
-                          },
-                          child: Text(
-                            'OK',
-                            style: GoogleFonts.poppins(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w600,
-                                color: appTheme),
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                });
+            showError(context, 'No network connection');
+          } else if (busSelectedController
+                  .busSelectionData.data!.busDetails![0].fuel ==
+              "ELECTRIC") {
+            // ignore: use_build_context_synchronously
+            showError(context, 'Selected ID is an Electric Vehicle');
           } else if (success) {
             // ignore: use_build_context_synchronously
             Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -126,64 +73,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
             ));
           } else {
             // ignore: use_build_context_synchronously
-            showCupertinoDialog(
-                context: context,
-                builder: (ctx) {
-                  return CupertinoAlertDialog(
-                    title: Text(
-                      'Error!',
-                      style: GoogleFonts.poppins(
-                          fontSize: 26.sp,
-                          fontWeight: FontWeight.w600,
-                          color: const Color(0xFFEF4348)),
-                    ),
-                    content: SizedBox(
-                      height: 24.h,
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: 'No search results for this ID',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 24.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              TextSpan(
-                                text: ' ',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    actions: [
-                      CupertinoDialogAction(
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.of(ctx).pop();
-                          },
-                          child: Text(
-                            'OK',
-                            style: GoogleFonts.poppins(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w600,
-                                color: appTheme),
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                });
+            showError(context, 'No search results for this ID');
           }
         },
         controller: busSearchController,
@@ -210,71 +100,21 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                       return const VehicleScreen();
                     },
                   ));
+                } else if (busSelectedController.noConnection.value) {
+                  // ignore: use_build_context_synchronously
+                  showError(context, 'No network connection');
+                } else if (busSelectedController
+                        .busSelectionData.data!.busDetails![0].fuel ==
+                    "ELECTRIC") {
+                  // ignore: use_build_context_synchronously
+                  showError(context, 'Selected ID is an Electric Vehicle');
                 } else {
                   const Center(
                     child: CircularProgressIndicator(),
                   );
                   Future.delayed(const Duration(seconds: 2));
                   // ignore: use_build_context_synchronously
-                  showCupertinoDialog(
-                      context: context,
-                      builder: (ctx) {
-                        return CupertinoAlertDialog(
-                          title: Text(
-                            'Error!',
-                            style: GoogleFonts.poppins(
-                                fontSize: 26.sp,
-                                fontWeight: FontWeight.w600,
-                                color: const Color(0xFFEF4348)),
-                          ),
-                          content: SizedBox(
-                            width: 300.w,
-                            height: 48.h,
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: RichText(
-                                textAlign: TextAlign.center,
-                                text: TextSpan(
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                      text: 'No search results for this ID',
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 24.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: ' ',
-                                      style: GoogleFonts.poppins(
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: Colors.black,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          actions: [
-                            CupertinoDialogAction(
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.of(ctx).pop();
-                                },
-                                child: Text(
-                                  'OK',
-                                  style: GoogleFonts.poppins(
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.w600,
-                                      color: appTheme),
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      });
+                  showError(context, 'No search results for this ID');
                 }
               },
               child: Padding(
@@ -312,5 +152,66 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
             hintStyle: TextStyle(color: Colors.grey[500])),
       ),
     );
+  }
+
+  Future<dynamic> showError(BuildContext context, String errorMsg) {
+    return showCupertinoDialog(
+        context: context,
+        builder: (ctx) {
+          return CupertinoAlertDialog(
+            title: Text(
+              'Error!',
+              style: GoogleFonts.poppins(
+                  fontSize: 26.sp,
+                  fontWeight: FontWeight.w600,
+                  color: const Color(0xFFEF4348)),
+            ),
+            content: SizedBox(
+              height: 24.h,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: TextSpan(
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: errorMsg,
+                        style: GoogleFonts.poppins(
+                          fontSize: 24.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                      TextSpan(
+                        text: ' ',
+                        style: GoogleFonts.poppins(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            actions: [
+              CupertinoDialogAction(
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(ctx).pop();
+                  },
+                  child: Text(
+                    'OK',
+                    style: GoogleFonts.poppins(
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w600,
+                        color: appTheme),
+                  ),
+                ),
+              ),
+            ],
+          );
+        });
   }
 }

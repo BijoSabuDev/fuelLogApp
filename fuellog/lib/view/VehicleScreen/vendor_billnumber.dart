@@ -81,7 +81,7 @@ class __VendorAndBillNumberState extends State<VendorAndBillNumber> {
                           borderRadius: BorderRadius.circular(9),
                           borderSide: BorderSide.none, // Remove the underline
                         ),
-                        hintText: '   Choose Vendor',
+                        hintText: '   Choose Vendor Name',
                         hintStyle: GoogleFonts.poppins(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
@@ -118,7 +118,7 @@ class __VendorAndBillNumberState extends State<VendorAndBillNumber> {
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
-                          return '    Vendor required';
+                          return '    Vendor Name is required';
                         }
                         return null;
                       },

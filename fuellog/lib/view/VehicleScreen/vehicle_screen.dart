@@ -112,7 +112,8 @@ class _VehicleScreenState extends State<VehicleScreen> {
                   final busSelectionData =
                       busSelectedController.busSelectionData;
                   print(busSelectionData);
-                  final busNumber = busSelectionData.data!.busDetails![0].vehId;
+                  final busNumber =
+                      busSelectionData.data!.busDetails![0].vehSchoolNo;
                   final fuelType = busSelectionData.data!.busDetails![0].fuel;
 
                   final regNo = busSelectionData.data!.busDetails![0].vehRegNo;
@@ -199,7 +200,9 @@ class _VehicleScreenState extends State<VehicleScreen> {
                     controller.reset();
                     return;
                   } else if (busSubmissionController.fuelQuantityValue.value ==
-                      '0.0') {
+                          '0.0' &&
+                      busSubmissionController.fuelQuantityDecimalValue.value ==
+                          '0.0') {
                     showErrorDialog(
                         context, controller, 'Fuel quantity cannot be zero');
                     controller.reset();
@@ -285,7 +288,7 @@ class _VehicleScreenState extends State<VehicleScreen> {
                 backgroundColor: appTheme,
                 child: FittedBox(
                   child: Text(
-                    'Slide to submit',
+                    'Slide to Submit',
                     style: GoogleFonts.readexPro(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w500,

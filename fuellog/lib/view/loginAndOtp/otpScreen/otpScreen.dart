@@ -27,7 +27,7 @@ class OtpScreen extends StatelessWidget {
             CustomAppBar(),
             k20,
             Text(
-              'Enter Pin',
+              'Enter PIN',
               style: GoogleFonts.poppins(
                 fontSize: 30.sp,
                 fontWeight: FontWeight.w700,
@@ -35,7 +35,7 @@ class OtpScreen extends StatelessWidget {
             ),
             k10,
             Text(
-              'Please enter your 4-digit PIN to login to\nyour account',
+              'Please enter your 4-digit PIN to log in to\nyour account',
               style: GoogleFonts.inter(
                   fontSize: 16.sp,
                   color: Colors.black.withOpacity(0.7),
@@ -58,7 +58,7 @@ class OtpScreen extends StatelessWidget {
                     style: const TextStyle(color: Colors.black, height: 1.1),
                     children: [
                       TextSpan(
-                        text: 'Forget? ',
+                        text: 'forgot? ',
                         style: GoogleFonts.inter(
                             fontSize: 16.sp, fontWeight: FontWeight.w400),
                       ),

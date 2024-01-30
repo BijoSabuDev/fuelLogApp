@@ -110,7 +110,7 @@ class VehicleScreenAppBar extends StatelessWidget {
           width: 77.w,
         ),
         Text(
-          'Vehicle details',
+          'Fuel Details',
           style: GoogleFonts.readexPro(
               fontSize: 20.sp, fontWeight: FontWeight.w500),
         ),

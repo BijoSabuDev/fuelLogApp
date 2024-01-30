@@ -89,8 +89,8 @@ class _WheelSelectorState extends State<WheelSelector> {
 
                 // double decimalValue = widget.initValue.toDouble() + (index / 10).toStringAsFixed(1);
                 double decimalValue = double.parse(
-                    (widget.initValue.toDouble() + (index / 10))
-                        .toStringAsFixed(1));
+                    (widget.initValue.toDouble() + (index / 100))
+                        .toStringAsFixed(2));
 
                 widget.onValueSelected(selectedValue.toString());
                 widget.onDecimalValueSelected(decimalValue.toString());
@@ -105,7 +105,9 @@ class _WheelSelectorState extends State<WheelSelector> {
                 widget.howMuchToGenerate,
                 (index) {
                   double nonDecimal = widget.initValue + (index * 1);
-                  double value = widget.initValue + (index / 10);
+                  double decimalValue = ((index) % 1000) / 100.0;
+                  double value = widget.initValue + decimalValue;
+                  // double value = widget.initValue + (index / 10);
                   int currentValue = widget.inputValue.toInt() + index;
                   if (currentValue > 999999) {
                     currentValue = 150000 + index;
@@ -121,7 +123,7 @@ class _WheelSelectorState extends State<WheelSelector> {
                             height: 45.h,
                             child: FittedBox(
                               child: Text(
-                                value.toStringAsFixed(1),
+                                value.toStringAsFixed(2),
                                 style: GoogleFonts.readexPro(
                                   fontSize: 36.sp,
                                   fontWeight: FontWeight.w500,
