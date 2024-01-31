@@ -27,7 +27,7 @@ class BusHistoryController extends GetxController {
 
   @override
   void onClose() {
-    busHistory.close();
+    // busHistory.close();
     dateList.clear();
     timeList.clear();
     vhactRateList.clear();
@@ -54,6 +54,7 @@ class BusHistoryController extends GetxController {
       vhactRateList.clear();
       vhactFuelQuantityList.clear();
       vhactReading.clear();
+      busHistory.value = null;
 
       await apiServices.getBusHistory(input, instId).then((value) {
         print('api is called');
