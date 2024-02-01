@@ -98,7 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (value == null ||
                         value.length < 5 ||
                         value.isAlphabetOnly) {
-                      return 'Please enter a valid phone number';
+                      return 'Please enter a valid Mobile number';
                     }
 
                     return null;

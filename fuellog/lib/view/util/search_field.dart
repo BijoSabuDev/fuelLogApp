@@ -93,17 +93,11 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                         busSearchController.text,
                         instId!);
                 busSearchController.clear();
-                if (success) {
+
+                if (busSelectedController.isLoading.value) {
                   const Center(
                     child: CircularProgressIndicator(),
                   );
-
-                  // ignore: use_build_context_synchronously
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) {
-                      return const VehicleScreen();
-                    },
-                  ));
                 } else if (busSelectedController.noConnection.value) {
                   // ignore: use_build_context_synchronously
                   showError(context, 'No network connection');
@@ -117,11 +111,14 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                     "ELECTRIC") {
                   // ignore: use_build_context_synchronously
                   showError(context, 'Searched Vehicle is Electric');
+                } else if (success) {
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) {
+                      return const VehicleScreen();
+                    },
+                  ));
                 } else {
-                  const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                  Future.delayed(const Duration(seconds: 2));
                   // ignore: use_build_context_synchronously
                   showError(context, 'No search results for this ID');
                 }
@@ -157,7 +154,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
               ),
             ),
             filled: true,
-            hintText: 'Bus No or Registration Number.',
+            hintText: 'Bus No or Reg No.',
             hintStyle: TextStyle(color: Colors.grey[500])),
       ),
     );

@@ -93,7 +93,7 @@ class _HistorySearchBarCustomState extends State<HistorySearchBarCustom> {
               ),
             ),
             filled: true,
-            hintText: 'Bus No or Registration Number.',
+            hintText: 'Bus No or Reg No.',
             hintStyle: TextStyle(color: Colors.grey[500])),
       ),
     );

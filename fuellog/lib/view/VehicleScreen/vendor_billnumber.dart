@@ -43,130 +43,133 @@ class __VendorAndBillNumberState extends State<VendorAndBillNumber> {
       key: widget.formKey,
       child: SizedBox(
         height: 174.h,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Image.asset(
-              'assets/vehicleScreen/buspngvhscr.png',
-              height: 119.h,
-              width: 114..w,
-            ),
-            SizedBox(
-              width: 12.w,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 5.h,
-                ),
-                Container(
-                  width: 247.w,
-                  height: 62.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(9.0),
-                    color: const Color(0xFFF3F3F3),
+        width: double.infinity - 10,
+        child: FittedBox(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/vehicleScreen/buspngvhscr.png',
+                height: 119.h,
+                width: 114..w,
+              ),
+              SizedBox(
+                width: 6.w,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 5.h,
                   ),
-                  child: Center(
-                    child: DropdownButtonFormField<String>(
-                      alignment: Alignment.centerLeft,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 6.w, vertical: 12.h),
-                        filled: true,
-                        fillColor: const Color(0xFFF3F3F3),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(9),
-                          borderSide: BorderSide.none, // Remove the underline
+                  Container(
+                    width: 247.w,
+                    height: 62.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(9.0),
+                      color: const Color(0xFFF3F3F3),
+                    ),
+                    child: Center(
+                      child: DropdownButtonFormField<String>(
+                        alignment: Alignment.centerLeft,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 6.w, vertical: 12.h),
+                          filled: true,
+                          fillColor: const Color(0xFFF3F3F3),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(9),
+                            borderSide: BorderSide.none, // Remove the underline
+                          ),
+                          hintText: '   Choose Vendor Name',
+                          hintStyle: GoogleFonts.poppins(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
                         ),
-                        hintText: '   Choose Vendor Name',
-                        hintStyle: GoogleFonts.poppins(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                      ),
-                      items:
-                          busSelectedController.vendorList.map((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 12.w),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(9),
-                                color: Colors
-                                    .white, // Background color of each dropdown item
-                              ),
-                              child: Text(
-                                value,
-                                style: GoogleFonts.poppins(
-                                  fontSize: 16.sp,
+                        items: busSelectedController.vendorList
+                            .map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 12.w),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(9),
+                                  color: Colors
+                                      .white, // Background color of each dropdown item
+                                ),
+                                child: Text(
+                                  value,
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 16.sp,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      }).toList(),
-                      value: null,
-                      onChanged: (String? newValue) {
-                        if (newValue != null) {
-                          busSubmissionController.selectedVendor.value =
-                              newValue;
-                        }
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return '    Vendor Name is required';
-                        }
-                        return null;
-                      },
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 12.h,
-                ),
-                Container(
-                  width: 247.w,
-                  height: 62.h,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(9),
-                    color: const Color(0xFFF3F3F3),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18.0),
-                    child: TextFormField(
-                      // focusNode: billNumberFocus,
-                      controller: widget.billNumberController,
-                      onChanged: (String? newValue) {
-                        if (newValue != null) {
-                          busSubmissionController.billNumber.value = newValue;
-                        }
-                      },
-                      validator: (value) {
-                        if (widget.billNumberController.text.isEmpty) {
-                          return 'Bill number required';
-                        }
-                        return null;
-                      },
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: 'Enter Bill No',
-                        hintStyle: GoogleFonts.poppins(
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
+                          );
+                        }).toList(),
+                        value: null,
+                        onChanged: (String? newValue) {
+                          if (newValue != null) {
+                            busSubmissionController.selectedVendor.value =
+                                newValue;
+                          }
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return '    Vendor Name is required';
+                          }
+                          return null;
+                        },
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
                       ),
                     ),
                   ),
-                ),
-              ],
-            )
-          ],
+                  SizedBox(
+                    height: 12.h,
+                  ),
+                  Container(
+                    width: 247.w,
+                    height: 62.h,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(9),
+                      color: const Color(0xFFF3F3F3),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                      child: TextFormField(
+                        // focusNode: billNumberFocus,
+                        controller: widget.billNumberController,
+                        onChanged: (String? newValue) {
+                          if (newValue != null) {
+                            busSubmissionController.billNumber.value = newValue;
+                          }
+                        },
+                        validator: (value) {
+                          if (widget.billNumberController.text.isEmpty) {
+                            return 'Bill number required';
+                          }
+                          return null;
+                        },
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Enter Bill No',
+                          hintStyle: GoogleFonts.poppins(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
