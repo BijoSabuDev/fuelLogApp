@@ -59,7 +59,9 @@ class BusNumberBox extends StatelessWidget {
         ),
 
         // Petrol details
-
+        SizedBox(
+          width: 7.w,
+        ),
         FittedBox(
           child: Row(
             children: [
@@ -77,7 +79,9 @@ class BusNumberBox extends StatelessWidget {
             ],
           ),
         ),
-
+        SizedBox(
+          width: 7.w,
+        ),
         FittedBox(
           child: Row(
             children: [

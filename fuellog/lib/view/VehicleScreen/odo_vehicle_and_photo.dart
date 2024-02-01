@@ -243,7 +243,8 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
                           containerWidth: 160.w,
                           isButtonsVisible: true,
                           itemExtent: 55.h,
-                          initValue: double.parse(vhactReading),
+                          initValue: double.parse(
+                              (double.parse(vhactReading) + 1).toString()),
                           showDecimal: false,
                           howMuchToGenerate: 20000,
                         );
