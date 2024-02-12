@@ -56,7 +56,7 @@ class ApiServices {
   Future<UserData> userAuthData(
       String action, String pin, String phoneNumber,String version) async {
     try {
-      final Uri uri = Uri.parse('https://alpha.docme.cloud/api_fuel/action');
+      final Uri uri = Uri.parse(ApiUrl().baseUrl);
       final Map<String, String> headers = {
         'API-Key': apiKey,
       };

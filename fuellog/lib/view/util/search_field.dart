@@ -154,7 +154,7 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
               ),
             ),
             filled: true,
-            hintText: 'Bus No or Reg No.',
+            hintText: 'Vh No or Reg No',
             hintStyle: TextStyle(color: Colors.grey[500])),
       ),
     );

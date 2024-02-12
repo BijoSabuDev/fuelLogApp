@@ -1,5 +1,9 @@
+import 'package:barcode_scan2/model/android_options.dart';
+import 'package:barcode_scan2/model/scan_options.dart';
+import 'package:barcode_scan2/platform_wrapper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,7 +19,6 @@ import 'package:fuellog/view/util/logo_with_text.dart';
 import 'package:fuellog/view/util/search_field.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -337,7 +340,7 @@ class HomeScreen extends StatelessWidget {
                                       await requestCameraPermission();
 
                                       // ignore: use_build_context_synchronously
-                                      startScanAndNavigate(context);
+                                      _scan(context);
 
                                       buttonPressed.value =
                                           !buttonPressed.value;
@@ -385,115 +388,174 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  void startScanAndNavigate(BuildContext context) async {
-    final userData = await UserPreferences.getUserData();
-    final instId = userData['inst_id'];
-    String qrScanner = await FlutterBarcodeScanner.scanBarcode(
-        '#ff6666', 'Cancel', true, ScanMode.QR);
-
-    print(qrScanner);
-
-    if (qrScanner != '-1') {
-      final success = await busSelectedController.fetchBusSelectionData(
-          'fuel_bus_selection', qrScanner, instId!);
-
-      if (busSelectedController.isLoading.value) {
-        const Center(
-          child: CircularProgressIndicator(),
-        );
-      } else if (busSelectedController.noConnection.value) {
-        // ignore: use_build_context_synchronously
-        showError(context, 'No network connection');
-      } else if (busSelectedController.busSelectionData!.data!.dataStatus ==
-          0) {
-        // ignore: use_build_context_synchronously
-        showError(context, 'No search results for this ID');
-      } else if (busSelectedController
-              .busSelectionData!.data!.busDetails![0].fuel ==
-          "ELECTRIC") {
-        // ignore: use_build_context_synchronously
-        showError(context, 'Searched vehicle is Electric');
-      } else if (success) {
-        // ignore: use_build_context_synchronously
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) {
-            return const VehicleScreen();
+  Future<void> _scan(BuildContext context) async {
+  final userData = await UserPreferences.getUserData();
+  final instId = userData['inst_id'];
+    try {
+      final result = await BarcodeScanner.scan(
+        options: const ScanOptions(
+          strings: {
+            // 'cancel': _cancelController.text,
+            // 'flash_on': _flashOnController.text,
+            // 'flash_off': _flashOffController.text,
           },
-        ));
+          // restrictFormat: selectedFormats,
+          // useCamera: -1,
+          autoEnableFlash: false,
+          android: AndroidOptions(
+            aspectTolerance: 0.5,
+            useAutoFocus: true,
+          ),
+        ),
+      );
+      print('this is the scan result ------ ${result.rawContent}');
+      if (busHistoryController.isLoading.value) {
+        context.loaderOverlay.show();
       } else {
-        // ignore: use_build_context_synchronously
-        showError(context, 'No search results for this ID');
+        context.loaderOverlay.hide();
       }
-    } else if (qrScanner == '-1') {
-      return;
+  final success = await busSelectedController.fetchBusSelectionData(
+      'fuel_bus_selection', result.rawContent, instId!);
+
+  if (busSelectedController.isLoading.value) {
+    const Center(
+      child: CircularProgressIndicator(),
+    );
+  } else if (busSelectedController.noConnection.value) {
+    // ignore: use_build_context_synchronously
+    showError(context, 'No network connection');
+  } else if (busSelectedController.busSelectionData!.data!.dataStatus == 0) {
+    // ignore: use_build_context_synchronously
+    showError(context, 'No search results for this ID');
+  } else if (busSelectedController
+          .busSelectionData!.data!.busDetails![0].fuel ==
+      "ELECTRIC") {
+    // ignore: use_build_context_synchronously
+    showError(context, 'Searched vehicle is Electric');
+  } else if (success) {
+    // ignore: use_build_context_synchronously
+    Navigator.of(context).pushReplacement(MaterialPageRoute(
+      builder: (context) {
+        return const VehicleScreen();
+      },
+    ));
+  } else {
+    // ignore: use_build_context_synchronously
+    showError(context, 'No search results for this ID');
+  }
+    } on PlatformException catch (e) {
+      print(e.toString());
     }
   }
+}
 
-  Future<void> requestCameraPermission() async {
-    var status = await Permission.camera.status;
-    if (!status.isGranted) {
-      await Permission.camera.request();
-    }
+// void startScanAndNavigate(BuildContext context) async {
+//   final userData = await UserPreferences.getUserData();
+//   final instId = userData['inst_id'];
+//   String qrScanner = await FlutterBarcodeScanner.scanBarcode(
+//       '#ff6666', 'Cancel', true, ScanMode.QR);
+
+//   print(qrScanner);
+
+//   if (qrScanner != '-1') {
+//     final success = await busSelectedController.fetchBusSelectionData(
+//         'fuel_bus_selection', qrScanner, instId!);
+
+//     if (busSelectedController.isLoading.value) {
+//       const Center(
+//         child: CircularProgressIndicator(),
+//       );
+//     } else if (busSelectedController.noConnection.value) {
+//       // ignore: use_build_context_synchronously
+//       showError(context, 'No network connection');
+//     } else if (busSelectedController.busSelectionData!.data!.dataStatus == 0) {
+//       // ignore: use_build_context_synchronously
+//       showError(context, 'No search results for this ID');
+//     } else if (busSelectedController
+//             .busSelectionData!.data!.busDetails![0].fuel ==
+//         "ELECTRIC") {
+//       // ignore: use_build_context_synchronously
+//       showError(context, 'Searched vehicle is Electric');
+//     } else if (success) {
+//       // ignore: use_build_context_synchronously
+//       Navigator.of(context).pushReplacement(MaterialPageRoute(
+//         builder: (context) {
+//           return const VehicleScreen();
+//         },
+//       ));
+//     } else {
+//       // ignore: use_build_context_synchronously
+//       showError(context, 'No search results for this ID');
+//     }
+//   } else if (qrScanner == '-1') {
+//     return;
+//   }
+// }
+
+Future<void> requestCameraPermission() async {
+  var status = await Permission.camera.status;
+  if (!status.isGranted) {
+    await Permission.camera.request();
   }
+}
 
-  Future<dynamic> showError(BuildContext context, String errorMsg) {
-    return showCupertinoDialog(
-        context: context,
-        builder: (ctx) {
-          return CupertinoAlertDialog(
-            title: Text(
-              'Error!',
-              style: GoogleFonts.poppins(
-                  fontSize: 26.sp,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xFFEF4348)),
-            ),
-            content: SizedBox(
-              height: 24.h,
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: errorMsg,
-                        style: GoogleFonts.poppins(
-                          fontSize: 24.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
-                        ),
+Future<dynamic> showError(BuildContext context, String errorMsg) {
+  return showCupertinoDialog(
+      context: context,
+      builder: (ctx) {
+        return CupertinoAlertDialog(
+          title: Text(
+            'Error!',
+            style: GoogleFonts.poppins(
+                fontSize: 26.sp,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xFFEF4348)),
+          ),
+          content: SizedBox(
+            height: 24.h,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: errorMsg,
+                      style: GoogleFonts.poppins(
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
                       ),
-                      TextSpan(
-                        text: ' ',
-                        style: GoogleFonts.poppins(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black,
-                        ),
+                    ),
+                    TextSpan(
+                      text: ' ',
+                      style: GoogleFonts.poppins(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            actions: [
-              CupertinoDialogAction(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(ctx).pop();
-                  },
-                  child: Text(
-                    'OK',
-                    style: GoogleFonts.poppins(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600,
-                        color: appTheme),
-                  ),
+          ),
+          actions: [
+            CupertinoDialogAction(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: Text(
+                  'OK',
+                  style: GoogleFonts.poppins(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w600,
+                      color: appTheme),
                 ),
               ),
-            ],
-          );
-        });
-  }
+            ),
+          ],
+        );
+      });
 }

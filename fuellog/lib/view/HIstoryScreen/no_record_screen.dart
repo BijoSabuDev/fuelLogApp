@@ -11,7 +11,6 @@ class NoRecordScreen extends StatelessWidget {
       Get.find<BusHistoryController>();
   @override
   Widget build(BuildContext context) {
-
     return Center(
       child: Column(
         children: [
@@ -56,7 +55,7 @@ class NoRecordScreen extends StatelessWidget {
                         ),
                       ),
                       TextSpan(
-                        text: 'for this bus',
+                        text: 'for this vehicle',
                         style: GoogleFonts.inter(
                           color: Colors.black.withOpacity(0.7),
                           fontSize: 16.sp,

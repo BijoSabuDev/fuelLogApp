@@ -87,7 +87,7 @@ class _Odo_details_photoState extends State<Odo_details_photo> {
             Positioned(
               top: 79.h,
               child: Text(
-                'Change odometer km',
+                'Change Odometer km',
                 style: GoogleFonts.readexPro(
                     fontSize: 14.sp, fontWeight: FontWeight.w500),
               ),

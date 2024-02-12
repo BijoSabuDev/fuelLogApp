@@ -141,6 +141,7 @@ class __VendorAndBillNumberState extends State<VendorAndBillNumber> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 18.0),
                       child: TextFormField(
+                        // maxLength: 15,
                         // focusNode: billNumberFocus,
                         controller: widget.billNumberController,
                         onChanged: (String? newValue) {
@@ -150,12 +151,14 @@ class __VendorAndBillNumberState extends State<VendorAndBillNumber> {
                         },
                         validator: (value) {
                           if (widget.billNumberController.text.isEmpty) {
-                            return 'Bill number required';
+                            return 'Bill No is required';
                           }
                           return null;
                         },
                         autovalidateMode: AutovalidateMode.onUserInteraction,
                         decoration: InputDecoration(
+                          // contentPadding: const EdgeInsets.only(bottom: 12),
+                          counterText: '',
                           border: InputBorder.none,
                           hintText: 'Enter Bill No',
                           hintStyle: GoogleFonts.poppins(

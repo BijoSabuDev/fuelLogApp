@@ -161,7 +161,7 @@ class BusDetailsListview extends StatelessWidget {
                           Padding(
                             padding: EdgeInsets.only(bottom: 10.h),
                             child: Text(
-                              'Fuel price/Ltr',
+                              'Fuel Price/Ltr',
                               style: GoogleFonts.readexPro(
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w400,

@@ -26,7 +26,7 @@ class BusNumberBox extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                'Vhact No',
+                'Vh No',
                 style: GoogleFonts.readexPro(
                     fontSize: 16.sp, fontWeight: FontWeight.w500),
               ),

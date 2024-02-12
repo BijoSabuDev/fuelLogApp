@@ -12,7 +12,6 @@ class SearchOrScan extends StatelessWidget {
       Get.find<BusHistoryController>();
   @override
   Widget build(BuildContext context) {
-  
     return Center(
       child: Column(
         children: [
@@ -49,7 +48,7 @@ class SearchOrScan extends StatelessWidget {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: 'Enter Bus Number or Scan QR Code to\n',
+                        text: 'Enter Vehicle Number or Scan QR Code to\n',
                         style: GoogleFonts.inter(
                           color: Colors.black.withOpacity(0.7),
                           fontSize: 16.sp,

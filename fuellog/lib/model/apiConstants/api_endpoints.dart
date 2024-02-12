@@ -4,6 +4,7 @@ class ApiUrl {
 
 
 // [12:05] Muhammad Sajaad
+// live -url : https://cosmos.docme.cloud/api_fuel/action
 // API URL :  https://alpha.docme.cloud/api_fuel/action
 // [12:05] Muhammad Sajaad
 // LOGIN
@@ -17,6 +18,7 @@ class ApiUrl {
 // {
 //     "action": "fuel_bus_selection",
 //     "bus_id": "408"
+//      
 // }
 // [12:06] Muhammad Sajaad
 // Bus History
