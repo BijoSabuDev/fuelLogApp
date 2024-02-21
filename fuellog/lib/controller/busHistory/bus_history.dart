@@ -76,15 +76,17 @@ class BusHistoryController extends GetxController {
           busHistory.value!.data!.data!.vehicleActivityHistory != null) {
         for (var entry
             in busHistory.value!.data!.data!.vehicleActivityHistory!) {
-          DateTime entryDate = DateTime.parse(entry['EntryDate']!);
-          String formattedDate = DateFormat('dd-MM-yyyy').format(entryDate);
+          DateTime entryDate =
+              DateFormat('dd-MM-yy HH:mm:ss').parse(entry.vhactDateDisplay!);
+          String formattedDate = DateFormat('dd-MMM-yyyy').format(entryDate);
+          String formattedTime = DateFormat('h:mm a').format(entryDate);
 
           dateList.value.add(formattedDate);
 
-          timeList.value.add(entry['EntryDate'].toString().split(' ')[1]);
-          vhactRateList.value.add(entry['vhact_rate']!);
-          vhactFuelQuantityList.value.add(entry['vhact_quantity']!);
-          vhactReading.value.add(entry['vhact_reading']!);
+          timeList.value.add(formattedTime);
+          vhactRateList.value.add(entry.vhactRate!);
+          vhactFuelQuantityList.value.add(entry.vhactQuantity!);
+          vhactReading.value.add(entry.vhactReading!);
         }
       } else {
         isSuccess(false);

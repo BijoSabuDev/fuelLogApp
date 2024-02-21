@@ -137,10 +137,10 @@ class _HistorySearchBarCustomState extends State<HistorySearchBarCustom> {
   }
 
   Future<void> _scan() async {
-     final BusHistoryController busHistoryController =
-      Get.find<BusHistoryController>();
+    final BusHistoryController busHistoryController =
+        Get.find<BusHistoryController>();
     try {
-      final   result = await BarcodeScanner.scan(
+      final result = await BarcodeScanner.scan(
         options: ScanOptions(
           strings: {
             'cancel': _cancelController.text,
@@ -157,67 +157,65 @@ class _HistorySearchBarCustomState extends State<HistorySearchBarCustom> {
         ),
       );
       print('this is the scan result ------ ${result.rawContent}');
-       if (busHistoryController.isLoading.value) {
-    context.loaderOverlay.show();
-  } else {
-    context.loaderOverlay.hide();
-  }
+      if (busHistoryController.isLoading.value) {
+        context.loaderOverlay.show();
+      } else {
+        context.loaderOverlay.hide();
+      }
 
-  final userData = await UserPreferences.getUserData();
-  final instId = userData['inst_id'];
-  await busHistoryController.fetchBusHistoryData(result.rawContent, instId!);
-  // context.loaderOverlay.show();
-  // await Future.delayed(const Duration(seconds: 1));
-  busHistoryController.userInput.value = 'value';
-
-  if (busHistoryController.isLoading.value) {
-    context.loaderOverlay.show();
-  } else if (!busHistoryController.isLoading.value) {
-    context.loaderOverlay.hide();
-  } else {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          backgroundColor: Colors.white,
-          title: Text(
-            'Error',
-            style: TextStyle(
-              fontSize: 24.sp,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                'No bus id found for this query.',
-                style: TextStyle(fontSize: 20.sp),
+      final userData = await UserPreferences.getUserData();
+      final instId = userData['inst_id'];
+      await busHistoryController.fetchBusHistoryData(
+          result.rawContent, instId!);
+      // context.loaderOverlay.show();
+      // await Future.delayed(const Duration(seconds: 1));
+      busHistoryController.userInput.value = 'value';
+      if (busHistoryController.isLoading.value) {
+        context.loaderOverlay.show();
+      } else if (!busHistoryController.isLoading.value) {
+        context.loaderOverlay.hide();
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              backgroundColor: Colors.white,
+              title: Text(
+                'Error',
+                style: TextStyle(
+                  fontSize: 24.sp,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              SizedBox(height: 14.h),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
+              content: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context); // Close the dialog
-                    },
-                    child: Text(
-                      'OK',
-                      style: TextStyle(color: appTheme, fontSize: 16.sp),
-                    ),
+                  Text(
+                    'No bus id found for this query.',
+                    style: TextStyle(fontSize: 20.sp),
+                  ),
+                  SizedBox(height: 14.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context); // Close the dialog
+                        },
+                        child: Text(
+                          'OK',
+                          style: TextStyle(color: appTheme, fontSize: 16.sp),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
-          ),
+            );
+          },
         );
-      },
-    );
-  }
-
-
+      }
     } on PlatformException catch (e) {
       print(e.toString());
     }

@@ -73,17 +73,18 @@ class __VendorAndBillNumberState extends State<VendorAndBillNumber> {
                     ),
                     child: Center(
                       child: DropdownButtonFormField<String>(
+                        isExpanded: true,
                         alignment: Alignment.centerLeft,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
-                              horizontal: 6.w, vertical: 12.h),
+                              horizontal: 4.w, vertical: 12.h),
                           filled: true,
                           fillColor: const Color(0xFFF3F3F3),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(9),
                             borderSide: BorderSide.none, // Remove the underline
                           ),
-                          hintText: '   Choose Vendor Name',
+                          hintText: '    Choose Vendor Name',
                           hintStyle: GoogleFonts.poppins(
                               fontSize: 14.sp,
                               fontWeight: FontWeight.bold,
@@ -141,7 +142,7 @@ class __VendorAndBillNumberState extends State<VendorAndBillNumber> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 18.0),
                       child: TextFormField(
-                        // maxLength: 15,
+                        maxLength: 15,
                         // focusNode: billNumberFocus,
                         controller: widget.billNumberController,
                         onChanged: (String? newValue) {

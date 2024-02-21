@@ -54,7 +54,7 @@ class ApiServices {
   // GET THE DETAILS OF USER LOGGED IN
 
   Future<UserData> userAuthData(
-      String action, String pin, String phoneNumber,String version) async {
+      String action, String pin, String phoneNumber, String version) async {
     try {
       final Uri uri = Uri.parse(ApiUrl().baseUrl);
       final Map<String, String> headers = {
@@ -132,7 +132,7 @@ class ApiServices {
         print('this is data after decoding --- $data');
         final busHistory = BusHistoryData.fromJson(data);
         print(
-            'vehicle history from api call-------------------------------------${busHistory.data!.data!.vehicleActivityHistory!}');
+            'vehicle history from api call-------------------------------------${busHistory.data!.data!.vehicleActivityHistory!.length}');
 
         if (kDebugMode) {
           print('this is from the apiservice ----------- $busHistory');

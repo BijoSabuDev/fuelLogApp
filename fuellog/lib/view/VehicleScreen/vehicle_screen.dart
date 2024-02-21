@@ -354,12 +354,12 @@ class _VehicleScreenState extends State<VehicleScreen> {
               ),
             ),
             actions: [
-              CupertinoDialogAction(
-                child: GestureDetector(
-                  onTap: () {
-                    controller.reset();
-                    Navigator.of(ctx).pop();
-                  },
+              GestureDetector(
+                onTap: () {
+                  controller.reset();
+                  Navigator.of(ctx).pop();
+                },
+                child: CupertinoDialogAction(
                   child: Text(
                     'OK',
                     style: GoogleFonts.poppins(

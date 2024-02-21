@@ -50,9 +50,11 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
           final success = await busSelectedController.fetchBusSelectionData(
               'fuel_bus_selection', busSearchController.text, instId!);
           print(success);
-          busSearchController.clear();
-
-          if (busSelectedController.isLoading.value) {
+          // busSearchController.clear();
+          if (busSearchController.text.isEmpty) {
+            // ignore: use_build_context_synchronously
+            showError(context, 'Enter Vh No or Reg No to search');
+          } else if (busSelectedController.isLoading.value) {
             const Center(
               child: CircularProgressIndicator(),
             );
@@ -92,9 +94,11 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
                         'fuel_bus_selection',
                         busSearchController.text,
                         instId!);
-                busSearchController.clear();
-
-                if (busSelectedController.isLoading.value) {
+                // busSearchController.clear();
+                if (busSearchController.text == '') {
+                  // ignore: use_build_context_synchronously
+                  showError(context, 'Enter Vh No or Reg No to search');
+                } else if (busSelectedController.isLoading.value) {
                   const Center(
                     child: CircularProgressIndicator(),
                   );
@@ -202,11 +206,11 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
               ),
             ),
             actions: [
-              CupertinoDialogAction(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(ctx).pop();
-                  },
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: CupertinoDialogAction(
                   child: Text(
                     'OK',
                     style: GoogleFonts.poppins(
