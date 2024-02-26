@@ -11,11 +11,12 @@ class UserAuthController extends GetxController {
 
   UserData? userAuthData = UserData();
   Rx<String> userLocalName = ''.obs;
-
+  Rx<String> pinNo = ''.obs;
+  Rx<String> phoneNo = ''.obs;
   Rx<bool> isLoading = false.obs;
   Rx<bool> isPinError = false.obs;
   Rx<bool> isNetwrkError = false.obs;
-
+  Rx<bool> isInactiveUser = false.obs;
   void resetStatus() {
     isPinError.value = false;
     isNetwrkError.value = false;
@@ -32,25 +33,26 @@ class UserAuthController extends GetxController {
         isNetwrkError(true);
         return false;
       }
-      final data = await apiServices.userAuthData(action, pin, phoneNumber,version);
-      print(data);
+      final data =
+          await apiServices.userAuthData(action, pin, phoneNumber, version);
+      print('this is the errorstatus ----------- ${data.data!.errorStatus}');
 
       // final userData = await UserPreferences.getUserData();
       // userLocalName.value = userData['user_name']!;
 
       if (data.data!.errorStatus == 0) {
         userAuthData = data;
-
-        print('this is directly from data ${userAuthData!.data!.instId!}');
-
+        isInactiveUser(false);
         return true;
+      } else if (data.data!.errorStatus == 2) {
+        isInactiveUser(true);
+        isPinError(true);
       } else if (data.data!.errorStatus == 1) {
         isPinError(true);
       } else {
         isNetwrkError(true);
       }
-
-      return true;
+      return false;
     } catch (e) {
       print('this is the authentication issue $e');
       isPinError(true);

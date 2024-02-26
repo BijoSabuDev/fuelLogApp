@@ -73,27 +73,27 @@ class ApiServices {
         headers: headers,
         body: body,
       );
-      print('this is the reponse from api call ${response.statusCode}');
+
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        print(data);
+
         final userData = UserData.fromJson(data);
-        print(userData);
-
-        print(userData);
-
+        print(
+            "this is the error status from api --------- ${userData.data!.errorStatus}");
         //saving the data in local storage as well for further use
-
-        await UserPreferences.saveUserData(
-          userData.data!.data!.conductorDetails!.condName!,
-          userData.data!.data!.conductorDetails!.condPhone!,
-          userData.data!.data!.conductorDetails!.condId!,
-          userData.data!.instId!,
-        );
+        if (userData.data!.errorStatus == 0) {
+          await UserPreferences.saveUserData(
+            userData.data!.data!.conductorDetails!.condName!,
+            userData.data!.data!.conductorDetails!.condPhone!,
+            userData.data!.data!.conductorDetails!.condId!,
+            userData.data!.instId!,
+          );
+        }
 
         if (kDebugMode) {
           print('this is from the apiservice ----------- $userData');
         }
+
         return userData;
       } else {
         print(response.reasonPhrase);
@@ -101,7 +101,7 @@ class ApiServices {
             'Failed to load bus selection data. Status Code: ${response.statusCode}, Body: ${response.body}');
       }
     } catch (e) {
-      print(e);
+      print('excpetion from api service ---- $e');
       rethrow;
     }
   }

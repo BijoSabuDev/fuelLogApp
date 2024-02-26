@@ -206,7 +206,7 @@ class _WheelSelectorState extends State<WheelSelector> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       widget.noValuesSelected(widget.initValue.toString());
     });
     scrollController = FixedExtentScrollController(initialItem: 0);

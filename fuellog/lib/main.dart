@@ -1,5 +1,6 @@
+import 'dart:async';
 import 'dart:io';
-
+import 'package:action_slider/action_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,10 +9,13 @@ import 'package:fuellog/controller/BusSelected/bus_selected.dart';
 import 'package:fuellog/controller/busHistory/bus_history.dart';
 import 'package:fuellog/controller/busSubmission/busSubmission.dart';
 import 'package:fuellog/controller/userAuthentication/user_authentication.dart';
+import 'package:fuellog/localStorage/local_storage.dart';
 import 'package:fuellog/view/constants/colors.dart';
+import 'package:fuellog/view/loginAndOtp/login_screen.dart';
 import 'package:fuellog/view/splash_screen.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -46,6 +50,7 @@ class MyApp extends StatelessWidget {
 
   final BusSelectedController busSelectedController =
       Get.put(BusSelectedController());
+
   final BusSubmissionController busSubmissionController =
       Get.put(BusSubmissionController());
 

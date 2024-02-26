@@ -230,6 +230,7 @@ class ProfileScreen extends StatelessWidget {
 
 Future<void> logout() async {
   try {
+    selectedIndexNotifier.value == 0;
     await UserPreferences.clearUserData();
     print('Logout successful'); // Add this line
   } catch (e) {

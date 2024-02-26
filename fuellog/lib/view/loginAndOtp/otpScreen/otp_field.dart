@@ -55,11 +55,11 @@ class _OtpFieldState extends State<OtpField> {
     return Center(
       child: GetX<UserAuthController>(
         builder: (controller) {
-          if (userAuthController.isLoading.value) {
-            context.loaderOverlay.show();
-          } else {
-            context.loaderOverlay.hide();
-          }
+          // if (userAuthController.isLoading.value) {
+          //   context.loaderOverlay.show();
+          // } else {
+          //   context.loaderOverlay.hide();
+          // }
           return Pinput(
             autofocus: true,
             defaultPinTheme: defaultPinTheme,
@@ -72,6 +72,7 @@ class _OtpFieldState extends State<OtpField> {
               border: Border.all(color: const Color(0xFFD10000)),
             )),
             onCompleted: (String value) async {
+              userAuthController.pinNo.value = value;
               final isAuthorised = await userAuthController.fetchUserData(
                   'fuel_login', value, widget.phoneNo, '1.0.0');
               print('this is whether authorised or not ---- $isAuthorised');
@@ -103,6 +104,9 @@ class _OtpFieldState extends State<OtpField> {
               }
               if (userAuthController.isNetwrkError.value) {
                 return 'Please check your network connection';
+              }
+              if (userAuthController.isInactiveUser.value) {
+                return 'User is disabled';
               } else {
                 return 'Error occurred. Please try again later';
               }

@@ -110,7 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     final form = _formKey.currentState;
                     if (form!.validate()) {
                       final pNo = loginController!.text.trim();
-
+                      userAuthController.phoneNo.value = pNo;
                       Navigator.of(context).push(
                         MaterialPageRoute(builder: (context) {
                           return OtpScreen(phoneNo: pNo);
